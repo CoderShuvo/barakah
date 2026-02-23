@@ -106,7 +106,7 @@ export function ServicesShowcase() {
               <p className="text-lg sm:text-xl md:text-[24px] text-white/90 mb-3 sm:mb-4 font-lato font-semibold">
                 Build a legacy brand with meaning.
               </p>
-              <p className="text-white/90 text-base sm:text-lg md:text-[18px] leading-relaxed mb-6 sm:mb-8 font-lato text-justify">
+              <p className="text-white/90 text-base sm:text-lg md:text-[18px] leading-relaxed mb-6 sm:mb-8 font-poppins text-justify">
                 We help you shape a brand narrative and identity that earns
                 long-term trust, scales across markets, and resonates deeply
                 with the communities you serve.
@@ -217,7 +217,7 @@ export function ServicesShowcase() {
               <p className="text-lg sm:text-xl md:text-[24px] text-white/90 mb-3 sm:mb-4 font-lato font-semibold">
                 Actionable intelligence for scalable growth.
               </p>
-              <p className="text-white/90 text-base sm:text-lg md:text-[18px] leading-relaxed mb-6 sm:mb-8 font-lato text-justify">
+              <p className="text-white/90 text-base sm:text-lg md:text-[18px] leading-relaxed mb-6 sm:mb-8 font-poppins text-justify">
                 Our proprietary data engine helps you make confident decisions,
                 streamline your marketing, and engage the right audiences while
                 protecting privacy and earning loyalty, over time.
@@ -344,7 +344,7 @@ export function ServicesShowcase() {
               <p className="text-lg sm:text-xl md:text-[24px] text-white/90 mb-3 sm:mb-4 font-lato font-semibold">
                 Engineered for growth that compounds.
               </p>
-              <p className="text-white/90 text-base sm:text-lg md:text-[18px] leading-relaxed mb-6 sm:mb-8 font-lato text-justify">
+              <p className="text-white/90 text-base sm:text-lg md:text-[18px] leading-relaxed mb-6 sm:mb-8 font-poppins text-justify">
                 Our performance marketing strategies prioritize customer
                 lifetime value, brand equity, and measurable returns, not just
                 clicks. Build profitability and loyalty that lasts.

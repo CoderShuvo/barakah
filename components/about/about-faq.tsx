@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { FinalCTASection } from "../landing/final-cta-section";
 
 const faqItems = [
   {
@@ -32,7 +33,7 @@ export function AboutFAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="py-24 bg-white">
+    <section className="pt-24 bg-white">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-20">
@@ -113,6 +114,7 @@ export function AboutFAQ() {
           })}
         </div>
       </div>
+      <FinalCTASection />
     </section>
   );
 }

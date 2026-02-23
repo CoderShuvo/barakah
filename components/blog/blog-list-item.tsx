@@ -32,8 +32,8 @@ export function BlogListItem({ blog }: BlogListItemProps) {
             {blog.excerpt}
           </p>
 
-          <div className="flex flex-wrap items-center gap-4 text-sm font-bold">
-            <span className="px-4 py-1.5 rounded-full bg-[#FFF5F2] text-[#E76F3D] border border-[#FFE2D9]">
+          <div className="flex flex-wrap items-center gap-4 text-sm font-normal">
+            <span className="px-4 py-1.5 rounded-lg bg-[#FFF5F2] text-[#3F1200] border border-[#FFE2D9]">
               {blog.category}
             </span>
             <span className="text-[#5c4033]/60">

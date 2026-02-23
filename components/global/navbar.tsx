@@ -83,97 +83,176 @@ export function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden xl:flex items-center gap-1 xl:gap-2">
-            <NavigationMenu>
-              <NavigationMenuList>
-                {siteConfig.navigation.map((item) => (
-                  <NavigationMenuItem key={item.name}>
-                    {item.items ? (
-                      <>
-                        <NavigationMenuTrigger className="bg-transparent hover:bg-transparent focus:bg-transparent font-medium text-sm xl:text-[15px] data-[state=open]:text-[#E76F3D]">
-                          {item.name}
-                        </NavigationMenuTrigger>
-                        <NavigationMenuContent>
-                          <div className="p-6 w-[400px] lg:w-[600px] grid grid-cols-2 gap-4 bg-[#FFF5F0]">
-                            {item.items.map((sub, idx) => {
-                              const Icon = subMenuIcons[sub.name] || Zap;
-                              const isMethod =
-                                sub.name === "The Barakah Method";
-                              const isEcosystem =
-                                sub.name === "The Barakah Ecosystem";
-                              const isHero = idx === 0 && !isEcosystem;
+            {siteConfig.navigation.map((item) => {
+              const isLearn = item.name === "Learn";
 
-                              return (
-                                <Link
-                                  key={sub.name}
-                                  href={sub.href}
-                                  className={cn(
-                                    "group relative flex flex-col gap-2 p-4 rounded-xl transition-all border border-transparent hover:border-[#E76F3D]/20",
-                                    isMethod
-                                      ? "bg-[#FBD3C1] col-span-2"
-                                      : isEcosystem
-                                        ? "bg-white col-span-2 hover:bg-[#E76F3D] hover:text-white"
-                                        : "bg-white",
-                                  )}
-                                >
-                                  <div className="flex items-center gap-3">
-                                    <div
-                                      className={cn(
-                                        "p-2 rounded-lg transition-colors",
-                                        isMethod
-                                          ? "bg-white text-[#E76F3D]"
-                                          : isEcosystem
-                                            ? "bg-[#FBD3C1]/30 text-[#E76F3D] group-hover:bg-white/20 group-hover:text-white"
-                                            : "bg-[#FBD3C1]/30 text-[#E76F3D]",
+              return (
+                <NavigationMenu key={item.name}>
+                  <NavigationMenuList>
+                    <NavigationMenuItem>
+                      {item.items ? (
+                        <>
+                          <NavigationMenuTrigger className="bg-transparent hover:bg-[#E76F3D80] focus:bg-[#E76F3D80] transition-colors duration-300 rounded-lg font-medium text-sm xl:text-[15px] data-[state=open]:bg-[#E76F3D80] data-[state=open]:text-white text-[#5C4033] hover:text-white">
+                            {item.name}
+                          </NavigationMenuTrigger>
+                          <NavigationMenuContent>
+                            <div
+                              className={cn(
+                                "p-6 gap-4 bg-[#FFF5F0]",
+                                isLearn
+                                  ? "w-[300px] flex flex-col"
+                                  : "w-[400px] lg:w-[600px] grid grid-cols-2",
+                              )}
+                            >
+                              {item.items.map((sub: any) => {
+                                const Icon = subMenuIcons[sub.name] || Zap;
+                                const isMethod =
+                                  sub.name === "The Barakah Method";
+                                const isEcosystem =
+                                  sub.name === "The Barakah Ecosystem";
+                                const hasSubItems =
+                                  sub.subItems && sub.subItems.length > 0;
+
+                                const linkContent = (
+                                  <>
+                                    <div className="flex items-center justify-between">
+                                      <div className="flex items-center gap-3">
+                                        <div
+                                          className={cn(
+                                            "p-2 rounded-lg transition-colors",
+                                            isMethod
+                                              ? "bg-white text-[#E76F3D]"
+                                              : isEcosystem
+                                                ? "bg-[#FBD3C1]/30 text-[#E76F3D] group-hover:bg-white/20 group-hover:text-white"
+                                                : isLearn
+                                                  ? "bg-[#FBD3C1]/30 text-[#E76F3D] group-hover:bg-white/20 group-hover:text-white"
+                                                  : "bg-[#FBD3C1]/30 text-[#E76F3D]",
+                                          )}
+                                        >
+                                          <Icon className="h-5 w-5" />
+                                        </div>
+                                        <h4
+                                          className={cn(
+                                            "font-bold leading-none transition-colors",
+                                            isEcosystem || isLearn
+                                              ? "text-[#3F1200] group-hover:text-white"
+                                              : "text-[#3F1200]",
+                                          )}
+                                        >
+                                          {sub.name}
+                                        </h4>
+                                      </div>
+                                      {hasSubItems && (
+                                        <ArrowRight className="h-4 w-4 text-[#3F1200] opacity-50 group-hover:opacity-100 group-hover:text-white transition-all transform group-hover:translate-x-1" />
                                       )}
-                                    >
-                                      <Icon className="h-5 w-5" />
                                     </div>
-                                    <h4
+                                    <p
                                       className={cn(
-                                        "font-bold leading-none transition-colors",
-                                        isEcosystem
-                                          ? "text-[#3F1200] group-hover:text-white"
-                                          : "text-[#3F1200]",
+                                        "text-sm line-clamp-2 leading-snug transition-colors",
+                                        isEcosystem || isLearn
+                                          ? "text-[#5C4033] group-hover:text-white/90"
+                                          : "text-[#5C4033]",
                                       )}
                                     >
-                                      {sub.name}
-                                    </h4>
-                                  </div>
-                                  <p
+                                      {sub.description}
+                                    </p>
+                                  </>
+                                );
+
+                                if (hasSubItems) {
+                                  return (
+                                    <div
+                                      key={sub.name}
+                                      className="relative group/nested"
+                                    >
+                                      <div
+                                        className={cn(
+                                          "group relative flex flex-col gap-2 p-4 rounded-xl transition-all border border-transparent hover:border-[#E76F3D]/20 cursor-default",
+                                          isLearn
+                                            ? "bg-white hover:bg-[#E76F3D80] hover:text-white"
+                                            : isMethod
+                                              ? "bg-[#FBD3C1] col-span-2"
+                                              : isEcosystem
+                                                ? "bg-white col-span-2 hover:bg-[#E76F3D] hover:text-white"
+                                                : "bg-white",
+                                        )}
+                                      >
+                                        {linkContent}
+                                      </div>
+
+                                      <div className="absolute top-0 right-full pr-2 opacity-0 invisible group-hover/nested:opacity-100 group-hover/nested:visible transition-all duration-200 z-50">
+                                        <div className="bg-[#FFF5F0] p-4 rounded-xl shadow-xl w-[300px] flex flex-col gap-2 border border-[#E76F3D]/10">
+                                          {sub.subItems.map((child: any) => {
+                                            const ChildIcon =
+                                              subMenuIcons[child.name] || Zap;
+                                            return (
+                                              <Link
+                                                key={child.name}
+                                                href={child.href}
+                                                className="group relative flex flex-col gap-2 p-4 rounded-xl transition-all border border-transparent hover:border-[#E76F3D]/20 bg-white hover:bg-[#E76F3D80] hover:text-white"
+                                              >
+                                                <div className="flex items-center gap-3">
+                                                  <div className="p-2 rounded-lg transition-colors bg-[#FBD3C1]/30 text-[#E76F3D] group-hover:bg-white/20 group-hover:text-white">
+                                                    <ChildIcon className="h-5 w-5" />
+                                                  </div>
+                                                  <h4 className="font-bold leading-none transition-colors text-[#3F1200] group-hover:text-white">
+                                                    {child.name}
+                                                  </h4>
+                                                </div>
+                                                <p className="text-sm line-clamp-2 leading-snug transition-colors text-[#5C4033] group-hover:text-white/90">
+                                                  {child.description}
+                                                </p>
+                                              </Link>
+                                            );
+                                          })}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  );
+                                }
+
+                                return (
+                                  <Link
+                                    key={sub.name}
+                                    href={sub.href}
                                     className={cn(
-                                      "text-sm line-clamp-2 leading-snug transition-colors",
-                                      isEcosystem
-                                        ? "text-[#5C4033] group-hover:text-white/90"
-                                        : "text-[#5C4033]",
+                                      "group relative flex flex-col gap-2 p-4 rounded-xl transition-all border border-transparent hover:border-[#E76F3D]/20",
+                                      isLearn
+                                        ? "bg-white hover:bg-[#E76F3D80] hover:text-white"
+                                        : isMethod
+                                          ? "bg-[#FBD3C1] col-span-2"
+                                          : isEcosystem
+                                            ? "bg-white col-span-2 hover:bg-[#E76F3D] hover:text-white"
+                                            : "bg-white",
                                     )}
                                   >
-                                    {sub.description}
-                                  </p>
-                                </Link>
-                              );
-                            })}
-                          </div>
-                        </NavigationMenuContent>
-                      </>
-                    ) : (
-                      <Link href={item.href} legacyBehavior passHref>
-                        <NavigationMenuLink
-                          className={cn(
-                            navigationMenuTriggerStyle(),
-                            "bg-transparent hover:bg-transparent focus:bg-transparent font-medium text-sm xl:text-[15px]",
-                            pathname === item.href
-                              ? "text-[#E76F3D]"
-                              : "text-[#5C4033]",
-                          )}
-                        >
-                          {item.name}
-                        </NavigationMenuLink>
-                      </Link>
-                    )}
-                  </NavigationMenuItem>
-                ))}
-              </NavigationMenuList>
-            </NavigationMenu>
+                                    {linkContent}
+                                  </Link>
+                                );
+                              })}
+                            </div>
+                          </NavigationMenuContent>
+                        </>
+                      ) : (
+                        <Link href={item.href} legacyBehavior passHref>
+                          <NavigationMenuLink
+                            className={cn(
+                              navigationMenuTriggerStyle(),
+                              "bg-transparent hover:bg-[#E76F3D80] focus:bg-[#E76F3D80] transition-colors duration-300 rounded-lg font-medium text-sm xl:text-[15px]",
+                              pathname === item.href
+                                ? "text-[#E76F3D]"
+                                : "text-[#5C4033] hover:text-white",
+                            )}
+                          >
+                            {item.name}
+                          </NavigationMenuLink>
+                        </Link>
+                      )}
+                    </NavigationMenuItem>
+                  </NavigationMenuList>
+                </NavigationMenu>
+              );
+            })}
           </div>
 
           {/* Right side actions */}
@@ -306,27 +385,61 @@ export function Navbar() {
                       </button>
                       {openMobileSub === item.name && (
                         <div className="pl-4 pr-2 py-2 space-y-2">
-                          {item.items.map((sub) => {
+                          {item.items.map((sub: any) => {
                             const Icon = subMenuIcons[sub.name] || Zap;
+                            const hasSubItems =
+                              sub.subItems && sub.subItems.length > 0;
                             return (
-                              <Link
+                              <div
                                 key={sub.name}
-                                href={sub.href}
-                                onClick={() => setIsOpen(false)}
-                                className="flex items-start gap-3 p-3 rounded-xl bg-white border border-[#E76F3D]/5"
+                                className="flex flex-col gap-2"
                               >
-                                <div className="p-2 bg-[#FBD3C1]/30 rounded-lg text-[#E76F3D]">
-                                  <Icon className="h-4 w-4" />
-                                </div>
-                                <div>
-                                  <h5 className="font-bold text-[#3F1200] text-sm">
-                                    {sub.name}
-                                  </h5>
-                                  <p className="text-xs text-[#5C4033] line-clamp-1">
-                                    {sub.description}
-                                  </p>
-                                </div>
-                              </Link>
+                                <Link
+                                  href={sub.href}
+                                  onClick={() => setIsOpen(false)}
+                                  className="flex items-start gap-3 p-3 rounded-xl bg-white border border-[#E76F3D]/5 hover:bg-[#E76F3D80] transition-colors group"
+                                >
+                                  <div className="p-2 bg-[#FBD3C1]/30 rounded-lg text-[#E76F3D] group-hover:bg-white/20 group-hover:text-white">
+                                    <Icon className="h-4 w-4" />
+                                  </div>
+                                  <div>
+                                    <h5 className="font-bold text-[#3F1200] text-sm group-hover:text-white">
+                                      {sub.name}
+                                    </h5>
+                                    <p className="text-xs text-[#5C4033] line-clamp-1 group-hover:text-white/90">
+                                      {sub.description}
+                                    </p>
+                                  </div>
+                                </Link>
+                                {hasSubItems && (
+                                  <div className="pl-8 flex flex-col gap-2 border-l-2 border-[#E76F3D]/10 ml-5 mt-1">
+                                    {sub.subItems.map((child: any) => {
+                                      const ChildIcon =
+                                        subMenuIcons[child.name] || Zap;
+                                      return (
+                                        <Link
+                                          key={child.name}
+                                          href={child.href}
+                                          onClick={() => setIsOpen(false)}
+                                          className="flex items-start gap-3 p-3 rounded-xl bg-white border border-[#E76F3D]/5 hover:bg-[#E76F3D80] transition-colors group"
+                                        >
+                                          <div className="p-2 bg-[#FBD3C1]/30 rounded-lg text-[#E76F3D] group-hover:bg-white/20 group-hover:text-white">
+                                            <ChildIcon className="h-4 w-4" />
+                                          </div>
+                                          <div>
+                                            <h5 className="font-bold text-[#3F1200] text-sm group-hover:text-white">
+                                              {child.name}
+                                            </h5>
+                                            <p className="text-xs text-[#5C4033] line-clamp-1 group-hover:text-white/90">
+                                              {child.description}
+                                            </p>
+                                          </div>
+                                        </Link>
+                                      );
+                                    })}
+                                  </div>
+                                )}
+                              </div>
                             );
                           })}
                         </div>

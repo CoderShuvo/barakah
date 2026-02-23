@@ -1,19 +1,19 @@
-import { Suspense } from "react"
+import { Suspense } from "react";
 import {
   Hero,
   FeaturedCaseStudies,
   FeaturedBlogs,
   CTASection,
-} from "@/components/landing"
-import { WhyBarakah } from "@/components/landing/why-barakah"
-import { ServicesShowcase } from "@/components/landing/services-showcase"
-import { BarakahMethodSection } from "@/components/landing/barakah-method-section"
-import { BarakahEcosystemSection } from "@/components/landing/barakah-ecosystem-section"
-import { ProofOfPerformanceSection } from "@/components/landing/proof-of-performance-section"
-import { TestimonialsSection } from "@/components/landing/testimonials-section"
-import { BrandsSection } from "@/components/landing/brands-section"
-import { VideoShowcaseSection } from "@/components/landing/video-showcase-section"
-import { FinalCTASection } from "@/components/landing/final-cta-section"
+} from "@/components/landing";
+import { WhyBarakah } from "@/components/landing/why-barakah";
+import { ServicesShowcase } from "@/components/landing/services-showcase";
+import { BarakahMethodSection } from "@/components/landing/barakah-method-section";
+import { BarakahEcosystemSection } from "@/components/landing/barakah-ecosystem-section";
+import { ProofOfPerformanceSection } from "@/components/landing/proof-of-performance-section";
+import { TestimonialsSection } from "@/components/landing/testimonials-section";
+import { BrandsSection } from "@/components/landing/brands-section";
+import { VideoShowcaseSection } from "@/components/landing/video-showcase-section";
+import { FinalCTASection } from "@/components/landing/final-cta-section";
 
 function CaseStudiesSkeleton() {
   return (
@@ -25,7 +25,7 @@ function CaseStudiesSkeleton() {
         />
       ))}
     </div>
-  )
+  );
 }
 
 function BlogsSkeleton() {
@@ -35,7 +35,7 @@ function BlogsSkeleton() {
         <div key={i} className="rounded-lg bg-muted animate-pulse h-80" />
       ))}
     </div>
-  )
+  );
 }
 
 export default function HomePage() {
@@ -50,7 +50,7 @@ export default function HomePage() {
       <TestimonialsSection />
       <BrandsSection />
       <VideoShowcaseSection />
-      <FinalCTASection />
+
       <Suspense fallback={<CaseStudiesSkeleton />}>
         <FeaturedCaseStudies />
       </Suspense>
@@ -59,5 +59,5 @@ export default function HomePage() {
       </Suspense>
       {/* <CTASection /> */}
     </>
-  )
+  );
 }

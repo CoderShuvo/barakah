@@ -213,7 +213,10 @@ export function Hero() {
         {/* Fanned Images Layout */}
         <div className="relative w-full max-w-7xl mx-auto h-[200px] sm:h-[280px] md:h-[350px] lg:h-[400px] flex justify-center items-end animate-fade-in-up opacity-0 [animation-fill-mode:forwards] [animation-delay:1000ms]">
           {/* Card 1 (Left-most) */}
-          <div
+
+          <Image
+            src="/assets/1.png"
+            alt="Work 1"
             className={`absolute bottom-0 transition-all duration-700 ease-in-out
               ${
                 isCollapsed
@@ -222,19 +225,16 @@ export function Hero() {
               }
               w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[460px] 
               h-[150px] sm:h-[210px] md:h-[280px] lg:h-[320px] xl:h-[360px] 
-              shadow-2xl border-2 sm:border-4 border-white transform hover:-translate-y-2 sm:hover:-translate-y-4 origin-bottom-right`}
-          >
-            <div className="w-full h-full bg-slate-200 overflow-hidden relative">
-              <img
-                src="/assets/1.png"
-                alt="Work 1"
-                className="object-cover w-full h-full"
-              />
-            </div>
-          </div>
+              bg-transparent transform hover:-translate-y-2 sm:hover:-translate-y-4 origin-bottom-right`}
+            width={100}
+            height={100}
+          />
 
           {/* Card 2 */}
-          <div
+
+          <Image
+            src="/assets/2.png"
+            alt="Work 2"
             className={`absolute transition-all duration-700 ease-in-out
               ${
                 isCollapsed
@@ -243,16 +243,10 @@ export function Hero() {
               }
               w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[450px] 
               h-[150px] sm:h-[210px] md:h-[280px] lg:h-[320px] xl:h-[360px] 
-              shadow-2xl border-2 sm:border-4 border-white transform hover:-translate-y-2 sm:hover:-translate-y-4 origin-bottom`}
-          >
-            <div className="w-full h-full bg-slate-200 overflow-hidden relative">
-              <img
-                src="/assets/2.png"
-                alt="Work 2"
-                className="object-cover w-full h-full"
-              />
-            </div>
-          </div>
+              bg-transparent transform hover:-translate-y-2 sm:hover:-translate-y-4 origin-bottom`}
+            width={100}
+            height={100}
+          />
 
           {/* Card 3 (Center) - Clickable */}
           <div
@@ -277,7 +271,10 @@ export function Hero() {
           </div>
 
           {/* Card 4 */}
-          <div
+
+          <Image
+            src="/assets/4.png"
+            alt="Work 4"
             className={`absolute transition-all duration-700 ease-in-out
               ${
                 isCollapsed
@@ -286,19 +283,16 @@ export function Hero() {
               }
               w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[460px] 
               h-[150px] sm:h-[210px] md:h-[280px] lg:h-[320px] xl:h-[360px] 
-              shadow-2xl border-2 sm:border-4 border-white transform hover:-translate-y-2 sm:hover:-translate-y-4 origin-bottom`}
-          >
-            <div className="w-full h-full bg-slate-200 overflow-hidden relative">
-              <img
-                src="/assets/4.png"
-                alt="Work 4"
-                className="object-cover w-full h-full"
-              />
-            </div>
-          </div>
+             transform hover:-translate-y-2 sm:hover:-translate-y-4 origin-bottom`}
+            width={100}
+            height={100}
+          />
 
           {/* Card 5 (Right-most) */}
-          <div
+
+          <Image
+            src="/assets/5.png"
+            alt="Work 5"
             className={`absolute transition-all duration-700 ease-in-out
               ${
                 isCollapsed
@@ -307,21 +301,15 @@ export function Hero() {
               }
               w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[460px] 
               h-[150px] sm:h-[210px] md:h-[280px] lg:h-[320px] xl:h-[360px] 
-              shadow-2xl border-2 sm:border-4 border-white transform hover:-translate-y-2 sm:hover:-translate-y-4 origin-bottom-left`}
-          >
-            <div className="w-full h-full bg-slate-200 overflow-hidden relative">
-              <img
-                src="/assets/5.png"
-                alt="Work 5"
-                className="object-cover w-full h-full"
-              />
-            </div>
-          </div>
+             transform hover:-translate-y-2 sm:hover:-translate-y-4 origin-bottom-left`}
+            width={100}
+            height={100}
+          />
         </div>
 
         {/* Footer Credit */}
         <div className="absolute bottom-[-30px] sm:bottom-[-40px] md:bottom-[-50px] left-0 right-0 text-center px-4">
-          <p className="text-xs sm:text-sm md:text-base lg:text-[20px] text-[#3F1200] font-bold">
+          <p className="text-xs sm:text-sm md:text-base lg:text-[20px] text-[#3F1200] font-normal">
             Brand Impact, Powered by The Barakah <br className="sm:hidden" />{" "}
             Method and Mesghali Studio
           </p>

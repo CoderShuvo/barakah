@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import { FinalCTASection } from "./final-cta-section";
 
 export function VideoShowcaseSection() {
   return (
-    <section className="relative py-20 md:py-32 bg-background overflow-hidden">
+    <section className="relative  pt-20 bg-background overflow-hidden">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-12">
@@ -18,16 +19,18 @@ export function VideoShowcaseSection() {
         </div>
 
         {/* Video Container */}
-        <div className="container mx-auto">
-          <Image
-            src="/assets/whatif.png"
-            alt="Video Thumbnail"
-            width={1000}
-            height={800}
-            className="object-cover mx-auto rounded-2xl"
-          />
+        <div className="relative w-full pt-[56.25%] rounded-2xl overflow-hidden">
+          <iframe
+            src="https://www.youtube.com/embed/BSwmYkntc70"
+            title="YouTube video"
+            className="absolute top-0 left-0 w-full h-full"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
         </div>
       </div>
+
+      <FinalCTASection />
     </section>
   );
 }

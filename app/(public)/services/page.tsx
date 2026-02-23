@@ -95,6 +95,7 @@ function ServiceCard({ service }: { service: Service }) {
             }`}
           >
             <MandalaIcon />
+            <div></div>
           </div>
 
           <div className="px-8 lg:px-12 relative z-10">

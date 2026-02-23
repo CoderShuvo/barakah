@@ -22,7 +22,7 @@ export function FinalCTASection({
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center max-w-4xl mx-auto">
           {/* Main Headline */}
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#3F1200] mb-6 font-lato leading-tight">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-[#3F1200] mb-6  mt-10 font-lato leading-tight">
             Your <span className="italic">Growth</span> Deserves Intention
             <br />
             Let's Build It the <span className="italic">Right Way</span>

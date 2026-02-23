@@ -27,10 +27,10 @@ export function BarakahEcosystemSection() {
           </div>
           <div className="col-span-2">
             <p className="text-xl md:text-2xl text-[#5c4033] leading-relaxed font-lato">
-              Each Barakah sub-brand is purpose-built to serve the needs,
-              language, and realities of a specific industry. While every brand
-              operates independently in its domain, all are grounded in the same
-              Barakah vision, values, and quality standard.
+              We help purpose-driven e-commerce brands grow with clarity and
+              conscience. Our approach blends ethical performance strategy,
+              intentional community-building, and culturally aware creative to
+              build lasting customer relationships.
             </p>
           </div>
         </div>
@@ -50,14 +50,15 @@ export function BarakahEcosystemSection() {
               <Image
                 src="/assets/lira.png"
                 alt="JIRA Logo"
-                height={120}
-                width={120}
+                height={139}
+                width={300}
                 className="object-contain mb-3"
               />
-              <p className="text-xs leading-relaxed opacity-90 font-lato">
-                We help purpose-driven e-commerce brands grow with clarity and
-                conscience. Our approach blends ethical performance strategy,
-                intentional community-building, and culturally aware creative.
+              <p className="text-lg leading-relaxed opacity-90 font-lato">
+                We support engineering firms and industrial innovators in
+                translating complex ideas into compelling narratives. From
+                technical content to strategic campaigns, we help teams grow
+                with credibility, clarity, and long-term trust.
               </p>
             </div>
           </div>
@@ -75,14 +76,15 @@ export function BarakahEcosystemSection() {
               <Image
                 src="/assets/tema.png"
                 alt="Engineering Logo"
-                height={120}
-                width={120}
+                height={70}
+                width={300}
                 className="object-contain mb-3"
               />
-              <p className="text-xs leading-relaxed opacity-90 font-lato">
-                We support engineering firms and industrial innovators in
-                translating complex ideas into compelling narratives and
-                strategic campaigns.
+              <p className="text-lg leading-relaxed opacity-90 font-lato">
+                We partner with health-focused organizations to build ethical,
+                human-centered digital strategies. Whether you’re navigating
+                patient education, growth, or advocacy, our approach centers on
+                clarity, care, and culturally respectful communication.
               </p>
             </div>
           </div>
@@ -97,12 +99,18 @@ export function BarakahEcosystemSection() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
             <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-              <h3 className="text-xl font-bold font-lato mb-2">
-                Health Digital
-              </h3>
-              <p className="text-xs leading-relaxed opacity-90 font-lato">
-                Ethical, human-centered healthcare marketing focused on equity,
-                patient education, and culturally respectful communication.
+              <Image
+                src="/assets/hdigital.png"
+                alt="Engineering Logo"
+                height={110}
+                width={193}
+                className="object-contain mb-3"
+              />
+              <p className="text-lg  leading-relaxed opacity-90 font-lato">
+                We partner with health-focused organizations to build ethical,
+                human-centered digital strategies. Whether you’re navigating
+                patient education, growth, or advocacy, our approach centers on
+                clarity, care, and culturally respectful communication.
               </p>
             </div>
           </div>
@@ -117,10 +125,15 @@ export function BarakahEcosystemSection() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
             <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-              <h3 className="text-xl font-bold font-lato mb-2">ZeroFrame™</h3>
-              <p className="text-xs leading-relaxed opacity-90 font-lato">
-                All-in-one sales and automation platform streamlining CRM, email
-                marketing, and workflow systems.
+              <h3 className="text-2xl font-bold font-lato mb-2">
+                ZeroFrame™ Sales & Marketing Automation
+              </h3>
+              <p className="text-lg  leading-relaxed opacity-90 font-lato">
+                ZeroFrame is an all-in-one sales and automation platform built
+                on Go HighLevel — tailored for all industries we serve. It
+                streamlines lead capture, email marketing, CRM, and client
+                workflows into one intentional system, helping you grow with
+                structure, clarity, and efficiency.
               </p>
             </div>
           </div>
@@ -138,13 +151,16 @@ export function BarakahEcosystemSection() {
               <Image
                 src="/assets/nubayin.png"
                 alt="NUBAYIN Logo"
-                height={120}
-                width={120}
+                height={90}
+                width={251}
                 className="object-contain mb-3"
               />
-              <p className="text-xs leading-relaxed opacity-90 font-lato">
-                A storytelling studio creating spiritually rooted, culturally
-                rich, and imaginative media experiences.
+              <p className="text-lg leading-relaxed opacity-90 font-lato">
+                NUBAYIN is a storytelling and entertainment studio creating
+                media rooted in spiritual imagination, cultural wisdom, and
+                liberated futures. Through film, audio, and immersive
+                experiences, NUBAYIN challenges narratives, celebrates beauty,
+                and reclaims joy through a decolonial lens.
               </p>
             </div>
           </div>

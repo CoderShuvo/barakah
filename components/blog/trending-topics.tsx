@@ -22,10 +22,10 @@ export function TrendingTopics({
             key={category}
             href={`/blog?category=${category}`}
             className={cn(
-              "px-5 py-2 rounded-full text-sm font-bold border transition-all hover:scale-105",
+              "px-5 py-2 rounded-lg text-sm font-normal border transition-all hover:scale-105",
               currentCategory === category
                 ? "bg-[#E76F3D] text-white border-[#E76F3D]"
-                : "bg-[#FFF5F2] text-[#E76F3D] border-[#FFE2D9] hover:bg-[#FFE2D9]",
+                : "bg-[#FFF5F2] text-[#3F1200] border-[#FFE2D9] hover:bg-[#FFE2D9]",
             )}
           >
             {category}
