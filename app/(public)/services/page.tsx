@@ -18,6 +18,7 @@ import { ServicesHero } from "@/components/services/services-hero";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import React, { useState } from "react";
+import { FinalCTASection } from "@/components/landing/final-cta-section";
 
 const services = [
   {
@@ -26,7 +27,7 @@ const services = [
     title: "Branding & Identity",
     description:
       "We create brand identities that are clear, cohesive, and enduring. From logos and visual systems to brand guidelines, we help define how your brand looks, feels, and shows up across every touchpoint.",
-    image: "/assets/b1.jpg",
+    image: "/assets/3.png",
   },
   {
     id: "performance-marketing",
@@ -34,7 +35,7 @@ const services = [
     title: "Performance Marketing & Paid Media",
     description:
       "Our performance marketing focuses on intentional growth, not short-term spikes. We design paid media and search strategies that prioritize relevance, efficiency, and measurable impact.",
-    image: "/assets/pm2.jpg",
+    image: "/assets/3.png",
   },
   {
     id: "digital",
@@ -42,7 +43,7 @@ const services = [
     title: "Website Design & Development",
     description:
       "We design and build websites that balance form and function. Every experience is rooted in UX clarity, thoughtful UI, and performance — ensuring your site supports both users and business goals.",
-    image: "/assets/be1.jpg",
+    image: "/assets/3.png",
   },
   {
     id: "social-media",
@@ -50,7 +51,7 @@ const services = [
     title: "Social Media Marketing",
     description:
       "We help brands show up with purpose across social platforms. From strategy to execution, we focus on content and campaigns that build trust, relevance, and long-term audience relationships.",
-    image: "/assets/be2.jpg",
+    image: "/assets/3.png",
   },
   {
     id: "seo-sem",
@@ -58,7 +59,7 @@ const services = [
     title: "SEO / SEM",
     description:
       "Our SEO and SEM services improve discoverability through strategic optimization, search intent alignment, and content support — helping brands earn attention where it matters most.",
-    image: "/assets/pm5.jpg",
+    image: "/assets/3.png",
   },
   {
     id: "cro",
@@ -66,14 +67,59 @@ const services = [
     title: "CRO",
     description:
       "We analyze user behavior and refine experiences to improve conversion. Through testing, insights, and iteration, we help brands make every interaction more effective and intentional.",
-    image: "/assets/Graph.png",
+    image: "/assets/3.png",
   },
 ];
 
 type Service = (typeof services)[0];
 
+const brandingPileImages = [
+  { src: "/assets/1.png", x: -100, y: -40, rotate: -15 },
+  { src: "/assets/2.png", x: 100, y: -60, rotate: 15 },
+  { src: "/assets/4.png", x: -80, y: 60, rotate: -10 },
+  { src: "/assets/5.png", x: 90, y: 50, rotate: 12 },
+  { src: "/assets/3.png", x: 0, y: 0, rotate: 0, isCenter: true },
+];
+
+function ImagePile({ isHovered }: { isHovered: boolean }) {
+  return (
+    <div className="relative w-full h-[250px] lg:h-[300px] flex items-center justify-center">
+      {brandingPileImages.map((img, idx) => (
+        <motion.div
+          key={idx}
+          initial={false}
+          animate={{
+            x: isHovered ? img.x : 0,
+            y: isHovered ? img.y : 0,
+            rotate: isHovered ? img.rotate : 0,
+            scale: isHovered ? 1.05 : 1,
+            zIndex: img.isCenter ? 30 : 20 - idx,
+          }}
+          transition={{
+            type: "spring",
+            stiffness: 80,
+            damping: 15,
+            mass: 0.8,
+          }}
+          className={`absolute ${
+            img.isCenter ? "w-64 lg:w-72" : "w-40 lg:w-48"
+          } aspect-[4/3] rounded-xl overflow-hidden shadow-2xl border-2 border-white/20`}
+        >
+          <Image
+            src={img.src}
+            alt="Branding work"
+            fill
+            className="object-cover"
+          />
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
 function ServiceCard({ service }: { service: Service }) {
   const [isHovered, setIsHovered] = useState(false);
+  const isBranding = service.id === "branding";
 
   return (
     <div
@@ -81,7 +127,7 @@ function ServiceCard({ service }: { service: Service }) {
       onMouseLeave={() => setIsHovered(false)}
       className="py-4 lg:py-6"
     >
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
+      <div className="container mx-auto px-4 md:px-8">
         <motion.div
           className={`relative overflow-hidden group cursor-pointer rounded-[32px] transition-colors duration-400 ease-in-out ${
             isHovered ? "bg-[#E76F3D]" : "bg-transparent"
@@ -95,11 +141,10 @@ function ServiceCard({ service }: { service: Service }) {
             }`}
           >
             <MandalaIcon />
-            <div></div>
           </div>
 
-          <div className="px-8 lg:px-12 relative z-10">
-            <div className="py-12 lg:py-20 flex flex-col lg:flex-row items-center justify-between gap-12">
+          <div className="px-6 lg:px-12 relative z-10">
+            <div className="py-8 lg:py-12 flex flex-col lg:flex-row items-center justify-between gap-12">
               {/* Content */}
               <div className="w-full lg:w-3/5 flex flex-col items-start text-left">
                 <span
@@ -113,7 +158,7 @@ function ServiceCard({ service }: { service: Service }) {
                   animate={{
                     x: isHovered ? 12 : 0,
                   }}
-                  className={`text-5xl lg:text-[72px] xl:text-[84px] font-bold mb-8 leading-[1] tracking-[-0.03em] transition-colors duration-400 ${
+                  className={`text-5xl lg:text-[72px] xl:text-[84px] font-bold mb-4 leading-[1] tracking-[-0.03em] transition-colors duration-400 ${
                     isHovered ? "text-white" : "text-[#3D1A10]"
                   }`}
                 >
@@ -128,38 +173,42 @@ function ServiceCard({ service }: { service: Service }) {
                 </p>
               </div>
 
-              {/* Right Image Container - Slides in from right on hover */}
-              <div className="w-full lg:w-2/5 flex justify-end relative h-[300px] lg:h-[400px]">
-                <AnimatePresence>
-                  {isHovered && (
-                    <motion.div
-                      initial={{ opacity: 0, x: 200, rotate: 10 }}
-                      animate={{ opacity: 1, x: 50, rotate: 0 }}
-                      exit={{ opacity: 0, x: 200, rotate: 10 }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 80,
-                        damping: 15,
-                        mass: 0.8,
-                      }}
-                      className="absolute top-0 right-0 w-[500px] h-full rounded-2xl overflow-hidden shadow-2xl border-2 border-white/20"
-                    >
-                      <Image
-                        src={service.image}
-                        alt={service.title}
-                        fill
-                        className="object-cover"
-                        priority
-                      />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+              {/* Right Image Container */}
+              <div className="w-full lg:w-2/5 flex justify-end relative h-[250px] lg:h-[300px]">
+                {isBranding ? (
+                  <ImagePile isHovered={isHovered} />
+                ) : (
+                  <AnimatePresence>
+                    {isHovered && (
+                      <motion.div
+                        initial={{ opacity: 0, x: 200, rotate: 10 }}
+                        animate={{ opacity: 1, x: 0, rotate: 0 }}
+                        exit={{ opacity: 0, x: 200, rotate: 10 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 80,
+                          damping: 15,
+                          mass: 0.8,
+                        }}
+                        className="absolute top-0 right-0 w-full h-full max-w-[500px] rounded-2xl overflow-hidden shadow-2xl border-2 border-white/20"
+                      >
+                        <Image
+                          src={service.image}
+                          alt={service.title}
+                          fill
+                          className="object-cover"
+                          priority
+                        />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                )}
               </div>
             </div>
           </div>
         </motion.div>
 
-        {/* Divider - visible when NOT hovered to maintain list structure */}
+        {/* Divider - visible when NOT hovered */}
         <div
           className={`border-b border-[#3D1A10]/10 mt-6 transition-opacity duration-400 ${
             isHovered ? "opacity-0" : "opacity-100"
@@ -235,7 +284,7 @@ export default function ServicesPage() {
       <ServiceList services={services} />
 
       {/* Benefits Section */}
-      <Section className="py-32 lg:py-48">
+      <Section className="py-4 lg:py-4 pt-24 lg:pt-28">
         <div className="w-full mx-auto px-4">
           <h2 className="text-5xl lg:text-[84px] font-bold text-[#3D1A10] mb-24 leading-[1] tracking-[-0.03em]">
             Benefits of Working <br /> With Barakah
@@ -265,32 +314,11 @@ export default function ServicesPage() {
             ))}
           </div>
         </div>
+
+        <FinalCTASection />
       </Section>
 
       {/* CTA */}
-      <Section className="bg-[#FFFCF9] border-t border-[#3D1A10]/10">
-        <div className="text-center max-w-2xl mx-auto py-24 lg:py-32">
-          <h2 className="text-4xl lg:text-6xl font-bold text-[#3D1A10] mb-8 text-balance leading-tight">
-            Not Sure Which Service Is Right for You?
-          </h2>
-          <p className="text-lg lg:text-xl text-[#3D1A10]/70 mb-12 font-medium">
-            Schedule a free consultation and we'll help you identify the best
-            approach for your goals.
-          </p>
-          <Button
-            asChild
-            size="lg"
-            className="h-16 lg:h-20 px-10 lg:px-12 bg-[#E76F3D] hover:bg-[#D46235] text-white rounded-full text-xl font-bold shadow-2xl shadow-orange-500/20 group transition-all hover:scale-105"
-          >
-            <Link href="/contact" className="flex items-center gap-4">
-              Schedule a Consultation
-              <div className="bg-white rounded-full p-2 transition-transform group-hover:translate-x-1">
-                <ArrowRight className="h-6 w-6 text-[#E76F3D]" />
-              </div>
-            </Link>
-          </Button>
-        </div>
-      </Section>
     </div>
   );
 }

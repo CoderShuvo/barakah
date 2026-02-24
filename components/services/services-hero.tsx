@@ -9,7 +9,7 @@ import React from "react";
 
 export function ServicesHero() {
   return (
-    <section className="relative min-h-[80vh] flex flex-col items-center justify-center overflow-hidden bg-[#FFFCF9] pt-28 pb-20">
+    <section className="relative container mx-auto min-h-[80vh] flex flex-col items-center justify-center overflow-hidden bg-[#FFFCF9] pt-28 pb-20">
       {/* Background Image */}
       <div className="absolute inset-0 z-0 select-none">
         <Image
@@ -57,16 +57,46 @@ export function ServicesHero() {
             >
               <Button
                 asChild
-                size="lg"
-                className="h-14 lg:h-16 px-8 lg:px-10 bg-[#E76F3D] hover:bg-[#D46235] text-white rounded-full text-lg lg:text-xl font-bold transition-all hover:scale-105 shadow-xl shadow-orange-500/20 group"
+                className="
+    bg-[#E76F3D]
+    text-white
+    font-bold
+    text-base sm:text-lg
+    rounded-[56px]
+    w-full sm:w-auto
+    px-[16px] sm:px-[20px]
+    py-[6px]
+    h-[48px] sm:h-[52px]
+
+    inline-flex
+    items-center
+    justify-center
+    gap-[10px]
+
+    shadow-[inset_0_4px_4px_rgba(0,0,0,0.25)]
+
+    hover:bg-[#d46235]
+    transition-all
+  "
               >
-                <Link
-                  href="/contact"
-                  className="flex items-center gap-3 lg:gap-4"
-                >
+                <Link href="/contact">
                   Grow with Barakah
-                  <div className="bg-white rounded-full p-1 lg:p-1.5 transition-transform group-hover:translate-x-1">
-                    <ArrowRight className="h-5 w-5 lg:h-6 lg:w-6 text-[#E76F3D]" />
+                  <div className="h-7 w-7 sm:h-8 sm:w-8 bg-white rounded-full flex items-center justify-center ">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M4.10744 9.99986H15.8926M15.8926 9.99986L10 4.1073M15.8926 9.99986L10 15.8924"
+                        stroke="black"
+                        stroke-width="1.66667"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
                   </div>
                 </Link>
               </Button>
@@ -82,13 +112,7 @@ export function ServicesHero() {
             <div className="w-full">
               <MarqueeColumn
                 speed={40}
-                images={[
-                  "/assets/1.png",
-                  "/assets/2.png",
-                  "/assets/3.png",
-                  "/assets/be1.jpg",
-                  "/assets/i1.png",
-                ]}
+                images={["/assets/s1.png", "/assets/s2.png", "/assets/s3.png"]}
               />
             </div>
           </div>
