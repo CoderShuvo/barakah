@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const ethosItems = [
   {
@@ -14,28 +15,28 @@ const ethosItems = [
   },
   {
     id: "strategy",
-    title: "For Strategy Before Tactics",
+    title: "Strategy Before Tactics",
     description:
       "We don’t jump straight to execution. We design with foresight — anchoring every campaign in insight, brand clarity, and long-term positioning.",
     angle: -18, // Top-right
   },
   {
     id: "systems",
-    title: "For Systems Over Shortcuts",
+    title: "Systems Over Shortcuts",
     description:
       "We build sustainable engines for growth — not one-off wins. Our systems ensure consistency, scalability, and compounding returns over time.",
     angle: 54, // Bottom-right
   },
   {
     id: "trust",
-    title: "For trust over transactions",
+    title: "Trust Over Transactions",
     description:
       "Our work is built on relationships, not quick conversions. We prioritize transparency, respect, and alignment — for partnerships that last.",
     angle: 126, // Bottom-left
   },
   {
     id: "impact",
-    title: "For Impact Over Speed",
+    title: "Impact Over Speed",
     description:
       "Fast isn’t always better. We focus on intentional, lasting growth that drives real-world impact — not just short-term spikes.",
     angle: 198, // Top-left
@@ -77,7 +78,7 @@ export function AboutEthos() {
         {/* Interactive Circles Container */}
         <div className="relative w-full max-w-[800px] aspect-square mx-auto flex items-center justify-center">
           {/* Background Pattern (Subtle Mandala/Grid) */}
-          <div className="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <svg
               width="864"
               height="834"
@@ -106,38 +107,43 @@ export function AboutEthos() {
           {/* Center Info Circle */}
           <motion.div
             className={cn(
-              "absolute z-20 w-[45%] aspect-square rounded-full flex flex-center p-8 text-center items-center justify-center transition-all duration-500",
+              "absolute z-20 w-[45%] md:w-[45%] aspect-square rounded-full flex flex-col items-center justify-center p-6 md:p-12 text-center transition-all duration-500",
               hoveredId
                 ? "bg-[#E76F3D] shadow-2xl shadow-[#E76F3D]/30"
-                : "bg-[#FBD3C1]/50",
+                : "bg-[#E76F3D] backdrop-blur-sm border border-[#E76F3D] border-dashed shadow-xl",
             )}
           >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={hoveredId || "default"}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3 }}
-                className="flex flex-col items-center justify-center h-full"
-              >
-                <p
-                  className={cn(
-                    "text-sm md:text-base leading-snug font-medium transition-colors duration-500",
-                    hoveredId ? "text-white" : "text-[#5C4033]",
-                  )}
+            {/* Logo and Text Container */}
+            <div className="relative w-full h-full flex flex-col items-center justify-center">
+              {/* Barakah Emblem - Visible when not hovered or as a background */}
+
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={hoveredId || "default"}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.3 }}
+                  className="flex flex-col items-center justify-center h-full"
                 >
-                  {hoveredId
-                    ? activeItem?.description
-                    : "Every decision we make is guided by ethical considerations that respect people, culture, and trust."}
-                </p>
-              </motion.div>
-            </AnimatePresence>
+                  <p
+                    className={cn(
+                      "text-[10px] sm:text-xs md:text-base leading-snug font-bold transition-colors duration-500",
+                      hoveredId ? "text-white" : "text-[#3F1200]",
+                    )}
+                  >
+                    {hoveredId
+                      ? activeItem?.description
+                      : "Every decision we make is guided by ethical considerations that respect people, culture, and trust."}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </motion.div>
 
           {/* Perimeter Circles */}
           {ethosItems.map((item) => {
-            const radius = 35; // % from center
+            const radius = 41.25; // Perfect alignment with dashed perimeter line
             const x = 50 + radius * Math.cos((item.angle * Math.PI) / 180);
             const y = 50 + radius * Math.sin((item.angle * Math.PI) / 180);
 
@@ -147,10 +153,10 @@ export function AboutEthos() {
                 onMouseEnter={() => setHoveredId(item.id)}
                 onMouseLeave={() => setHoveredId(null)}
                 className={cn(
-                  "absolute z-30 w-[22%] aspect-square rounded-full cursor-pointer flex items-center justify-center p-4 text-center transition-all duration-300 border-2 border-transparent",
+                  "absolute z-30 w-[24%] md:w-[24%] aspect-square rounded-full cursor-pointer flex items-center justify-center p-2 sm:p-4 text-center transition-all duration-500 border border-white/30 backdrop-blur-md",
                   hoveredId === item.id
-                    ? "bg-[#E76F3D] text-white scale-110 shadow-lg shadow-[#E76F3D]/40"
-                    : "bg-[#FBD3C1] text-[#3F1200] hover:bg-[#FBD3C1]/80",
+                    ? "bg-[#E76F3D] text-white scale-110 shadow-2xl shadow-[#E76F3D]/40 border-transparent z-40"
+                    : "bg-[#FBD3C1]/20 text-[#3F1200] hover:bg-[#FBD3C1]/40 shadow-sm",
                 )}
                 style={{
                   left: `${x}%`,
@@ -158,7 +164,7 @@ export function AboutEthos() {
                   transform: "translate(-50%, -50%)",
                 }}
               >
-                <span className="text-xs md:text-sm lg:text-base font-bold leading-tight">
+                <span className="text-[8px] sm:text-[10px] md:text-sm lg:text-base font-bold leading-tight">
                   {item.title}
                 </span>
               </motion.div>

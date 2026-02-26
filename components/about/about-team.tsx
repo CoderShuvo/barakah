@@ -4,55 +4,50 @@ import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { Linkedin } from "lucide-react";
 
 const teamMembers = [
   {
     name: "Ziad Itani",
     role: "Founder, Head of Growth",
-    description:
-      "Focuses on growth strategy ethical frameworks and long term direction across all client engagements.",
     image: "/assets/ziad.png",
+    linkedin: "https://www.linkedin.com/in/ziad-itani/",
   },
   {
     name: "Ehsaan Mesghali",
     role: "Head of Creative",
-    description:
-      "Focuses on growth strategy ethical frameworks and long term direction across all client engagements.",
     image: "/assets/ehsaan.png",
+    linkedin: "https://www.linkedin.com/in/ehsaanmesghali/",
   },
   {
     name: "Mahmood Khan",
     role: "Head of Paid Media",
-    description:
-      "Focuses on growth strategy ethical frameworks and long term direction across all client engagements.",
     image: "/assets/mahmood.png",
+    linkedin: "https://www.linkedin.com/in/mahmoodkhan1/",
   },
   {
     name: "Habibur Rahman",
     role: "Web Lead",
-    description:
-      "Focuses on growth strategy ethical frameworks and long term direction across all client engagements.",
     image: "/assets/habib.png",
+    linkedin: "https://www.linkedin.com/in/habiburwp/",
   },
   {
     name: "Safa Abdul Karim",
     role: "Growth Lead",
-    description:
-      "Focuses on growth strategy ethical frameworks and long term direction across all client engagements.",
     image: "/assets/safa.png",
+    linkedin: "https://www.linkedin.com/in/safaabdulkarim/",
   },
   {
     name: "Shariful Sajid",
     role: "Paid Media Lead",
-    description:
-      "Focuses on growth strategy ethical frameworks and long term direction across all client engagements.",
     image: "/assets/sajid.png",
+    linkedin: "https://www.linkedin.com/in/md-shariful-islam-40bb461b2/",
   },
 ];
 
 export function AboutTeam() {
   return (
-    <section className="py-24 bg-white max-w-7xl mx-auto">
+    <section id="team" className="py-24 bg-white max-w-7xl mx-auto">
       <div className="container mx-auto px-4">
         {/* Header content */}
         <div className="text-center mb-20 max-w-4xl mx-auto">
@@ -120,12 +115,21 @@ export function AboutTeam() {
                     <motion.h3 className="text-3xl font-bold text-white mb-2 leading-tight">
                       {member.name}
                     </motion.h3>
-                    <motion.span className="text-lg font-medium text-white/90 mb-3 block">
-                      {member.role}
-                    </motion.span>
-                    <motion.p className="text-sm text-white/70 leading-relaxed max-w-[280px]">
-                      {member.description}
-                    </motion.p>
+                    <div className="flex items-center justify-between">
+                      <motion.span className="text-lg font-medium text-white/90 block">
+                        {member.role}
+                      </motion.span>
+                      <motion.a
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-white/80 hover:text-white transition-colors"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                      >
+                        <Linkedin className="w-5 h-5" />
+                      </motion.a>
+                    </div>
                   </div>
                 </div>
               </div>

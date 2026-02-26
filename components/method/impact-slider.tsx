@@ -29,7 +29,8 @@ const impactImages = [
 
 export function ImpactSlider() {
   return (
-    <section className="py-20 bg-none overflow-hidden">
+    <section className="py-20 w-full overflow-hidden bg-none">
+      {/* Heading inside container */}
       <div className="container mx-auto px-4 mb-12">
         <div className="border-t border-[#3F1200]/10 pt-8">
           <motion.h3
@@ -43,22 +44,10 @@ export function ImpactSlider() {
         </div>
       </div>
 
-      {/* Slider */}
-      <div className="relative flex overflow-hidden group">
-        <motion.div
-          className="flex gap-6 px-4"
-          animate={{ x: [0, -1600] }}
-          transition={{
-            x: {
-              repeat: Infinity,
-              repeatType: "loop",
-              duration: 40,
-              ease: "linear",
-            },
-          }}
-        >
-          {/* Double the images for infinite loop */}
-          {[...impactImages, ...impactImages].map((image, idx) => (
+      {/* Full Width Scrollable Slider */}
+      <div className="w-full overflow-x-auto scrollbar-hide">
+        <div className="flex gap-6 pl-4 md:pl-8 lg:pl-[calc((100vw-1440px)/2)] w-max">
+          {impactImages.map((image, idx) => (
             <div
               key={idx}
               className="relative w-[400px] h-[300px] rounded-xl overflow-hidden shadow-lg flex-shrink-0"
@@ -67,11 +56,11 @@ export function ImpactSlider() {
                 src={image.src}
                 alt={image.alt}
                 fill
-                className="object-cover group-hover:scale-110 transition-transform duration-700"
+                className="object-cover hover:scale-105 transition-transform duration-700"
               />
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

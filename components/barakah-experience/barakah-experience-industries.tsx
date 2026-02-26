@@ -15,24 +15,24 @@ import { Section } from "@/components/global";
 
 const industries = [
   {
-    title: "Education & Learning",
-    subtitle: "Institutions Built on Trust and Continuity",
+    title: " eCommerce & Consumer Brands",
+    subtitle: "Scaling With Integrity",
     description:
-      "We support educational organizations navigating enrollment, engagement, and long-term community building. Our approach prioritizes clarity, credibility, and systems that serve both institutions and learners responsibly.",
+      "We help product-led brands grow profitably through precision targeting, lifecycle strategy, and high-converting creative — without sacrificing brand equity.",
     image: "/assets/be1.jpg",
   },
   {
     title: "Healthcare & Wellness",
-    subtitle: "Institutions Built on Trust and Continuity",
+    subtitle: "Trust-Centered Growth",
     description:
-      "We support educational organizations navigating enrollment, engagement, and long-term community building. Our approach prioritizes clarity, credibility, and systems that serve both institutions and learners responsibly.",
+      "For organizations operating in regulated, sensitive industries, we design marketing systems that prioritize credibility, compliance, and long-term patient relationships.",
     image: "/assets/be2.jpg",
   },
   {
-    title: "Ethical Commerce & Services",
-    subtitle: "Institutions Built on Trust and Continuity",
+    title: "B2B, SaaS & Specialized Services",
+    subtitle: "High-Intent Demand Generation",
     description:
-      "We support educational organizations navigating enrollment, engagement, and long-term community building. Our approach prioritizes clarity, credibility, and systems that serve both institutions and learners responsibly.",
+      "From engineering firms to SaaS platforms, we build measurable acquisition systems that attract decision-makers, shorten sales cycles, and compound authority over time.",
     image: "/assets/be3.jpg",
   },
 ];
@@ -56,6 +56,16 @@ export function BarakahExperienceIndustries() {
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-[#3F1200] font-lato tracking-wide">
                 Built for Focused, High-Trust Sectors
               </h2>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1, duration: 0.6 }}
+                className="text-[#3F1200] lg:text-lg text-gray-500 max-w-5xl leading-relaxed"
+              >
+                We partner with organizations where reputation, trust, and
+                long-term relationships matter — from high-growth eCommerce
+                brands to B2B innovators and mission-driven institutions.
+              </motion.p>
             </div>
 
             <div className="flex gap-4">
@@ -84,7 +94,7 @@ export function BarakahExperienceIndustries() {
                   />
 
                   {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#E76F3D] via-[#E76F3D]/80 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#E76F3D] via-[#E76F3D]/30 to-transparent" />
 
                   {/* Content */}
                   <div className="absolute inset-0 flex flex-col justify-end p-8 lg:p-10 text-white">

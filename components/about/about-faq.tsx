@@ -10,7 +10,7 @@ const faqItems = [
   {
     question: "Who do you work with?",
     answer:
-      "We work with purpose driven organizations that care about how they grow, including brands, non profits, and mission led teams that care about how they grow, including brands, non profits, and mission led teams.",
+      "We partner with purpose-driven brands and mission-led teams who care deeply about how they grow. Our clients span eCommerce, consumer goods, healthcare, wellness, SaaS, engineering, and other impact-oriented industries.",
   },
   {
     question: "Is Barakah Agency the right fit?",

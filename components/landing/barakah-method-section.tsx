@@ -8,19 +8,19 @@ import Image from "next/image";
 export function BarakahMethodSection() {
   return (
     <section className="relative py-20 md:py-32 bg-background overflow-hidden">
-      <div className="w-full mx-auto px-4 lg:px-8">
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-12 w-full xl:gap-16 items-center">
+      <div className="w-full mx-auto px-4 lg:px-16">
+        <div className="flex items-center">
           {/* Left Column - Content */}
-          <div className="space-y-6 max-w-7xl  mx-auto">
+          <div className="space-y-6 container mx-auto">
             <p className="text-xl lg:text-4xl font-semibold text-[#3F1200] font-lato">
               The Barakah Method
             </p>
 
             <h2 className="text-4xl md:text-5xl lg:text-7xl font-black text-[#3F1200] leading-tight font-lato">
-              Growth Becomes Sustainable When Values Guide the System
+              Grow Your Legacy Brand on Proven Systems. Not Short-Term Hacks.
             </h2>
 
-            <p className="text-base text-[#5c4033] leading-relaxed font-lato">
+            <p className="text-base text-[#5c4033] max-w-2xl leading-relaxed font-lato">
               With 200,000+ hours of strategic execution behind it, the Barakah
               Method gives you a scalable system rooted in history's greatest
               principles. We use market intelligence, cultural fluency, and
@@ -51,7 +51,7 @@ export function BarakahMethodSection() {
               transition-all
             "
             >
-              <Link href="/barakah-method">
+              <Link href="/the-barakah-method">
                 Explore the Method
                 <div className="h-7 w-7 sm:h-8 sm:w-8 bg-white rounded-full flex items-center justify-center ">
                   <svg

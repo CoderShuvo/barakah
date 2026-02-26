@@ -9,53 +9,60 @@ import Image from "next/image";
 const caseStudies = [
   {
     id: 1,
-    title: "Fulers Finance",
-    logo: "/assets/fulers.png",
+    title: "DAYS OF EID",
+    logo: "/assets/pop1.svg",
     logoColor: "#d4a574",
     tags: ["Digital Marketing", "Web Development"],
     description:
-      "We begin by deeply understanding your mission, values, and the impact you want to create. Every strategy is aligned with your ethical foundations, cultural context, and long-term vision, ensuring your marketing reflects what your brand truly stands for, not just what it sells.",
+      "Days of Eid is a seasonal Muslim home décor brand specializing in Ramadan and Eid collections. The brand had reached a ceiling in the U.S. market and needed to unlock new customer acquisition without eroding profitability. We rebuilt their paid media strategy with refined audience targeting, high-converting creative, and disciplined performance optimization.",
     metrics: [
-      { label: "YOY increase in Revenue`", value: "160%" },
-      { label: "Increased Revenue", value: "24x" },
+      { label: "Year-over-Year Revenue Growth", value: "+75%" },
+      { label: "ROAS", value: "6–10x " },
     ],
     bgColor: "from-orange-200 to-orange-300",
   },
   {
     id: 2,
     title: "Fadwa Masala",
-    logo: "/assets/fulers.png",
+    logo: "/assets/pop2.svg",
     logoColor: "#b8449d",
     tags: ["eCommerce Marketing Strategy", "Paid Media"],
     description:
-      "We begin by deeply understanding your mission, values, and the impact you want to create. Every strategy is aligned with your ethical foundations, cultural context, and long-term vision, ensuring your marketing reflects what your brand truly stands for, not just what it sells.",
+      "Fadwa Masala was a bootstrapped startup looking to establish a foundation for scalable eCommerce growth.Through a combination of strategic branding, paid social campaigns, and growth-focused marketing initiatives, we created a performance engine that drove both revenue and community impact. Within the first 90 days, the brand not only achieved positive ROI but also delivered measurable results in sales, customer acquisition, and audience growth.",
     metrics: [
       { label: "Purchases", value: "272" },
-      { label: "Attributed Sales Via Paid Media", value: "$12,049" },
+      { label: "ROAS achieved within first 90 days", value: "30-50%" },
     ],
     bgColor: "from-orange-200 to-orange-300",
   },
   {
     id: 3,
     title: "Halal Expo",
-    logo: "/assets/fulers.png",
+    logo: "/assets/pop3.svg",
     logoSubtext: "6TH US International",
     logoColor: "#5a7ba8",
     tags: ["Event Marketing Strategy", "Paid Media"],
     description:
-      "We begin by deeply understanding your mission, values, and the impact you want to create. Every strategy is aligned with your ethical foundations, cultural context, and long-term vision.",
-    metrics: [],
+      "We partnered with Halal Expo to drive registrations and qualified interest for their Annual Halal Expo & Summit 2025. Through a focused Meta and Google paid media strategy — executed with disciplined budget allocation — we significantly increased high-intent leads while maintaining strong efficiency. Our performance-driven approach amplified visibility, improved targeting precision, and delivered measurable ROI in a competitive event marketing landscape.",
+    metrics: [
+      { label: "Increase in Qualified Leads", value: "300% " },
+      { label: "Return on Ad Spend (ROAS)", value: "7–8x" },
+    ],
     bgColor: "from-orange-200 to-orange-300",
   },
   {
     id: 4,
     title: "Ten Peaks Shuttle & Tours",
-    logo: "/assets/fulers.png",
+    logo: "/assets/pop4.svg",
     logoColor: "#2563eb",
+
     tags: ["Tourism Marketing Strategy", "Paid Media"],
     description:
-      "We begin by deeply understanding your mission, values, and the impact you want to create. Every strategy is aligned with your ethical foundations.",
-    metrics: [],
+      "Ten Peaks Shuttle & Tours provides seasonal tourism experiences across Alberta, Canada. We partnered with them to scale both their Summer and Winter campaigns through creative strategy and precision paid media execution. By aligning compelling visual storytelling with high-intent audience targeting, we helped maximize seasonal demand and drive efficient revenue growth across peak travel periods.",
+    metrics: [
+      { label: "ROAS", value: "6x" },
+      { label: "increase in sales YoY", value: "30-50%" },
+    ],
     bgColor: "from-orange-200 to-orange-300",
   },
 ];
@@ -198,7 +205,7 @@ export function ProofOfPerformanceSection() {
                   </div>
 
                   {/* View Case Study Hover Button */}
-                  <motion.div
+                  {/* <motion.div
                     variants={{
                       initial: { y: "150%" },
                       expanded: { y: "0%" },
@@ -212,7 +219,7 @@ export function ProofOfPerformanceSection() {
                     <div className="h-12 w-12 bg-white rounded-full flex items-center justify-center shadow-lg transform transition-transform duration-300 hover:scale-110">
                       <ArrowRight className="text-[#f59e5f] h-6 w-6 stroke-[3px]" />
                     </div>
-                  </motion.div>
+                  </motion.div> */}
                 </div>
               </div>
             </motion.div>

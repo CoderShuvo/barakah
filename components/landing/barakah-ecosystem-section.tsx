@@ -55,42 +55,52 @@ export function BarakahEcosystemSection() {
                 className="object-contain mb-3"
               />
               <p className="text-lg leading-relaxed opacity-90 font-lato">
-                We support engineering firms and industrial innovators in
-                translating complex ideas into compelling narratives. From
-                technical content to strategic campaigns, we help teams grow
-                with credibility, clarity, and long-term trust.
+                We help purpose-driven e-commerce brands grow with clarity and
+                conscience. Our approach blends ethical performance strategy,
+                intentional community-building, and culturally aware creative to
+                build lasting customer relationships.
               </p>
             </div>
           </div>
 
           {/* Card 2 */}
-          <div className="relative w-full md:w-[48%] lg:w-[30%] h-[700px] rounded-2xl overflow-hidden group cursor-pointer shadow-lg hover:shadow-xl transition-all m-2">
-            <Image
-              src="/assets/22.jpg"
-              alt="Engineering Marketing Agency"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-            <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+          <Link
+            href="https://engineering.marketing/"
+            target="_blank"
+            className="relative w-full md:w-[48%] lg:w-[30%] h-[700px] rounded-2xl overflow-hidden group cursor-pointer shadow-lg hover:shadow-xl transition-all m-2"
+          >
+            <div>
               <Image
-                src="/assets/tema.png"
-                alt="Engineering Logo"
-                height={70}
-                width={300}
-                className="object-contain mb-3"
+                src="/assets/22.jpg"
+                alt="Engineering Marketing Agency"
+                fill
+                className="object-cover"
               />
-              <p className="text-lg leading-relaxed opacity-90 font-lato">
-                We partner with health-focused organizations to build ethical,
-                human-centered digital strategies. Whether you’re navigating
-                patient education, growth, or advocacy, our approach centers on
-                clarity, care, and culturally respectful communication.
-              </p>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                <Image
+                  src="/assets/tema.png"
+                  alt="Engineering Logo"
+                  height={70}
+                  width={300}
+                  className="object-contain mb-3"
+                />
+                <p className="text-lg leading-relaxed opacity-90 font-lato">
+                  We support engineering firms and industrial innovators in
+                  translating complex ideas into compelling narratives. From
+                  technical content to strategic campaigns, we help teams grow
+                  with credibility, clarity, and long-term trust.
+                </p>
+              </div>
             </div>
-          </div>
+          </Link>
 
           {/* Card 3 */}
-          <div className="relative w-full md:w-[48%] lg:w-[30%] h-[700px] rounded-2xl overflow-hidden group cursor-pointer shadow-lg hover:shadow-xl transition-all m-2">
+          <Link
+            href="https://healthcaredigital.marketing/"
+            target="_blank"
+            className="relative w-full md:w-[48%] lg:w-[30%] h-[700px] rounded-2xl overflow-hidden group cursor-pointer shadow-lg hover:shadow-xl transition-all m-2"
+          >
             <Image
               src="/assets/33.jpg"
               alt="Health Digital"
@@ -113,10 +123,14 @@ export function BarakahEcosystemSection() {
                 clarity, care, and culturally respectful communication.
               </p>
             </div>
-          </div>
+          </Link>
 
           {/* Card 4 */}
-          <div className="relative w-full md:w-[48%] lg:w-[30%] h-[700px] rounded-2xl overflow-hidden group cursor-pointer shadow-lg hover:shadow-xl transition-all m-2">
+          <Link
+            href="https://zeroframe.io/"
+            target="_blank"
+            className="relative w-full md:w-[48%] lg:w-[30%] h-[700px] rounded-2xl overflow-hidden group cursor-pointer shadow-lg hover:shadow-xl transition-all m-2"
+          >
             <Image
               src="/assets/44.png"
               alt="ZeroFrame Automation"
@@ -136,10 +150,14 @@ export function BarakahEcosystemSection() {
                 structure, clarity, and efficiency.
               </p>
             </div>
-          </div>
+          </Link>
 
           {/* Card 5 */}
-          <div className="relative w-full md:w-[48%] lg:w-[30%] h-[700px] rounded-2xl overflow-hidden group cursor-pointer shadow-lg hover:shadow-xl transition-all m-2">
+          <Link
+            href="https://nubayin.studio/"
+            target="_blank"
+            className="relative w-full md:w-[48%] lg:w-[30%] h-[700px] rounded-2xl overflow-hidden group cursor-pointer shadow-lg hover:shadow-xl transition-all m-2"
+          >
             <Image
               src="/assets/55.jpg"
               alt="NUBAYIN Studio"
@@ -163,7 +181,7 @@ export function BarakahEcosystemSection() {
                 and reclaims joy through a decolonial lens.
               </p>
             </div>
-          </div>
+          </Link>
         </div>
 
         {/* CTA Button */}
@@ -192,8 +210,8 @@ export function BarakahEcosystemSection() {
               transition-all
             "
           >
-            <Link href="/barakah-experience">
-              Explore the Barakah Ecosystem
+            <Link href="/case-study">
+              Explore Our Case Studies
               <div className="h-7 w-7 sm:h-8 sm:w-8 bg-white rounded-full flex items-center justify-center ">
                 <svg
                   width="18"

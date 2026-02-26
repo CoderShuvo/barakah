@@ -16,13 +16,13 @@ export const siteConfig = {
     address: "123 Business Street, Suite 100, New York, NY 10001",
   },
   navigation: [
-    { name: "Why Barakah?", href: "/about" },
+    { name: "Why Barakah?", href: "/why-barakah" },
     {
       name: "The Barakah System",
       href: "/system",
       items: [
-        { name: "The Barakah Method", href: "/barakah-method", description: "Our philosophy for building ethical, scalable, impact-driven growth systems." },
-        { name: "The Barakah Ecosystem", href: "/barakah-experience", description: "Specialized brands, each built to serve unique industries – all grounded in one shared vision." }
+        { name: "The Barakah Method", href: "/the-barakah-method", description: "Our philosophy for building ethical, scalable, impact-driven growth systems." },
+        { name: "The Barakah Ecosystem", href: "/the-barakah-ecosystem", description: "Specialized brands, each built to serve unique industries – all grounded in one shared vision." }
       ]
     },
     {
@@ -74,9 +74,9 @@ export const siteConfig = {
     {
       title: "Company",
       links: [
-        { name: "About Us", href: "/about" },
-        { name: "Barakah Method", href: "/barakah-method" },
-        { name: "Barakah Experience", href: "/barakah-experience" },
+        { name: "About Us", href: "/why-barakah" },
+        { name: "Barakah Method", href: "/the-barakah-method" },
+        { name: "Barakah Experience", href: "/the-barakah-ecosystem" },
         { name: "Contact", href: "/contact" },
       ],
     },

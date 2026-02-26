@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 type Brand = {
   id: number;
@@ -19,6 +20,9 @@ const brands: Brand[] = [
   { id: 8, name: "Brand 8", logo: "/assets/brands/8.png" },
   { id: 9, name: "Doubletree Realty", logo: "/assets/brands/9.png" },
 ];
+
+// Duplicate brands for seamless loop
+const allBrands = [...brands, ...brands];
 
 export function BrandsSection() {
   return (
@@ -92,22 +96,42 @@ export function BrandsSection() {
         </div>
 
         {/* Logos */}
-        <div className="w-full mx-auto overflow-x-auto scrollbar-hide">
-          <div className="flex items-center gap-6 md:gap-12 lg:gap-16 min-w-max px-2">
-            {brands.map((brand) => (
-              <div key={brand.id} className="flex-shrink-0">
-                <div className="relative h-12 w-28 md:w-32">
+        <div className="w-full mx-auto overflow-hidden relative">
+          {/* Gradient Overlays for smooth fade effect at edges */}
+          <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-background to-transparent z-10"></div>
+          <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-background to-transparent z-10"></div>
+
+          <motion.div
+            className="flex items-center gap-12 md:gap-24 lg:gap-32 w-fit px-4"
+            animate={{
+              x: ["0%", "-50%"],
+            }}
+            transition={{
+              x: {
+                repeat: Infinity,
+                repeatType: "loop",
+                duration: 30, // Adjust speed here (higher = slower)
+                ease: "linear",
+              },
+            }}
+          >
+            {allBrands.map((brand, index) => (
+              <div
+                key={`${brand.id}-${index}`}
+                className="flex-shrink-0 grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110"
+              >
+                <div className="relative h-12 w-28 md:w-32 lg:w-40">
                   <Image
                     src={brand.logo}
                     alt={brand.name || "Brand logo"}
                     fill
                     className="object-contain"
-                    sizes="(max-width: 768px) 120px, 150px"
+                    sizes="(max-width: 768px) 120px, 160px"
                   />
                 </div>
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

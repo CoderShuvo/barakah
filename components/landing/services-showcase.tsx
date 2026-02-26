@@ -137,7 +137,7 @@ export function ServicesShowcase() {
     transition-all hover:opacity-90"
               >
                 <Link
-                  href="/services"
+                  href="/services/branding"
                   className="flex text-[18px] font-bold items-center justify-center gap-3"
                 >
                   Craft Your Legacy
@@ -200,7 +200,7 @@ export function ServicesShowcase() {
     bg-cover                      
     bg-center                     
     bg-no-repeat   
-    p-6 sm:p-8 pb-8 sm:pb-12 
+     pb-8 sm:pb-12 
     min-h-[600px] sm:min-h-[700px] md:min-h-[600px] 
     flex flex-col  
     w-full md:w-full lg:w-[40%]
@@ -210,32 +210,35 @@ export function ServicesShowcase() {
             {/* Decorative Pattern */}
             <div className="absolute bottom-0 left-0 right-0 h-64 opacity-30"></div>
 
-            <div className="relative z-10 flex-1 flex flex-col">
-              <h3 className="text-2xl sm:text-3xl md:text-[36px] font-bold text-white mb-2 italic font-lato">
-                ZeroFrame™ Intelligence
-              </h3>
-              <p className="text-lg sm:text-xl md:text-[24px] text-white/90 mb-3 sm:mb-4 font-lato font-semibold">
-                Actionable intelligence for scalable growth.
-              </p>
-              <p className="text-white/90 text-base sm:text-lg md:text-[18px] leading-relaxed mb-6 sm:mb-8 font-poppins text-justify">
-                Our proprietary data engine helps you make confident decisions,
-                streamline your marketing, and engage the right audiences while
-                protecting privacy and earning loyalty, over time.
-              </p>
+            <div className="relative z-10 flex-1 flex flex-col ">
+              <div className="p-6 sm:p-8">
+                <h3 className="text-2xl sm:text-3xl md:text-[36px] font-bold text-white mb-2 italic font-lato">
+                  ZeroFrame™ Intelligence
+                </h3>
+                <p className="text-lg sm:text-xl md:text-[24px] text-white/90 mb-3 sm:mb-4 font-lato font-semibold">
+                  Actionable intelligence for scalable growth.
+                </p>
+                <p className="text-white/90 text-base sm:text-lg md:text-[18px] leading-relaxed mb-6 sm:mb-8 font-poppins text-justify">
+                  Our proprietary data engine helps you make confident
+                  decisions, streamline your marketing, and engage the right
+                  audiences while protecting privacy and earning loyalty, over
+                  time.
+                </p>
+              </div>
 
               {/* Visual Element - Radar/Target with Data Points */}
               <motion.div
                 initial={{ y: 60, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                className="flex-1 flex items-end justify-center mb-8"
+                className="flex-1 flex items-end justify-center mb-0"
               >
                 <div className="relative w-full h-full">
                   {/* Concentric circles */}
                   <Image
                     src="/assets/Graph.png"
                     alt="Radar"
-                    className="w-full h-full object-contain"
+                    className="w-full min-h-[600px] object-cover"
                     fill
                   />
                 </div>
@@ -244,7 +247,7 @@ export function ServicesShowcase() {
               {/* CTA Button */}
               <Button
                 asChild
-                className="w-full rounded-full text-white font-lato font-semibold 
+                className="w-2/3 mx-auto rounded-full text-white font-lato font-semibold 
     bg-[linear-gradient(93.64deg,#E76F3D_2.82%,#9B2230_90.26%)]
     shadow-[inset_-8px_-6px_25px_rgba(255,255,255,0.38)]
     border-2 border-white
@@ -254,7 +257,7 @@ export function ServicesShowcase() {
     transition-all hover:opacity-90"
               >
                 <Link
-                  href="/services"
+                  href="/zero-frame"
                   className="flex text-[18px] font-bold items-center justify-center gap-3"
                 >
                   Scale Smarter
@@ -327,7 +330,7 @@ export function ServicesShowcase() {
     bg-cover                      
     bg-center                     
     bg-no-repeat  
-    p-6 sm:p-8 pb-8 sm:pb-12 
+    pb-8 sm:pb-12 
     min-h-[600px] sm:min-h-[700px] md:min-h-[600px] 
     flex flex-col 
     w-full md:w-[calc(50%-12px)] lg:w-[30%]
@@ -338,17 +341,19 @@ export function ServicesShowcase() {
             <div className="absolute bottom-0 left-0 right-0 h-64 opacity-30"></div>
 
             <div className="relative z-10 flex-1 flex flex-col">
-              <h3 className="text-2xl sm:text-3xl md:text-[36px] font-bold text-white mb-2 italic font-lato">
-                Performance Marketing
-              </h3>
-              <p className="text-lg sm:text-xl md:text-[24px] text-white/90 mb-3 sm:mb-4 font-lato font-semibold">
-                Engineered for growth that compounds.
-              </p>
-              <p className="text-white/90 text-base sm:text-lg md:text-[18px] leading-relaxed mb-6 sm:mb-8 font-poppins text-justify">
-                Our performance marketing strategies prioritize customer
-                lifetime value, brand equity, and measurable returns, not just
-                clicks. Build profitability and loyalty that lasts.
-              </p>
+              <div className="p-6 sm:p-8">
+                <h3 className="text-2xl sm:text-3xl md:text-[36px] font-bold text-white mb-2 italic font-lato">
+                  Performance Marketing
+                </h3>
+                <p className="text-lg sm:text-xl md:text-[24px] text-white/90 mb-3 sm:mb-4 font-lato font-semibold">
+                  Engineered for growth that compounds.
+                </p>
+                <p className="text-white/90 text-base sm:text-lg md:text-[18px] leading-relaxed mb-6 sm:mb-8 font-poppins text-justify">
+                  Our performance marketing strategies prioritize customer
+                  lifetime value, brand equity, and measurable returns, not just
+                  clicks. Build profitability and loyalty that lasts.
+                </p>
+              </div>
 
               {/* Visual Element - Growth Chart */}
               <motion.div
@@ -362,7 +367,7 @@ export function ServicesShowcase() {
                   <Image
                     src="/assets/thirdcard.png"
                     alt="Radar"
-                    className="w-full h-full object-contain"
+                    className="w-full min-h-[550px] object-cover"
                     fill
                   />
                 </div>
@@ -371,7 +376,7 @@ export function ServicesShowcase() {
               {/* CTA Button */}
               <Button
                 asChild
-                className="w-full rounded-full text-white font-lato font-semibold 
+                className="w-2/3 mx-auto rounded-full text-white font-lato font-semibold 
     bg-[linear-gradient(93.64deg,#E76F3D_2.82%,#9B2230_90.26%)]
     shadow-[inset_-8px_-6px_25px_rgba(255,255,255,0.38)]
     border-2 border-white
@@ -381,7 +386,7 @@ export function ServicesShowcase() {
     transition-all hover:opacity-90"
               >
                 <Link
-                  href="/services"
+                  href="/services/performance-marketing"
                   className="flex text-[18px] font-bold items-center justify-center gap-3"
                 >
                   Drive Results
@@ -459,7 +464,7 @@ export function ServicesShowcase() {
               transition-all
             "
           >
-            <Link href="/about">
+            <Link href="/services">
               Learn More
               <div className="h-7 w-7 sm:h-8 sm:w-8 bg-white rounded-full flex items-center justify-center ">
                 <svg

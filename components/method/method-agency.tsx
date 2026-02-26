@@ -83,7 +83,7 @@ export function MethodAgency() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="relative aspect-[16/9] lg:aspect-[21/9] rounded-[2.5rem] overflow-hidden shadow-2xl mb-12"
+          className="relative aspect-[16/9] lg:aspect-[21/9] rounded-[1.5rem] overflow-hidden  mb-12"
         >
           <Image
             src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1600"

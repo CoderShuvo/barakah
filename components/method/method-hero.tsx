@@ -8,7 +8,7 @@ import { ImpactSlider } from "./impact-slider";
 
 export function MethodHero() {
   return (
-    <section className="relative min-h-[70vh] flex items-center pt-32 pb-20 overflow-hidden bg-[#FFF5F0]">
+    <section className="relative min-h-[70vh] flex flex-col items-center pt-32 pb-20 overflow-hidden bg-[#FFF5F0]">
       {/* Background Decorative Circles */}
       <div className="absolute inset-0 flex items-center justify-center opacity-40">
         <svg
@@ -177,8 +177,9 @@ export function MethodHero() {
             </Link>
           </motion.div>
         </div>
-        <ImpactSlider />
       </div>
+
+      <ImpactSlider />
     </section>
   );
 }

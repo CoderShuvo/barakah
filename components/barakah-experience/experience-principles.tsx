@@ -80,7 +80,7 @@ export function ExperiencePrinciples() {
                 </h3>
               </div>
               <div className="lg:col-span-1">
-                <p className="text-base lg:text-lg text-gray-600 leading-relaxed lg:mt-1">
+                <p className="text-base lg:text-lg text-black leading-relaxed lg:mt-1">
                   {principle.description}
                 </p>
               </div>

@@ -55,7 +55,7 @@ export function BarakahExperienceHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className="text-2xl md:text-4xl text-[#5C4033]/80 w-full mx-auto leading-relaxed"
+            className="text-2xl md:text-4xl text-[#3F1200] w-full mx-auto leading-relaxed"
           >
             The Barakah Ecosystem brings together industry-specific brands under
             one guiding ethos. This ecosystem model allows us to deliver focused

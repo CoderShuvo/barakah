@@ -25,9 +25,8 @@ export function Footer() {
             <ul className="space-y-3">
               {[
                 { name: "Why Barakah?", href: "/why-barakah" },
-                { name: "The Barakah System", href: "/system" },
-                { name: "The Barakah Experience", href: "/experience" },
-                { name: "The Barakah Ecosystem", href: "/ecosystem" },
+                { name: "The Barakah Method", href: "/system" },
+                { name: "The Barakah Ecosystem", href: "/experience" },
               ].map((link) => (
                 <li key={link.name}>
                   <Link
@@ -62,13 +61,17 @@ export function Footer() {
           {/* Column 2: The Components */}
           <div className="space-y-6">
             <h3 className="text-4xl font-bold text-[#3F1200] font-lato">
-              The Components
+              The Barakah Components
             </h3>
             <ul className="space-y-3">
               {[
-                { name: "Services", href: "/services" },
-                { name: "ZeroFrame Suite", href: "/zero-frame" },
-                { name: "Case Studies", href: "/case-studies" },
+                { name: "Our Solutions", href: "/services" },
+                { name: "Branding and Identity", href: "/services/branding" },
+                { name: "ZeroFrame™ Intelligence", href: "/zero-frame" },
+                {
+                  name: "Performance Marketing",
+                  href: "/services/performance-marketing",
+                },
               ].map((link) => (
                 <li key={link.name}>
                   <Link
@@ -154,8 +157,7 @@ export function Footer() {
         <div className="relative mt-20 pt-10 select-none">
           <div className="flex items-center justify-center gap-4 lg:gap-8 overflow-hidden whitespace-nowrap">
             <svg
-              width="1820"
-              height="247"
+              className="w-full h-auto"
               viewBox="0 0 1820 247"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"

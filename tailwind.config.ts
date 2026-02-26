@@ -14,6 +14,7 @@ const config: Config = {
         sans: ['var(--font-inter)'],
         serif: ['var(--font-playfair)'],
         lato: ['var(--font-lato)'],
+        poppins: ['var(--font-poppins)'],
       },
       colors: {
         background: 'hsl(var(--background))',

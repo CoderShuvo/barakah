@@ -24,18 +24,29 @@ export function WhyBarakah() {
 
             {/* Tooltip */}
             {showTooltip && (
-              <div className="absolute top-full left-0 mt-4 w-80 bg-white border border-[#e5e5e5] rounded-lg shadow-xl p-6 z-50 animate-fade-in">
-                <h3 className="text-xl font-bold text-[#3F1200] mb-2 font-lato">
-                  Barakah
-                </h3>
-                <p className="text-sm text-[#5c4033] mb-3 font-lato">
-                  [bar·a·kah] — بركة
-                </p>
-                <p className="text-[15px] text-[#3F1200] leading-relaxed font-lato">
-                  <span className="font-semibold">A blessing.</span> A force of
-                  goodness. Where a little goes far. Where meaning outweighs
-                  metrics.{" "}
-                </p>
+              <div className="absolute top-full left-0 mt-6 w-96 transform -translate-x-4 z-50 animate-fade-in">
+                {/* Triangle Pointer */}
+                <div className="absolute -top-3 left-12 w-6 h-6 bg-[#FCFBF7] border-l border-t border-[#e5e5e5] rotate-45 z-0" />
+
+                <div className="relative bg-[#FCFBF7] border border-[#e5e5e5] rounded-[24px] shadow-2xl p-8 z-10 overflow-hidden">
+                  <h3 className="text-4xl font-bold text-[#3F1200] mb-2 font-lato">
+                    Barakah
+                  </h3>
+                  <p className="text-[20px] text-[#5c4033] font-lato mb-4">
+                    [bar·a·kah] — بركة
+                  </p>
+
+                  {/* Dashed Line */}
+                  <div className="w-full border-t border-dashed border-[#d1d1d1] mb-6" />
+
+                  <p className="text-[18px] text-[#3F1200] leading-relaxed font-lato">
+                    <span className="font-bold text-[#3F1200]">
+                      A blessing.
+                    </span>{" "}
+                    A force of goodness. Where a little goes far. Where meaning
+                    outweighs metrics.
+                  </p>
+                </div>
               </div>
             )}
           </div>
@@ -53,15 +64,18 @@ export function WhyBarakah() {
     mb-8
   "
             >
-              <span className="text-primary italic font-bold">Growth</span> That
-              Multiplies What Matters
+              <span className="text-[#E76F3D] italic font-bold">Growth</span>{" "}
+              That Multiplies What Matters
               <br />
               Not Just{" "}
-              <span className="text-primary italic font-bold">Revenue</span>,
+              <span className="text-[#E76F3D] italic font-bold">Revenue</span>,
               But Real
-              <span className="text-primary italic font-bold"> Resonance</span>
+              <span className="text-[#E76F3D] italic font-bold">
+                {" "}
+                Resonance
+              </span>
               <br />A Strategy That Delivers{" "}
-              <span className="text-primary italic font-bold">ROI²™</span>.
+              <span className="text-[#E76F3D] italic font-bold">ROI²™</span>.
               <br />
               <span
                 className="
@@ -85,7 +99,10 @@ export function WhyBarakah() {
     "
               >
                 That's What We Call
-                <span className="text-primary italic font-bold"> Barakah</span>
+                <span className="text-[#E76F3D] italic font-bold">
+                  {" "}
+                  Barakah
+                </span>
               </span>
             </h3>
 
@@ -115,7 +132,7 @@ export function WhyBarakah() {
     transition-all
   "
               >
-                <Link href="/about">
+                <Link href="/why-barakah">
                   Why Choose Barakah
                   <div className="h-7 w-7 sm:h-8 sm:w-8 bg-white rounded-full flex items-center justify-center ">
                     <svg
@@ -161,7 +178,7 @@ export function WhyBarakah() {
     transition-all
   "
               >
-                <Link href="/about">
+                <Link href="/why-barakah#team">
                   Meet the Team
                   <div className="h-7 w-7 sm:h-8 sm:w-8 bg-white rounded-full flex items-center justify-center ">
                     <svg

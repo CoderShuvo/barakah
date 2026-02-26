@@ -108,7 +108,7 @@ export function MethodSteps() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-lg font-normal  text-black mb-4 block"
+            className="text-lg font-normal text-black mb-4 block font-lato"
           >
             • The Barakah Method •
           </motion.span>
@@ -117,7 +117,7 @@ export function MethodSteps() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-4xl md:text-5xl font-semibold text-[#3F1200] font-lato leading-tight"
+            className="text-4xl md:text-5xl font-black text-[#3F1200] font-lato leading-tight"
           >
             A Values-Led Framework for Sustainable
             <br />
@@ -128,29 +128,11 @@ export function MethodSteps() {
         {/* Steps Container */}
         <div className="relative w-full mx-auto">
           {/* Vertical Progress Line */}
-          <div className="absolute left-0 lg:left-8 top-0 bottom-0 w-[8px] bg-[#E76F3D]/20 rounded-full">
-            <svg
-              width="13"
-              height="3000"
-              viewBox="0 0 13 3000"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              {/* Background Track */}
-              <rect width="13" height="3000" rx="6.5" fill="#FFC3AA" />
-
-              {/* Animated Indicator */}
-              <motion.rect
-                width="13"
-                height="3000"
-                rx="6.5"
-                fill="#3F1200"
-                style={{
-                  scaleY: smoothProgress,
-                  transformOrigin: "top",
-                }}
-              />
-            </svg>
+          <div className="absolute left-0 lg:left-8 top-0 bottom-0 w-[10px] bg-[#FFC3AA]/10">
+            <motion.div
+              className="absolute top-0 left-0 w-full bg-[#FFC3AA] origin-top"
+              style={{ scaleY: smoothProgress, height: "100%" }}
+            />
           </div>
 
           {/* Steps List */}
@@ -162,22 +144,24 @@ export function MethodSteps() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ margin: "-100px" }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-6 items-start border-b-2 py-10"
+                className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-6 items-start border-b border-[#3F1200]/10 py-20 last:border-b-0"
               >
                 {/* Content Area */}
-                <div className="flex space-y-6 gap-12">
-                  <div className="flex items-start gap-4 text-[#3F1200]/60 font-medium mt-[70px]">
-                    <span className="text-lg">({step.number})</span>
+                <div className="flex flex-col md:flex-row space-y-6 md:space-y-0 md:gap-12">
+                  <div className="flex items-start shrink-0">
+                    <div className=" flex items-center justify-center w-12 h-12 text-[#3F1200] font-bold text-2xl font-lato">
+                      ({step.number})
+                    </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <h3 className="text-4xl md:text-5xl font-black text-[#3F1200]">
+                  <div className="space-y-4">
+                    <h3 className="text-4xl md:text-6xl font-black text-[#3F1200] font-lato uppercase">
                       {step.title}
                     </h3>
-                    <p className="text-2xl font-bold text-[#3F1200]/80">
+                    <p className="text-xl md:text-2xl font-bold text-[#3F1200]/80 font-lato">
                       {step.subtitle}
                     </p>
-                    <p className="text-lg text-[#5C4033] leading-relaxed max-w-xl">
+                    <p className="text-lg text-[#5C4033] leading-relaxed max-w-xl font-lato">
                       {step.description}
                     </p>
                   </div>
@@ -189,7 +173,7 @@ export function MethodSteps() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ margin: "-100px" }}
                   transition={{ duration: 0.8 }}
-                  className="relative  h-[292px] rounded-[2rem] overflow-hidden shadow-2xl"
+                  className="relative h-[292px] rounded-[2rem] overflow-hidden shadow-2xl"
                 >
                   <Image
                     src={step.image}

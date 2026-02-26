@@ -64,7 +64,7 @@ export function AboutPrinciples() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-3xl md:text-5xl font-black text-[#3F1200] font-lato"
+            className="text-2xl md:text-5xl font-black text-[#3F1200] font-lato"
           >
             Five Principles That Guide
             <br />
@@ -91,7 +91,7 @@ export function AboutPrinciples() {
                 src={principle.image}
                 alt={principle.title}
                 fill
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                className="object-cover  transition-transform duration-700 group-hover:scale-110"
               />
 
               {/* Overlay */}
@@ -100,10 +100,10 @@ export function AboutPrinciples() {
               {/* Content */}
               <div className="absolute inset-0 p-8 flex flex-col justify-end">
                 <div className="space-y-1 transform transition-transform duration-500 group-hover:-translate-y-4">
-                  <span className="text-sm font-bold text-[#00E5FF] tracking-widest">
+                  <span className="text-xs md:text-sm font-bold text-[#00E5FF] tracking-widest">
                     {principle.number}
                   </span>
-                  <h3 className="text-3xl font-bold text-white mb-2">
+                  <h3 className="text-xl md:text-3xl font-bold text-white mb-2">
                     {principle.title}
                   </h3>
                 </div>

@@ -4,17 +4,41 @@ import Link from "next/link";
 import { ArrowRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { useScroll, useMotionValueEvent } from "framer-motion";
 
 export function Hero() {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isFanned, setIsFanned] = useState(false);
+  const [manualToggle, setManualToggle] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    // If user has manually toggled, we respect that until they scroll back up significantly
+    // or just let scroll override it after a certain distance.
+    // For now, let's make scroll the primary driver.
+    if (latest > 100) {
+      if (!manualToggle) {
+        setIsFanned(true);
+      }
+    } else {
+      setIsFanned(false);
+      setManualToggle(false);
+    }
+  });
 
   const handleCenterImageClick = () => {
-    setIsCollapsed(!isCollapsed);
+    const newState = !isFanned;
+    setIsFanned(newState);
+    setManualToggle(true); // Mark that user manually changed it
   };
 
   return (
-    <section className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden bg-background pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+    <section
+      ref={containerRef}
+      className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden bg-background pt-32 pb-20 px-4 sm:px-6 lg:px-8"
+    >
       {/* Background Image */}
       <div className="absolute inset-0 z-0 select-none">
         <Image
@@ -33,7 +57,7 @@ export function Hero() {
       <div className="w-full   mx-auto px-4 lg:px-8 relative z-10 flex flex-col items-center">
         {/* Trust Signal */}
         <div className="flex flex-col items-center justify-center mb-6 sm:mb-8 animate-fade-in opacity-0 [animation-fill-mode:forwards] [animation-delay:200ms]">
-          <span className="text-xs sm:text-sm font-medium text-muted-foreground mb-2 tracking-wide text-center px-2">
+          <span className="text-lg  font-regular font-poppins text-muted-foreground mb-2 tracking-wide text-center px-2">
             Trusted by Purpose-Driven Brands Worldwide
           </span>
           <div className="flex items-center gap-2 sm:gap-3 flex-wrap justify-center">
@@ -111,7 +135,7 @@ export function Hero() {
         </h1>
 
         {/* Subheadline */}
-        <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-[#5c4033] max-w-2xl mx-auto mb-8 sm:mb-12 font-medium text-center animate-fade-in opacity-0 [animation-fill-mode:forwards] [animation-delay:600ms] px-4">
+        <p className=" sm:text-lg md:text-2xl lg:text-4xl text-[#5c4033] max-w-4xl mx-auto mb-8 sm:mb-12 font-regular font-poppins text-center animate-fade-in opacity-0 [animation-fill-mode:forwards] [animation-delay:600ms] px-4">
           Rooted in Trust. Designed for Growth.
         </p>
 
@@ -142,53 +166,7 @@ export function Hero() {
   "
           >
             <Link href="/contact">
-              Get Started
-              <div className="h-7 w-7 sm:h-8 sm:w-8 bg-white rounded-full flex items-center justify-center ">
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M4.10744 9.99986H15.8926M15.8926 9.99986L10 4.1073M15.8926 9.99986L10 15.8924"
-                    stroke="black"
-                    stroke-width="1.66667"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </div>
-            </Link>
-          </Button>
-
-          <Button
-            asChild
-            className="
-    bg-[#00A7C7]
-    text-white
-    font-bold
-    text-base sm:text-lg
-    rounded-[56px]
-    w-full sm:w-auto
-    px-[16px] sm:px-[20px]
-    py-[6px]
-    h-[48px] sm:h-[52px]
-
-    inline-flex
-    items-center
-    justify-center
-    gap-[10px]
-
-    shadow-[inset_0_4px_4px_rgba(0,0,0,0.25)]
-
-    hover:bg-[#d46235]
-    transition-all
-  "
-          >
-            <Link href="/contact">
-              Activate ROI
+              Grow with Barakah
               <div className="h-7 w-7 sm:h-8 sm:w-8 bg-white rounded-full flex items-center justify-center ">
                 <svg
                   width="18"
@@ -219,8 +197,8 @@ export function Hero() {
             alt="Work 1"
             className={`absolute bottom-0 transition-all duration-700 ease-in-out
               ${
-                isCollapsed
-                  ? "left-1/2 -translate-x-1/2 rotate-0 opacity-0 scale-95 z-[25]"
+                !isFanned
+                  ? "left-1/2 -translate-x-1/2 rotate-0 opacity-100 scale-95 z-[25]"
                   : "left-[2%] sm:left-[1%] bottom-[10%] sm:bottom-[15%] md:bottom-[20%] -rotate-12 opacity-100 scale-100 z-10"
               }
               w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[460px] 
@@ -237,8 +215,8 @@ export function Hero() {
             alt="Work 2"
             className={`absolute transition-all duration-700 ease-in-out
               ${
-                isCollapsed
-                  ? "left-1/2 -translate-x-1/2 rotate-0 opacity-0 scale-95 z-[26]"
+                !isFanned
+                  ? "left-1/2 -translate-x-1/2 rotate-0 opacity-100 scale-95 z-[26]"
                   : "left-[12%] sm:left-[15%] bottom-0 -rotate-6 opacity-100 scale-100 z-20"
               }
               w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[450px] 
@@ -253,9 +231,9 @@ export function Hero() {
             onClick={handleCenterImageClick}
             className={`absolute bottom-6 sm:bottom-8 md:bottom-12 transition-all duration-700 ease-in-out cursor-pointer
               ${
-                isCollapsed
-                  ? "scale-110 shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
-                  : "scale-100 shadow-2xl"
+                !isFanned
+                  ? "scale-100 shadow-2xl"
+                  : "scale-110 shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
               }
               w-[180px] sm:w-[220px] md:w-[280px] lg:w-[340px] xl:w-[400px]
               aspect-video md:aspect-[4/3] 
@@ -277,8 +255,8 @@ export function Hero() {
             alt="Work 4"
             className={`absolute transition-all duration-700 ease-in-out
               ${
-                isCollapsed
-                  ? "left-1/2 -translate-x-1/2 rotate-0 opacity-0 scale-95 z-[26]"
+                !isFanned
+                  ? "left-1/2 -translate-x-1/2 rotate-0 opacity-100 scale-95 z-[26]"
                   : "bottom-0 right-[12%] sm:right-[15%] rotate-6 opacity-100 scale-100 z-20"
               }
               w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[460px] 
@@ -295,8 +273,8 @@ export function Hero() {
             alt="Work 5"
             className={`absolute transition-all duration-700 ease-in-out
               ${
-                isCollapsed
-                  ? "left-1/2 -translate-x-1/2 rotate-0 opacity-0 scale-95 z-[25]"
+                !isFanned
+                  ? "left-1/2 -translate-x-1/2 rotate-0 opacity-100 scale-95 z-[25]"
                   : "bottom-[10%] sm:bottom-[15%] md:bottom-[20%] right-[2%] sm:right-[1%] rotate-12 opacity-100 scale-100 z-10"
               }
               w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[460px] 
@@ -309,8 +287,8 @@ export function Hero() {
 
         {/* Footer Credit */}
         <div className="absolute bottom-[-30px] sm:bottom-[-40px] md:bottom-[-50px] left-0 right-0 text-center px-4">
-          <p className="text-xs sm:text-sm md:text-base lg:text-[20px] text-[#3F1200] font-normal">
-            Brand Impact, Powered by The Barakah <br className="sm:hidden" />{" "}
+          <p className="text-xs sm:text-sm md:text-base lg:text-[20px]  text-[#3F1200] font-regular font-poppins">
+            Brand Impact, Powered by The Barakah <br />
             Method and Mesghali Studio
           </p>
         </div>

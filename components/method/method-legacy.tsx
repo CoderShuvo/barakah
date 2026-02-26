@@ -68,16 +68,16 @@ export function MethodLegacy() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative rounded-[2.5rem] overflow-hidden bg-black aspect-video shadow-2xl flex items-center justify-center p-12"
+            className="relative overflow-hidden bg-transparent aspect-video  flex items-center justify-center p-12"
           >
-            {/* Animated Diamond Shape */}
-            <div className=" mx-auto">
-              <Image
-                src="/assets/whatif.png"
-                alt="Video Thumbnail"
-                fill
-                className="object-cover mx-auto rounded-2xl"
-              />
+            <div className="relative w-full pt-[56.25%] rounded-2xl overflow-hidden">
+              <iframe
+                src="https://www.youtube.com/embed/BSwmYkntc70"
+                title="YouTube video"
+                className="absolute top-0 left-0 w-full h-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
             </div>
 
             {/* Text Overlay */}

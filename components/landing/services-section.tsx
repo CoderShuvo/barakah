@@ -1,45 +1,59 @@
-import Link from "next/link"
-import { ArrowRight, Palette, BarChart3, Target, Megaphone, Globe, Sparkles } from "lucide-react"
-import { Section, SectionHeader } from "@/components/global"
+import Link from "next/link";
+import {
+  ArrowRight,
+  Palette,
+  BarChart3,
+  Target,
+  Megaphone,
+  Globe,
+  Sparkles,
+} from "lucide-react";
+import { Section, SectionHeader } from "@/components/global";
 
 const services = [
   {
     icon: Palette,
     title: "Branding",
-    description: "Build a powerful, authentic brand identity that resonates with your audience and reflects your values.",
+    description:
+      "Build a powerful, authentic brand identity that resonates with your audience and reflects your values.",
     href: "/services/branding",
   },
   {
     icon: BarChart3,
     title: "Performance Marketing",
-    description: "Data-driven campaigns across paid channels that maximize ROI while maintaining ethical standards.",
+    description:
+      "Data-driven campaigns across paid channels that maximize ROI while maintaining ethical standards.",
     href: "/services/performance-marketing",
   },
   {
     icon: Target,
     title: "Strategy Consulting",
-    description: "Strategic guidance to align your marketing efforts with your business goals and ethical principles.",
+    description:
+      "Strategic guidance to align your marketing efforts with your business goals and ethical principles.",
     href: "/services#strategy",
   },
   {
     icon: Megaphone,
     title: "Content Marketing",
-    description: "Compelling content that educates, inspires, and drives engagement with your target audience.",
+    description:
+      "Compelling content that educates, inspires, and drives engagement with your target audience.",
     href: "/services#content",
   },
   {
     icon: Globe,
     title: "Digital Presence",
-    description: "Website design and development that creates meaningful connections and drives conversions.",
+    description:
+      "Website design and development that creates meaningful connections and drives conversions.",
     href: "/services#digital",
   },
   {
     icon: Sparkles,
     title: "The Barakah Method",
-    description: "Our proprietary approach combining ethical principles with modern marketing excellence.",
-    href: "/barakah-method",
+    description:
+      "Our proprietary approach combining ethical principles with modern marketing excellence.",
+    href: "/the-barakah-method",
   },
-]
+];
 
 export function ServicesSection() {
   return (
@@ -73,5 +87,5 @@ export function ServicesSection() {
         ))}
       </div>
     </Section>
-  )
+  );
 }

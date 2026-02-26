@@ -6,8 +6,8 @@ import { cn } from "@/lib/utils";
 
 const Ear = () => (
   <svg
-    width="78"
-    height="119"
+    width="58"
+    height="99"
     viewBox="0 0 78 119"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -37,8 +37,8 @@ const Ear = () => (
 );
 const Search = () => (
   <svg
-    width="114"
-    height="114"
+    width="59"
+    height="99"
     viewBox="0 0 114 114"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -71,8 +71,8 @@ const Search = () => (
 );
 const ShieldCheck = () => (
   <svg
-    width="65"
-    height="103"
+    width="59"
+    height="99"
     viewBox="0 0 65 103"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -88,8 +88,8 @@ const ShieldCheck = () => (
 );
 const Target = () => (
   <svg
-    width="114"
-    height="114"
+    width="59"
+    height="99"
     viewBox="0 0 114 114"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -117,8 +117,8 @@ const Target = () => (
 );
 const RefreshCw = () => (
   <svg
-    width="114"
-    height="114"
+    width="59"
+    height="99"
     viewBox="0 0 114 114"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -330,10 +330,12 @@ export function AboutProcess() {
                     >
                       {/* Step Icon */}
                       <div className="flex items-center gap-6 mb-2">
-                        <div className="w-20 h-20 rounded-full bg-[#E76F3D]/30 flex items-center justify-center text-[#E76F3D]">
-                          <step.icon className="w-10 h-10 stroke-[1.5] text-black" />
+                        <div className="w-[30%]">
+                          <div className="rounded-full h-[120px] w-[120px] bg-[#E76F3D]/30 flex items-center justify-center text-[#E76F3D]">
+                            <step.icon className="stroke-[1.5] text-black" />
+                          </div>
                         </div>
-                        <div className="flex flex-col w-[80%]">
+                        <div className="flex flex-col w-[70%]">
                           <span className="text-[#3F1200] font-bold text-sm tracking-widest uppercase mb-1">
                             // Step {step.id}
                           </span>
