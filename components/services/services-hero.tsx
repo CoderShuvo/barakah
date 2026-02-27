@@ -28,15 +28,16 @@ export function ServicesHero() {
       <div className="w-full mx-auto px-4 lg:px-8 relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-0">
           {/* Left Content - 40% */}
-          <div className="w-full lg:w-[40%] text-center lg:text-left">
+          <div className="w-full lg:w-[50%] text-center lg:text-left">
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               className="text-4xl sm:text-6xl lg:text-[84px] font-bold text-[#3D1A10] leading-[1.1] mb-6 lg:mb-8 tracking-[-0.03em] text-balance"
             >
-              Services for a <br className="hidden lg:block" />
-              <span className="text-[#3D1A10]">New Economy.</span>
+              Ethical Marketing Services for a
+              <br className="hidden lg:block" />
+              <span className="text-[#3D1A10]">Modern Economy.</span>
             </motion.h1>
 
             <motion.p
@@ -104,7 +105,7 @@ export function ServicesHero() {
           </div>
 
           {/* Right Visual Element - 60% */}
-          <div className="w-full lg:w-[60%] relative h-[400px] lg:h-[600px] flex items-center justify-center overflow-hidden">
+          <div className="w-full lg:w-[50%] relative h-[400px] lg:h-[600px] flex items-center justify-center overflow-hidden">
             {/* White side gradients */}
             <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#FFFCF9] to-transparent z-10 pointer-events-none" />
             <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#FFFCF9] to-transparent z-10 pointer-events-none" />
