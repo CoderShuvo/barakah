@@ -74,154 +74,158 @@ const slides: SlideData[] = [
 ];
 
 export function GrowthParadox() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollXProgress } = useScroll({
-    container: containerRef,
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
   });
 
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-70%"]);
+
   return (
-    <section className="bg-[#FFFCF9] py-24 lg:py-40 overflow-hidden relative ">
-      {/* Decorative Background Elements */}
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#E76F3D]/5 blur-[120px] rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-[#E76F3D]/5 blur-[150px] rounded-full translate-x-1/3 translate-y-1/3 pointer-events-none" />
+    <section ref={sectionRef} className="relative h-[300vh] bg-[#FFFCF9]">
+      <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center">
+        {/* Decorative Background Elements */}
+        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#E76F3D]/5 blur-[120px] rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-[#E76F3D]/5 blur-[150px] rounded-full translate-x-1/3 translate-y-1/3 pointer-events-none" />
 
-      <div className="container mx-auto px-4 mb-20 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-5xl lg:text-[80px] font-bold text-[#3D1A10] leading-[0.9]"
-          >
-            The Growth <br /> Paradox
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-xl lg:text-3xl text-[#3D1A10]/70 leading-relaxed font-medium pt-4 max-w-xl"
-          >
-            Many brands chase growth at all costs. But optimizing for algorithms
-            instead of people leads to erosion, not expansion. We help you grow
-            in ways that are sustainable, ethical, and human-centered.
-          </motion.p>
-        </div>
-      </div>
-
-      {/* Horizontal Scroll Area */}
-      <div
-        ref={containerRef}
-        className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-10 px-[5vw] lg:px-[10vw] gap-12 lg:gap-24 relative z-10 pl-8"
-      >
-        {/* Left Fixed-ish Section: The Performance Problem */}
-        <div className="flex-shrink-0 max-w-7xl mx-auto lg:w-[450px] snap-start">
-          <div className="flex flex-col h-full">
-            <h3 className="text-4xl lg:text-6xl font-bold text-[#3D1A10] mb-10 leading-tight ml-4 lg:ml-16">
-              The Performance <br /> Problem
-            </h3>
-            <div className="relative ml-4 lg:ml-16  aspect-[4/5] h-[300] min-w-[260px] rounded-[2.5rem] overflow-hidden mb-10 shadow-2xl group">
-              <Image
-                src="/assets/pm1.png"
-                alt="Performance Problem"
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#3D1A10]/60 via-transparent to-transparent opacity-60" />
-            </div>
-            <Button
-              asChild
-              className="w-fit h-16 ml-4 lg:ml-16 px-10 bg-[#E76F3D] hover:bg-[#D46235] text-white rounded-full text-xl font-bold shadow-xl shadow-orange-500/20 group transition-all hover:scale-105"
+        <div className="container mx-auto px-4 mb-12 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-5xl lg:text-[80px] font-bold text-[#3D1A10] leading-[0.9]"
             >
-              <Link href="/contact" className="flex items-center gap-4">
-                Grow with Barakah
-                <div className="bg-white rounded-full p-2 transition-transform group-hover:translate-x-1">
-                  <ArrowRight className="h-5 w-5 text-[#E76F3D]" />
-                </div>
-              </Link>
-            </Button>
+              The Growth <br /> Paradox
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-xl lg:text-3xl text-[#3D1A10]/70 leading-relaxed font-medium pt-4 max-w-xl"
+            >
+              Many brands chase growth at all costs. But optimizing for
+              algorithms instead of people leads to erosion, not expansion. We
+              help you grow in ways that are sustainable, ethical, and
+              human-centered.
+            </motion.p>
           </div>
         </div>
 
-        {/* Slides */}
-        {slides.map((slide) => (
-          <div
-            key={slide.id}
-            className="flex-shrink-0 w-[85vw] lg:w-[1000px] snap-start border-l border-[#3D1A10]/10 pl-12 lg:pl-24"
-          >
-            <div className="grid lg:grid-cols-[1.2fr,1fr] gap-12 lg:gap-24 items-start">
-              {/* Slide Content */}
-              <div>
-                <div className="flex items-center gap-4 mb-8">
-                  <span className="text-[#E76F3D] font-mono text-2xl font-bold italic">
-                    // {slide.number}
-                  </span>
-                  <h4 className="text-3xl lg:text-5xl font-bold text-[#3D1A10] leading-tight">
-                    {slide.title}
-                  </h4>
-                </div>
-
-                <div className="space-y-12">
-                  <div>
-                    <h5 className="text-xl font-bold text-[#3D1A10] mb-3">
-                      The Human Impact
-                    </h5>
-                    <p className="text-lg text-[#3D1A10]/70 leading-relaxed font-medium">
-                      {slide.humanImpact}
-                    </p>
-                  </div>
-
-                  <div>
-                    <h5 className="text-xl font-bold text-[#3D1A10] mb-3">
-                      The Industry Standard
-                    </h5>
-                    <p className="text-lg text-[#3D1A10]/70 leading-relaxed font-medium">
-                      {slide.industryStandard}
-                    </p>
-                  </div>
-                </div>
+        {/* Horizontal Scroll Area */}
+        <motion.div
+          style={{ x }}
+          className="flex whitespace-nowrap gap-12 lg:gap-24 relative z-10 pl-[5vw] lg:pl-[10vw]"
+        >
+          {/* Left Block: The Performance Problem */}
+          <div className="flex-shrink-0 w-[85vw] lg:w-[450px]">
+            <div className="flex flex-col h-full whitespace-normal">
+              <h3 className="text-4xl lg:text-6xl font-bold text-[#3D1A10] mb-10 leading-tight">
+                The Performance <br /> Problem
+              </h3>
+              <div className="relative aspect-[4/5] h-[300px] lg:h-[400px] rounded-[2.5rem] overflow-hidden mb-10 shadow-2xl group">
+                <Image
+                  src="/assets/pm1.png"
+                  alt="Performance Problem"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#3D1A10]/60 via-transparent to-transparent opacity-60" />
               </div>
+              <Button
+                asChild
+                className="w-fit h-16 px-10 bg-[#E76F3D] hover:bg-[#D46235] text-white rounded-full text-xl font-bold shadow-xl shadow-orange-500/20 group transition-all hover:scale-105"
+              >
+                <Link href="/contact" className="flex items-center gap-4">
+                  Grow with Barakah
+                  <div className="bg-white rounded-full p-2 transition-transform group-hover:translate-x-1">
+                    <ArrowRight className="h-5 w-5 text-[#E76F3D]" />
+                  </div>
+                </Link>
+              </Button>
+            </div>
+          </div>
 
-              {/* Slide Image Area */}
-              <div className="space-y-8">
+          {/* Slides */}
+          {slides.map((slide) => (
+            <div
+              key={slide.id}
+              className="flex-shrink-0 w-[85vw] lg:w-[1000px] border-l border-[#3D1A10]/10 pl-12 lg:pl-24 whitespace-normal"
+            >
+              <div className="grid lg:grid-cols-[1.2fr,1fr] gap-12 lg:gap-24 items-start">
+                {/* Slide Content */}
                 <div>
-                  <span className="block text-sm font-bold text-[#3D1A10]/50 uppercase tracking-widest mb-4">
-                    {slide.imageCaption}
-                  </span>
-                  <div className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl">
-                    <Image
-                      src={slide.image}
-                      alt={slide.title}
-                      fill
-                      className="object-cover transition-transform duration-700 hover:scale-110"
-                    />
+                  <div className="flex items-center gap-4 mb-8">
+                    <span className="text-[#E76F3D] font-mono text-2xl font-bold italic">
+                      // {slide.number}
+                    </span>
+                    <h4 className="text-3xl lg:text-5xl font-bold text-[#3D1A10] leading-tight">
+                      {slide.title}
+                    </h4>
+                  </div>
+
+                  <div className="space-y-12">
+                    <div>
+                      <h5 className="text-xl font-bold text-[#3D1A10] mb-3">
+                        The Human Impact
+                      </h5>
+                      <p className="text-lg text-[#3D1A10]/70 leading-relaxed font-medium">
+                        {slide.humanImpact}
+                      </p>
+                    </div>
+
+                    <div>
+                      <h5 className="text-xl font-bold text-[#3D1A10] mb-3">
+                        The Industry Standard
+                      </h5>
+                      <p className="text-lg text-[#3D1A10]/70 leading-relaxed font-medium">
+                        {slide.industryStandard}
+                      </p>
+                    </div>
                   </div>
                 </div>
 
-                <div className="bg-[#3D1A10]/5 p-8 rounded-2xl border border-[#3D1A10]/10">
-                  <h5 className="text-xl font-bold text-[#E76F3D] italic mb-3">
-                    The Barakah Insight
-                  </h5>
-                  <p className="text-lg text-[#3D1A10] leading-relaxed font-medium">
-                    {slide.barakahInsight}
-                  </p>
+                {/* Slide Image Area */}
+                <div className="space-y-8">
+                  <div>
+                    <span className="block text-sm font-bold text-[#3D1A10]/50 uppercase tracking-widest mb-4">
+                      {slide.imageCaption}
+                    </span>
+                    <div className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl">
+                      <Image
+                        src={slide.image}
+                        alt={slide.title}
+                        fill
+                        className="object-cover transition-transform duration-700 hover:scale-110"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="bg-[#3D1A10]/5 p-8 rounded-2xl border border-[#3D1A10]/10">
+                    <h5 className="text-xl font-bold text-[#E76F3D] italic mb-3">
+                      The Barakah Insight
+                    </h5>
+                    <p className="text-lg text-[#3D1A10] leading-relaxed font-medium">
+                      {slide.barakahInsight}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </motion.div>
 
-      {/* Progress Bar */}
-      <div className="container mx-auto px-4 mt-12 hidden lg:block">
-        <div className="w-full h-px bg-[#3D1A10]/10 relative">
-          <motion.div
-            className="absolute top-0 left-0 h-full bg-[#E76F3D]"
-            style={{ scaleX: scrollXProgress, originX: 0 }}
-          />
+        {/* Progress Bar */}
+        <div className="container mx-auto px-4 mt-20 hidden lg:block relative z-10">
+          <div className="w-full h-px bg-[#3D1A10]/10 relative">
+            <motion.div
+              className="absolute top-0 left-0 h-full bg-[#E76F3D]"
+              style={{ scaleX: scrollYProgress, originX: 0 }}
+            />
+          </div>
         </div>
       </div>
-
       <style jsx global>{`
         .scrollbar-hide::-webkit-scrollbar {
           display: none;

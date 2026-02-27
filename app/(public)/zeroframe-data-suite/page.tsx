@@ -55,7 +55,7 @@ export default function ZeroFramePage() {
       <AttributionReporting />
       <TargetingScoring />
       <ZeroFramePersonafied />
-      <MultiChannelAttribution />
+      {/* <MultiChannelAttribution /> */}
       <ZeroFrameFinalCTA />
     </>
   );

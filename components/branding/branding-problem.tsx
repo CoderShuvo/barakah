@@ -1,10 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Section } from "@/components/global";
 import Image from "next/image";
+import React, { useState } from "react";
 
 const leftItems = [
   {
@@ -25,53 +26,127 @@ const leftItems = [
   },
 ];
 
-const rightGrid = [
-  {
-    type: "card",
-    title: "The Explainer's Fatigue",
-    content:
-      "You’re spending 80% of your energy explaining what you do — leaving only 20% to actually close. When clarity is missing, your audience makes you work harder for their attention.",
-    color: "#E76F3D",
-  },
-  {
-    type: "card",
-    title: "The Friction",
-    content:
-      "Your digital presence feels like a collection of strangers. Different voices. Different visuals. One confused audience that doesn’t know where to focus — or why to care.",
-    color: "#E76F3D",
-  },
-  {
-    type: "image",
-    src: "https://images.unsplash.com/photo-1542332213-9b5a5a3fad35?q=80&w=800&auto=format&fit=crop",
-    alt: "Red Tree",
-  },
-  {
-    type: "image",
-    src: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop",
-    alt: "Woman with Flowers",
-  },
-  {
-    type: "card",
-    title: "The Trust Variable",
-    content:
-      "Your digital presence feels like a collection of strangers. Different voices. Different visuals. One confused audience that doesn’t know where to focus — or why to care.",
-    color: "#E76F3D",
-  },
-  {
-    type: "card",
-    title: 'The "Hollow" Metric',
-    content:
-      "Your digital presence feels like a collection of strangers. Different voices. Different visuals. One confused audience that doesn’t know where to focus — or why to care.",
-    color: "#E76F3D",
-  },
-  {
-    type: "image",
-    src: "https://images.unsplash.com/photo-1516233758813-a38d024919c5?q=80&w=800&auto=format&fit=crop",
-    alt: "Rice Terraces",
-  },
-];
+const tabContent = {
+  "Surface-Level Trap": [
+    {
+      type: "image",
+      src: "/assets/card-1-explainers-fatigue.png",
+      alt: "Explainer's Fatigue",
+    },
+    {
+      type: "image",
+      src: "/assets/card-2-the-friction.png",
+      alt: "The Friction",
+    },
+    {
+      type: "image",
+      src: "https://images.unsplash.com/photo-1542332213-9b5a5a3fad35?q=80&w=800&auto=format&fit=crop",
+      alt: "Red Tree",
+    },
+    {
+      type: "image",
+      src: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop",
+      alt: "Woman with Flowers",
+    },
+    {
+      type: "image",
+      src: "/assets/card-4-trust-variable.png",
+      alt: "Trust Variable",
+    },
+    {
+      type: "image",
+      src: "/assets/card-6-hollow-metric.png",
+      alt: "Hollow Metric",
+    },
+
+    {
+      type: "image",
+      src: "https://images.unsplash.com/photo-1516233758813-a38d024919c5?q=80&w=800&auto=format&fit=crop",
+      alt: "Rice Terraces",
+    },
+  ],
+  'The "Inconsistency" Tax': [
+    {
+      type: "image",
+      src: "/assets/inconsistency-1-disconnected-messages.png",
+      alt: "Inconsistency 1",
+    },
+    {
+      type: "image",
+      src: "/assets/inconsistency-2-lower-conversions.png",
+      alt: "Inconsistency 2",
+    },
+    {
+      type: "image",
+      src: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop",
+      alt: "Inconsistency 3",
+    },
+    {
+      type: "image",
+      src: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop",
+      alt: "Inconsistency 4",
+    },
+    {
+      type: "image",
+      src: "/assets/inconsistency-3-longer-sales-cycles.png",
+      alt: "Inconsistency 5",
+    },
+    {
+      type: "image",
+      src: "/assets/inconsistency-4-diluted-equity.png",
+      alt: "Inconsistency 6",
+    },
+    {
+      type: "image",
+      src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=800&auto=format&fit=crop",
+      alt: "Inconsistency 7",
+    },
+  ],
+  "Growth Without Gravity": [
+    {
+      type: "image",
+      src: "/assets/gravity-1-fragile-loyalty.png",
+      alt: "Growth 1",
+    },
+    {
+      type: "image",
+      src: "/assets/gravity-2-temporary-differentiation.png",
+      alt: "Growth 2",
+    },
+    {
+      type: "image",
+      src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800&auto=format&fit=crop",
+      alt: "Growth 3",
+    },
+    {
+      type: "image",
+      src: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=800&auto=format&fit=crop",
+      alt: "Growth 4",
+    },
+    {
+      type: "image",
+      src: "/assets/gravity-3-no-compounding.png",
+      alt: "Growth 5",
+    },
+    {
+      type: "image",
+      src: "/assets/gravity-4-outward-but-hollow.png",
+      alt: "Growth 6",
+    },
+    {
+      type: "image",
+      src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=800&auto=format&fit=crop",
+      alt: "Growth 7",
+    },
+  ],
+};
 
 export function BrandingProblem() {
+  const [activeTab, setActiveTab] = useState(leftItems[0].title);
+  const currentGrid =
+    tabContent[activeTab as keyof typeof tabContent] ||
+    tabContent["Surface-Level Trap"];
+
   return (
     <Section className="bg-[#FFFCF9] py-24">
       <div className="container mx-auto px-4">
@@ -101,28 +176,43 @@ export function BrandingProblem() {
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
           {/* Left Column - Problem List */}
           <div className="space-y-12 sticky top-32">
-            {leftItems.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className={`flex gap-6 relative group cursor-default`}
-              >
-                {item.active && (
-                  <div className="absolute left-[-24px] top-2 bottom-2 w-1.5 bg-[#E76F3D] rounded-full" />
-                )}
-                <div className="transition-transform duration-300 group-hover:translate-x-2">
-                  <h3 className="text-2xl lg:text-4xl font-bold text-[#3D1A10] mb-4 tracking-tight">
-                    {item.title}
-                  </h3>
-                  <p className="text-lg lg:text-xl text-[#3D1A10]/60 leading-relaxed max-w-lg font-medium">
-                    {item.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+            {leftItems.map((item, index) => {
+              const isActive = activeTab === item.title;
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  onClick={() => setActiveTab(item.title)}
+                  className={`flex gap-6 relative group cursor-pointer`}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeBar"
+                      className="absolute left-[-24px] top-2 bottom-2 w-1.5 bg-[#E76F3D] rounded-full"
+                    />
+                  )}
+                  <div className="transition-transform duration-300 group-hover:translate-x-2">
+                    <h3
+                      className={`text-2xl lg:text-4xl font-bold mb-4 tracking-tight transition-colors duration-300 ${
+                        isActive ? "text-[#3D1A10]" : "text-[#3D1A10]/40"
+                      }`}
+                    >
+                      {item.title}
+                    </h3>
+                    <p
+                      className={`text-lg lg:text-xl leading-relaxed max-w-lg font-medium transition-colors duration-300 ${
+                        isActive ? "text-[#3D1A10]/60" : "text-[#3D1A10]/20"
+                      }`}
+                    >
+                      {item.description}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -133,9 +223,27 @@ export function BrandingProblem() {
             >
               <Button
                 asChild
-                className="bg-[#E76F3D] hover:bg-[#D46235] text-white rounded-full h-16 px-10 text-xl font-bold group shadow-xl shadow-orange-500/10"
+                className=" bg-[#E76F3D]
+    text-white
+    font-bold
+    text-base sm:text-lg
+    rounded-[56px]
+    w-full sm:w-auto
+    px-[16px] sm:px-[20px]
+    py-[6px]
+    h-[48px] sm:h-[52px]
+
+    inline-flex
+    items-center
+    justify-center
+    gap-[10px]
+
+    shadow-[inset_0_4px_4px_rgba(0,0,0,0.25)]
+
+    hover:bg-[#d46235]
+    transition-all"
               >
-                <a href="#contact" className="flex items-center gap-4">
+                <a href="/contact" className="flex items-center gap-4">
                   Build with Barakah
                   <div className="bg-white rounded-full p-2 transition-transform group-hover:translate-x-1">
                     <ArrowRight className="h-6 w-6 text-[#E76F3D]" />
@@ -146,49 +254,65 @@ export function BrandingProblem() {
           </div>
 
           {/* Right Column - Staggered Grid */}
-          <div className="grid grid-cols-2 gap-4">
-            {/* Column 1 */}
-            <div className="space-y-4">
-              {/* The Explainer's Fatigue */}
-              <Card item={rightGrid[0]} />
-              {/* Red Tree Image */}
-              <GridImage item={rightGrid[2]} className="aspect-[4/5]" />
-              {/* The Trust Variable */}
-              <Card item={rightGrid[4]} />
-            </div>
+          <div className="grid grid-cols-2 gap-4 h-fit">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
+                className="contents"
+              >
+                {/* Column 1 */}
+                <div className="space-y-4">
+                  {currentGrid[0] && (
+                    <GridImage
+                      item={currentGrid[0]}
+                      className="aspect-square"
+                    />
+                  )}
+                  {currentGrid[2] && (
+                    <GridImage item={currentGrid[2]} className="aspect-[4/5]" />
+                  )}
+                  {currentGrid[4] && (
+                    <GridImage
+                      item={currentGrid[4]}
+                      className="aspect-square"
+                    />
+                  )}
+                </div>
 
-            {/* Column 2 */}
-            <div className="space-y-4 mt-8 lg:mt-12">
-              {/* The Friction */}
-              <Card item={rightGrid[1]} />
-              {/* Woman Image */}
-              <GridImage item={rightGrid[3]} className="aspect-square" />
-              {/* The Hollow Metric */}
-              <Card item={rightGrid[5]} />
-              {/* Rice Terraces Image */}
-              <GridImage item={rightGrid[6]} className="aspect-[4/3]" />
-            </div>
+                {/* Column 2 */}
+                <div className="space-y-4 mt-8 lg:mt-12">
+                  {currentGrid[1] && (
+                    <GridImage
+                      item={currentGrid[1]}
+                      className="aspect-square"
+                    />
+                  )}
+                  {currentGrid[3] && (
+                    <GridImage
+                      item={currentGrid[3]}
+                      className="aspect-square"
+                    />
+                  )}
+                  {currentGrid[5] && (
+                    <GridImage
+                      item={currentGrid[5]}
+                      className="aspect-square"
+                    />
+                  )}
+                  {currentGrid[6] && (
+                    <GridImage item={currentGrid[6]} className="aspect-[4/3]" />
+                  )}
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </div>
     </Section>
-  );
-}
-
-function Card({ item }: { item: any }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true }}
-      className="p-6 lg:p-10 rounded-2xl text-white h-fit"
-      style={{ backgroundColor: item.color }}
-    >
-      <h4 className="text-xl lg:text-2xl font-bold mb-4">{item.title}</h4>
-      <p className="text-sm lg:text-base opacity-90 leading-relaxed font-medium">
-        {item.content}
-      </p>
-    </motion.div>
   );
 }
 

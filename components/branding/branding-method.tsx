@@ -11,48 +11,42 @@ const steps = [
     title: "Soul Forensic",
     description:
       "A deep audit of your current assets, stakeholder interviews, and a forensic look at your market's 'unmet needs.' We find the gap where your conviction meets a commercial void.",
-    image:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200",
+    image: "/assets/step1-soul-forensic.png",
   },
   {
     id: "02",
     title: "Visual Incarnation",
     description:
       "Translating your brand's essence into a cohesive visual system. This isn't just about aesthetics; it's about creating a visual language that communicates your legacy before a single word is read.",
-    image:
-      "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=1200",
+    image: "/assets/step2-visual-incarnation.png",
   },
   {
     id: "03",
     title: "Strategic Alignment",
     description:
       "Ensuring every touchpoint—from your internal culture to your external marketing—is perfectly synchronized with your core mission and long-term goals.",
-    image:
-      "https://images.unsplash.com/photo-1557682250-33bd709cbe85?q=80&w=1200",
+    image: "/assets/step3-strategic-alignment.png",
   },
   {
     id: "04",
     title: "System Architecture",
     description:
       "Designing the scalable systems and frameworks that allow your brand to grow without losing its soul. We build technical foundations for enduring impact.",
-    image:
-      "https://images.unsplash.com/photo-1516116216624-53e697fedbea?q=80&w=1200",
+    image: "/assets/step4-system-architecture.png",
   },
   {
     id: "05",
     title: "Behavioral Identity",
     description:
       "Defining how your brand acts, speaks, and responds in the world. We move beyond visual identity to create a brand that lives its values through every action.",
-    image:
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200",
+    image: "/assets/step5-behavioral-identity.png",
   },
   {
     id: "06",
     title: "Legacy stewardship",
     description:
       "Continuous optimization and monitoring to ensure your brand remains relevant and impactful for generations. We help you manage your most valuable asset.",
-    image:
-      "https://images.unsplash.com/photo-1507679799987-c7377bc5869a?q=80&w=1200",
+    image: "/assets/step6-legacy-stewardship.png",
   },
 ];
 

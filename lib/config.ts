@@ -30,8 +30,8 @@ export const siteConfig = {
       href: "/services",
       items: [
         { name: "Our Solutions", href: "/services", description: "Where strategy, technology, and trust converge to build systems that scale with purpose." },
-        { name: "Branding & Identity", href: "/services/branding", description: "Define your brand with clarity and soul – from visuals to voice – rooted in strategy and culture." },
-        { name: "ZeroFrame™ Intelligence", href: "/zero-frame", description: "Real-time targeting, visitor scoring, and dynamic personas so you market smarter, not louder." },
+        { name: "Branding & Identity", href: "/services/branding-identity", description: "Define your brand with clarity and soul – from visuals to voice – rooted in strategy and culture." },
+        { name: "ZeroFrame™ Intelligence", href: "/zeroframe-data-suite", description: "Real-time targeting, visitor scoring, and dynamic personas so you market smarter, not louder." },
         { name: "Performance Marketing", href: "/services/performance-marketing", description: "Full-funnel campaigns that align ethical strategy with measurable growth – built to earn trust, not just clicks." }
       ]
     },
@@ -61,7 +61,7 @@ export const siteConfig = {
       id: "branding",
       name: "Branding",
       description: "Build a powerful, authentic brand identity",
-      href: "/services/branding",
+      href: "/services/branding-identity",
     },
     {
       id: "performance-marketing",
@@ -83,7 +83,7 @@ export const siteConfig = {
     {
       title: "Services",
       links: [
-        { name: "Branding", href: "/services/branding" },
+        { name: "Branding", href: "/services/branding-identity" },
         { name: "Performance Marketing", href: "/services/performance-marketing" },
       ],
     },
@@ -93,7 +93,7 @@ export const siteConfig = {
         { name: "Blog", href: "/blog" },
         { name: "Case Studies", href: "/case-studies" },
         { name: "Ethical Marketing Hub", href: "/ethical-marketing-hub" },
-        { name: "Zero Frame", href: "/zero-frame" },
+        { name: "Zero Frame", href: "/zeroframe-data-suite" },
       ],
     },
   ],

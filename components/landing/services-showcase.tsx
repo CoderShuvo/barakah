@@ -137,7 +137,7 @@ export function ServicesShowcase() {
     transition-all hover:opacity-90"
               >
                 <Link
-                  href="/services/branding"
+                  href="/services/branding-identity"
                   className="flex text-[18px] font-bold items-center justify-center gap-3"
                 >
                   Craft Your Legacy
@@ -257,7 +257,7 @@ export function ServicesShowcase() {
     transition-all hover:opacity-90"
               >
                 <Link
-                  href="/zero-frame"
+                  href="/zeroframe-data-suite"
                   className="flex text-[18px] font-bold items-center justify-center gap-3"
                 >
                   Scale Smarter

@@ -66,8 +66,14 @@ export function Footer() {
             <ul className="space-y-3">
               {[
                 { name: "Our Solutions", href: "/services" },
-                { name: "Branding and Identity", href: "/services/branding" },
-                { name: "ZeroFrame™ Intelligence", href: "/zero-frame" },
+                {
+                  name: "Branding and Identity",
+                  href: "/services/branding-identity",
+                },
+                {
+                  name: "ZeroFrame™ Intelligence",
+                  href: "/zeroframe-data-suite",
+                },
                 {
                   name: "Performance Marketing",
                   href: "/services/performance-marketing",

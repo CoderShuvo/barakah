@@ -11,8 +11,7 @@ const services = [
     description:
       "We take the time to understand your context before recommending solutions. By grounding every engagement in clear objectives, constraints, and priorities, we ensure strategy is intentional and aligned — not reactive or rushed.",
     process: "Audit → Extraction → White-space → Manifesto",
-    image:
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200",
+    image: "/assets/tai1.png",
   },
   {
     id: "02",
@@ -20,8 +19,7 @@ const services = [
     description:
       "We take the time to understand your context before recommending solutions. By grounding every engagement in clear objectives, constraints, and priorities, we ensure strategy is intentional and aligned — not reactive or rushed.",
     process: "Concept → Refinement → Art Direction → Identity Suite",
-    image:
-      "https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1200",
+    image: "/assets/tai2.png",
   },
   {
     id: "03",
@@ -29,8 +27,7 @@ const services = [
     description:
       "We take the time to understand your context before recommending solutions. By grounding every engagement in clear objectives, constraints, and priorities, we ensure strategy is intentional and aligned — not reactive or rushed.",
     process: "Linguistics → Persona → Frameworks → Source Code",
-    image:
-      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200",
+    image: "/assets/tai3.png",
   },
   {
     id: "04",
@@ -38,8 +35,7 @@ const services = [
     description:
       "We take the time to understand your context before recommending solutions. By grounding every engagement in clear objectives, constraints, and priorities, we ensure strategy is intentional and aligned — not reactive or rushed.",
     process: "Blueprints → Documentation → Asset Hub → Governance",
-    image:
-      "https://images.unsplash.com/photo-1581291518062-c9a7941bd838?q=80&w=1200",
+    image: "/assets/tai4.png",
   },
 ];
 
@@ -67,7 +63,7 @@ export function BrandingServices() {
           </motion.h2>
         </div>
 
-        <div className="space-y-0">
+        <div className="space-y-6">
           {services.map((service, index) => (
             <motion.div
               key={service.id}
@@ -77,17 +73,17 @@ export function BrandingServices() {
               transition={{ delay: index * 0.1 }}
               className="py-16 first:pt-0 border-t border-[#3D1A10]/10 last:border-b"
             >
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative group">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start py-8 relative group">
                 {/* Number Section */}
                 <div className="lg:col-span-2">
-                  <span className="text-3xl lg:text-4xl font-serif text-[#3D1A10] font-medium opacity-80 group-hover:opacity-100 transition-opacity">
+                  <span className="text-3xl lg:text-5xl font-lato text-[#3D1A10] font-medium opacity-80 group-hover:opacity-100 transition-opacity">
                     [ {service.id} ]
                   </span>
                 </div>
 
                 {/* Main Content Section */}
                 <div className="lg:col-span-6 space-y-8">
-                  <h3 className="text-3xl lg:text-5xl font-bold text-[#3D1A10] tracking-tight group-hover:translate-x-2 transition-transform duration-300">
+                  <h3 className="text-3xl lg:text-5xl font-regular font-lato text-[#3D1A10]group-hover:translate-x-2 transition-transform duration-300">
                     {service.title}
                   </h3>
                   <p className="text-lg lg:text-xl text-[#3D1A10]/60 leading-relaxed font-medium max-w-2xl">

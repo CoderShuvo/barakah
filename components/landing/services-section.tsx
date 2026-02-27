@@ -16,7 +16,7 @@ const services = [
     title: "Branding",
     description:
       "Build a powerful, authentic brand identity that resonates with your audience and reflects your values.",
-    href: "/services/branding",
+    href: "/services/branding-identity",
   },
   {
     icon: BarChart3,

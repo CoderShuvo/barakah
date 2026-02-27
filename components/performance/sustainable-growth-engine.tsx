@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
 
@@ -90,77 +90,81 @@ const steps: StepData[] = [
 ];
 
 export function SustainableGrowthEngine() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollXProgress } = useScroll({
-    container: containerRef,
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
   });
 
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-80%"]);
+
   return (
-    <section className="bg-white py-24 lg:py-40 overflow-hidden">
-      <div className="container mx-auto px-4 mb-20 lg:mb-32">
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-5xl lg:text-[80px] font-bold text-[#3D1A10] leading-none mb-10"
-        >
-          The Sustainable <br /> Growth Engine
-        </motion.h2>
-      </div>
-
-      {/* Horizontal Scroll Area */}
-      <div
-        ref={containerRef}
-        className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide px-[5vw] lg:px-[10vw] gap-12 lg:gap-24"
-      >
-        {steps.map((step) => (
-          <div
-            key={step.id}
-            className="flex-shrink-0 w-[85vw] lg:w-[600px] snap-start"
+    <section ref={sectionRef} className="relative h-[400vh] bg-white">
+      <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center">
+        <div className="container mx-auto px-4 mb-12">
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-5xl lg:text-[80px] font-bold text-[#3D1A10] leading-none"
           >
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12 items-start">
-              {/* Left Info */}
-              <div>
-                <span className="block text-[#3D1A10]/50 font-mono font-bold mb-4">
-                  {step.stepNumber}
-                </span>
-                <h3 className="text-3xl lg:text-4xl font-bold text-[#3D1A10] mb-6 relative inline-block">
-                  {step.title}
-                  <motion.div
-                    className="absolute bottom-1 left-0 h-1 bg-blue-500/30"
-                    initial={{ width: 0 }}
-                    whileInView={{ width: "100%" }}
-                    transition={{ duration: 1, delay: 0.5 }}
-                  />
-                </h3>
-                <p className="text-lg text-[#3D1A10]/70 leading-relaxed font-medium">
-                  {step.description}
-                </p>
+            The Sustainable <br /> Growth Engine
+          </motion.h2>
+        </div>
+
+        {/* Horizontal Scroll Area */}
+        <motion.div
+          style={{ x }}
+          className="flex whitespace-nowrap gap-12 lg:gap-24 px-[5vw] lg:px-[10vw]"
+        >
+          {steps.map((step) => (
+            <div
+              key={step.id}
+              className="flex-shrink-0 w-[85vw] lg:w-[600px] whitespace-normal"
+            >
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12 items-start">
+                {/* Left Info */}
+                <div>
+                  <span className="block text-[#3D1A10]/50 font-mono font-bold mb-4">
+                    {step.stepNumber}
+                  </span>
+                  <h3 className="text-3xl lg:text-4xl font-bold text-[#3D1A10] mb-6 relative inline-block">
+                    {step.title}
+                    <motion.div
+                      className="absolute bottom-1 left-0 h-1 bg-blue-500/30"
+                      initial={{ width: 0 }}
+                      whileInView={{ width: "100%" }}
+                      transition={{ duration: 1, delay: 0.5 }}
+                    />
+                  </h3>
+                  <p className="text-lg text-[#3D1A10]/70 leading-relaxed font-medium">
+                    {step.description}
+                  </p>
+                </div>
+
+                {/* Right Fact Card */}
+                <div className="bg-orange-50/50 p-6 rounded-2xl border border-orange-100/50">
+                  <span className="block text-[#E76F3D] font-bold italic mb-3">
+                    {step.factTitle}
+                  </span>
+                  <p className="text-sm lg:text-base text-[#E76F3D]/80 leading-relaxed italic font-medium">
+                    {step.factContent}
+                  </p>
+                </div>
               </div>
 
-              {/* Right Fact Card */}
-              <div className="bg-orange-50/50 p-6 rounded-2xl border border-orange-100/50">
-                <span className="block text-[#E76F3D] font-bold italic mb-3">
-                  {step.factTitle}
-                </span>
-                <p className="text-sm lg:text-base text-[#E76F3D]/80 leading-relaxed italic font-medium">
-                  {step.factContent}
-                </p>
+              {/* Step Image */}
+              <div className="relative aspect-[16/9] lg:aspect-[4/3] rounded-[2rem] overflow-hidden shadow-2xl group">
+                <Image
+                  src={step.image}
+                  alt={step.title}
+                  fill
+                  className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
             </div>
-
-            {/* Step Image */}
-            <div className="relative aspect-[16/9] lg:aspect-[4/3] rounded-[2rem] overflow-hidden shadow-2xl group">
-              <Image
-                src={step.image}
-                alt={step.title}
-                fill
-                className="object-cover transition-transform duration-1000 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            </div>
-          </div>
-        ))}
+          ))}
+        </motion.div>
       </div>
 
       <style jsx global>{`

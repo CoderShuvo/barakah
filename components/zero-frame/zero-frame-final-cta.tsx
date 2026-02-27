@@ -54,9 +54,9 @@ export function ZeroFrameFinalCTA() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="w-full mx-auto space-y-8 mt-[-8vh]"
+          className="w-full mx-auto space-y-8 mt-[-6vh]"
         >
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-[#3F1200] font-lato leading-tight tracking-tight">
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-[#3F1200] font-lato leading-tight tracking-wide">
             Ready to Centralize Your Growth Stack?
           </h2>
 

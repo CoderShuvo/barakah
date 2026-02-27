@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Quote } from "lucide-react";
+import { Quote, ArrowLeft, ArrowRight } from "lucide-react";
 import { Section } from "@/components/global";
 import Image from "next/image";
 
@@ -13,8 +13,7 @@ const slides = [
     description:
       'We move beyond "Visual Identity" to "Behavioral Identity." We design how your brand speaks, acts, and resolves conflict.',
     highlight: "A brand isn't what you say; it's what you do.",
-    centerImage:
-      "/assets/b1.jpg",
+    centerImage: "/assets/b1.jpg",
     rightQuote:
       "When your brand becomes an experience rather than a logo, your customers become your strongest advocates.",
   },
@@ -24,8 +23,7 @@ const slides = [
     description:
       "In a skeptical world, radical transparency and values-led decision-making create a 'moat' around your business that competitors cannot copy.",
     highlight: "Integrity is the ultimate differentiator.",
-    centerImage:
-      "/assets/b2.jpg",
+    centerImage: "/assets/b2.jpg",
     rightQuote:
       "We don't see ethics as a restriction, but as a filter that attracts the right audience and repels the wrong one.",
   },
@@ -35,8 +33,7 @@ const slides = [
     description:
       "True growth (Barakah) happens when your internal mission and your external expression are perfectly synchronized.",
     highlight: "Beauty is the byproduct of truth.",
-    centerImage:
-      "/assets/b3.jpg",
+    centerImage: "/assets/b3.jpg",
     rightQuote:
       "We prioritize 'Strategic Fit' over 'Creative Trends.' If a design is beautiful but doesn't align with your soul, it is a failure.",
   },
@@ -113,28 +110,46 @@ export function BrandingLegacy() {
                 </div>
 
                 {/* Progress Bar / Navigation */}
-                <div className="flex items-center gap-4 pt-4">
-                  <div
-                    className="w-10 h-10 rounded-full border-2 border-[#E76F3D] flex items-center justify-center font-bold text-[#E76F3D] bg-white cursor-pointer hover:bg-[#E76F3D]/10 transition-colors"
-                    onClick={prevSlide}
-                  >
-                    {slides[currentSlide].id}
+                <div className="space-y-6">
+                  <div className="flex items-center gap-4 pt-4">
+                    <div
+                      className="w-10 h-10 rounded-full border-2 border-[#E76F3D] flex items-center justify-center font-bold text-[#E76F3D] bg-white cursor-pointer hover:bg-[#E76F3D]/10 transition-colors"
+                      onClick={prevSlide}
+                    >
+                      {slides[currentSlide].id}
+                    </div>
+                    <div className="flex-grow h-[2px] bg-[#E76F3D]/20 relative">
+                      <motion.div
+                        className="absolute top-0 left-0 h-full bg-[#E76F3D]"
+                        initial={{ width: "0%" }}
+                        animate={{
+                          width: `${(slides[currentSlide].id / slides.length) * 100}%`,
+                        }}
+                        transition={{ duration: 0.6 }}
+                      />
+                    </div>
+                    <div
+                      className="w-10 h-10 rounded-full border-2 border-[#E76F3D]/20 flex items-center justify-center font-bold text-[#3D1A10]/40 bg-white cursor-pointer hover:bg-[#E76F3D]/5 transition-colors"
+                      onClick={nextSlide}
+                    >
+                      {slides.length}
+                    </div>
                   </div>
-                  <div className="flex-grow h-[2px] bg-[#E76F3D]/20 relative">
-                    <motion.div
-                      className="absolute top-0 left-0 h-full bg-[#E76F3D]"
-                      initial={{ width: "0%" }}
-                      animate={{
-                        width: `${(slides[currentSlide].id / slides.length) * 100}%`,
-                      }}
-                      transition={{ duration: 0.6 }}
-                    />
-                  </div>
-                  <div
-                    className="w-10 h-10 rounded-full border-2 border-[#E76F3D]/20 flex items-center justify-center font-bold text-[#3D1A10]/40 bg-white cursor-pointer hover:bg-[#E76F3D]/5 transition-colors"
-                    onClick={nextSlide}
-                  >
-                    {slides.length}
+
+                  {/* Navigation Arrows */}
+                  <div className="flex items-center gap-6 pl-2">
+                    <button
+                      onClick={prevSlide}
+                      className="group flex items-center justify-center w-12 h-12 rounded-full border border-[#E76F3D]/20 hover:border-[#E76F3D] transition-all duration-300"
+                    >
+                      <ArrowLeft className="h-6 w-6 text-[#E76F3D] transition-transform group-hover:-translate-x-1" />
+                    </button>
+                    <button
+                      onClick={nextSlide}
+                      className="group flex items-center justify-center w-12 h-12 rounded-full border border-[#E76F3D]/20 hover:border-[#E76F3D] transition-all duration-300"
+                    >
+                      <ArrowRight className="h-6 w-6 text-[#E76F3D] transition-transform group-hover:translate-x-1" />
+                    </button>
                   </div>
                 </div>
               </div>

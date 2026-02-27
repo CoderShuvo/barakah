@@ -10,6 +10,7 @@ import {
   ProofOfPerformanceSection,
   FinalCTASection,
 } from "@/components/landing";
+import { BrandsSection } from "@/components/landing/brands-section";
 
 export const metadata: Metadata = {
   title: "Performance Marketing & Paid Media",
@@ -24,7 +25,8 @@ export default function PerformanceMarketingPage() {
       <GrowthParadox />
       <PerformancePhilosophy />
       <SustainableGrowthEngine />
-      <PerformanceTools />
+      {/* <PerformanceTools /> */}
+      <BrandsSection />
       <ProofOfPerformanceSection />
       <FinalCTASection buttonLabel="Grow with Barakah" />
     </main>
