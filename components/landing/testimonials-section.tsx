@@ -19,7 +19,7 @@ const testimonials = [
     company: "Mesghali Studio",
     rating: 5,
     text: "I was very happy working with Barakah Agency and would consider working with them again in the near future.",
-    author: "Hassan Mesghali",
+    author: "Ehsaan Mesghali",
     role: "Creative Director",
     avatar: "/placeholder-avatar-2.jpg",
   },

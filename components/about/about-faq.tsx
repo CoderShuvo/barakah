@@ -20,7 +20,7 @@ const faqItems = [
   {
     question: "What makes your approach different?",
     answer:
-      "Our approach is grounded in the Barakah Method — a unique synthesis of ethical principles and high-performance marketing that ensures growth honors purpose, people, and planet.",
+      "Our approach is grounded in The Barakah Method — a unique synthesis of ethical principles and high-performance marketing that ensures growth honors purpose, people, and planet.",
   },
   {
     question: "What does ethical growth mean?",

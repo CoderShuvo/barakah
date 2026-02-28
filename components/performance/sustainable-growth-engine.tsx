@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 
 interface StepData {
@@ -91,14 +91,32 @@ const steps: StepData[] = [
 
 export function SustainableGrowthEngine() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scrollRange, setScrollRange] = useState(0);
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
+    offset: ["start start", "end end"],
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-80%"]);
+  useEffect(() => {
+    const calculateScrollRange = () => {
+      if (containerRef.current) {
+        setScrollRange(
+          containerRef.current.scrollWidth - window.innerWidth + 200,
+        );
+      }
+    };
+
+    calculateScrollRange();
+    window.addEventListener("resize", calculateScrollRange);
+    return () => window.removeEventListener("resize", calculateScrollRange);
+  }, []);
+
+  const x = useTransform(scrollYProgress, [0, 1], [0, -scrollRange]);
 
   return (
-    <section ref={sectionRef} className="relative h-[400vh] bg-white">
+    <section ref={sectionRef} className="relative h-[500vh] bg-white">
       <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center">
         <div className="container mx-auto px-4 mb-12">
           <motion.h2
@@ -113,6 +131,7 @@ export function SustainableGrowthEngine() {
 
         {/* Horizontal Scroll Area */}
         <motion.div
+          ref={containerRef}
           style={{ x }}
           className="flex whitespace-nowrap gap-12 lg:gap-24 px-[5vw] lg:px-[10vw]"
         >

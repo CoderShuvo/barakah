@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -75,14 +75,32 @@ const slides: SlideData[] = [
 
 export function GrowthParadox() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scrollRange, setScrollRange] = useState(0);
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
+    offset: ["start start", "end end"],
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-70%"]);
+  useEffect(() => {
+    const calculateScrollRange = () => {
+      if (containerRef.current) {
+        setScrollRange(
+          containerRef.current.scrollWidth - window.innerWidth + 200,
+        ); // Add a small buffer for comfort
+      }
+    };
+
+    calculateScrollRange();
+    window.addEventListener("resize", calculateScrollRange);
+    return () => window.removeEventListener("resize", calculateScrollRange);
+  }, []);
+
+  const x = useTransform(scrollYProgress, [0, 1], [0, -scrollRange]);
 
   return (
-    <section ref={sectionRef} className="relative h-[300vh] bg-[#FFFCF9]">
+    <section ref={sectionRef} className="relative h-[600vh] bg-[#FFFCF9]">
       <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center">
         {/* Decorative Background Elements */}
         <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#E76F3D]/5 blur-[120px] rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
@@ -115,6 +133,7 @@ export function GrowthParadox() {
 
         {/* Horizontal Scroll Area */}
         <motion.div
+          ref={containerRef}
           style={{ x }}
           className="flex whitespace-nowrap gap-12 lg:gap-24 relative z-10 pl-[5vw] lg:pl-[10vw]"
         >

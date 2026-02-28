@@ -68,7 +68,7 @@ export function MethodLegacy() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative overflow-hidden bg-transparent aspect-video  flex items-center justify-center p-12"
+            className="relative overflow-hidden bg-transparent aspect-video  flex items-center justify-center"
           >
             <div className="relative w-full pt-[56.25%] rounded-2xl overflow-hidden">
               <iframe
@@ -93,7 +93,7 @@ export function MethodLegacy() {
           className="flex justify-start"
         >
           <Link
-            href="/barakah-ecosystem"
+            href="/the-barakah-ecosystem"
             className="
     hidden sm:inline-flex items-center gap-3
     bg-[#E76F3D]

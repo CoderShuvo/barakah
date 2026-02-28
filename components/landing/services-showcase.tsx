@@ -231,15 +231,14 @@ export function ServicesShowcase() {
                 initial={{ y: 60, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                className="flex-1 flex items-end justify-center mb-0"
+                className="flex-1 flex items-center md:items-end justify-center"
               >
-                <div className="relative w-full h-full">
-                  {/* Concentric circles */}
+                <div className="relative w-full h-[400px] sm:h-[400px] md:h-full">
                   <Image
                     src="/assets/Graph.png"
                     alt="Radar"
-                    className="w-full min-h-[600px] object-cover"
                     fill
+                    className="object-fit"
                   />
                 </div>
               </motion.div>
@@ -362,12 +361,12 @@ export function ServicesShowcase() {
                 transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
                 className="flex-1 flex items-end justify-center mb-8"
               >
-                <div className="relative w-full h-full">
+                <div className="relative w-full h-[400px] sm:h-[400px] md:h-full">
                   {/* Concentric circles */}
                   <Image
                     src="/assets/thirdcard.png"
                     alt="Radar"
-                    className="w-full min-h-[550px] object-cover"
+                    className="w-full min-h-[550px] object-fit"
                     fill
                   />
                 </div>

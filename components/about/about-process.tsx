@@ -271,9 +271,9 @@ export function AboutProcess() {
         </div>
 
         {/* Process Content */}
-        <div className="relative max-w-5xl mx-auto lg:h-[1800px] h-[2500px]">
+        <div className="relative max-w-5xl mx-auto md:h-[1800px] h-auto">
           {/* Central Path SVG */}
-          <div className="absolute inset-0 flex justify-center pointer-events-none">
+          <div className="absolute inset-0 hidden md:flex justify-center pointer-events-none">
             <svg
               width="526"
               height="1952"
@@ -302,7 +302,7 @@ export function AboutProcess() {
           </div>
 
           {/* Cards */}
-          <div className="relative h-full">
+          <div className="relative md:h-full flex flex-col gap-12 md:block">
             {processSteps.map((step, idx) => {
               const isLeft = step.side === "left";
               const topOffset = idx * (100 / processSteps.length);
@@ -311,38 +311,45 @@ export function AboutProcess() {
                 <div
                   key={step.id}
                   className={cn(
-                    "absolute w-full md:w-[60%] lg:w-[70%] flex",
-                    isLeft ? "left-0 justify-start" : "right-0 justify-end",
+                    "relative md:absolute w-full md:w-[60%] lg:w-[70%] flex",
+                    isLeft
+                      ? "md:left-0 justify-start"
+                      : "md:right-0 justify-end",
                   )}
-                  style={{ top: `${topOffset}%` }}
+                  style={{
+                    top:
+                      typeof window !== "undefined" && window.innerWidth >= 768
+                        ? `${topOffset}%`
+                        : undefined,
+                  }}
                 >
                   <motion.div
                     initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ margin: "-100px" }}
+                    viewport={{ margin: "-100px", once: true }}
                     transition={{ duration: 0.8 }}
                     className="relative group w-full"
                   >
                     <div
                       className={cn(
-                        "bg-[#FEAB6B] p-8 md:p-10 rounded-full  flex flex-col items-center mt-14 gap-4",
+                        "bg-[#FEAB6B] p-6 md:p-10 rounded-3xl md:rounded-full flex flex-col items-center md:mt-14 gap-4 shadow-lg",
                       )}
                     >
                       {/* Step Icon */}
-                      <div className="flex items-center gap-6 mb-2">
-                        <div className="w-[30%]">
-                          <div className="rounded-full h-[120px] w-[120px] bg-[#E76F3D]/30 flex items-center justify-center text-[#E76F3D]">
-                            <step.icon className="stroke-[1.5] text-black" />
+                      <div className="flex flex-col md:flex-row items-center md:items-start gap-6 mb-2 text-center md:text-left">
+                        <div className="flex-shrink-0">
+                          <div className="rounded-full h-20 w-20 md:h-[120px] md:w-[120px] bg-[#E76F3D]/30 flex items-center justify-center text-[#E76F3D]">
+                            <step.icon className="stroke-[1.5] text-black w-10 h-10 md:w-auto md:h-auto" />
                           </div>
                         </div>
-                        <div className="flex flex-col w-[70%]">
-                          <span className="text-[#3F1200] font-bold text-sm tracking-widest uppercase mb-1">
+                        <div className="flex flex-col">
+                          <span className="text-[#3F1200] font-bold text-xs md:text-sm tracking-widest uppercase mb-1">
                             // Step {step.id}
                           </span>
-                          <h3 className="text-3xl font-black text-[#3F1200] leading-none">
+                          <h3 className="text-2xl md:text-3xl font-black text-[#3F1200] leading-tight mb-2">
                             {step.title}
                           </h3>
-                          <p className="text-[#5C4033] text-lg leading-relaxed">
+                          <p className="text-[#5C4033] text-base md:text-lg leading-relaxed">
                             {step.description}
                           </p>
                         </div>

@@ -4,8 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { usePathname } from "next/navigation";
 
 export function BarakahEcosystemSection() {
+  const pathname = usePathname();
+  const isEcosystemPage = pathname === "/the-barakah-ecosystem";
+
   return (
     <section className="relative py-20 md:py-32 bg-white overflow-hidden">
       <div className="container mx-auto">
@@ -210,8 +214,14 @@ export function BarakahEcosystemSection() {
               transition-all
             "
           >
-            <Link href="/case-study">
-              Explore Our Case Studies
+            <Link
+              href={
+                isEcosystemPage ? "/case-studies" : "/the-barakah-ecosystem"
+              }
+            >
+              {isEcosystemPage
+                ? "Explore Our Case Studies"
+                : "Explore The Barakah Ecosystem"}
               <div className="h-7 w-7 sm:h-8 sm:w-8 bg-white rounded-full flex items-center justify-center ">
                 <svg
                   width="18"

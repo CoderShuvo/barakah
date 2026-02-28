@@ -65,7 +65,7 @@ export function CaseOutcomeExample() {
                 difficult to sustain.
               </p>
               <p>
-                Through the Barakah Method, we designed an integrated strategy
+                Through The Barakah Method, we designed an integrated strategy
                 that aligned positioning, systems, and execution. The result was
                 not just improved performance, but a foundation built for
                 long-term, responsible growth.

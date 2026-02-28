@@ -83,7 +83,7 @@ export function MethodSolutions() {
                 purpose. At Barakah Agency, we help mission-driven teams scale
                 sustainably by focusing on what matters most. Whether
                 simplifying complexity or strengthening systems, we design
-                strategies that compound over time. Through the Barakah Method,
+                strategies that compound over time. Through The Barakah Method,
                 ROI²™ framework, and the Barakah Ecosystem, we work as true
                 partners — helping you grow with clarity, trust, and intention.
               </motion.p>
@@ -131,7 +131,7 @@ export function MethodSolutions() {
               >
                 <span className="text-lg text-white">
                   {" "}
-                  Explore Our Solution
+                  Explore Our Solutions
                 </span>
 
                 <div

@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useState } from "react";
 
 const caseStudies = [
   {
@@ -68,8 +69,10 @@ const caseStudies = [
 ];
 
 export function ProofOfPerformanceSection() {
+  const [expandedId, setExpandedId] = useState<number | null>(null);
+
   return (
-    <section className="relative py-20 md:py-32 bg-background overflow-hidden">
+    <section className="relative py-20 md:py-32 bg-background overflow-hidden font-lato">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-4">
@@ -88,11 +91,17 @@ export function ProofOfPerformanceSection() {
               key={study.id}
               initial="initial"
               whileHover="expanded"
+              whileInView={expandedId === null ? "expanded" : undefined}
+              viewport={{ once: true, amount: 0.5 }}
+              animate={expandedId === study.id ? "expanded" : "initial"}
+              onClick={() =>
+                setExpandedId(expandedId === study.id ? null : study.id)
+              }
               className="bg-white  overflow-hidden  hover:shadow-2xl transition-shadow duration-500 cursor-pointer border-b pb-4 border-black-100"
             >
               <div className="grid grid-cols-1 lg:grid-cols-2 h-full min-h-[200px] p-6 md:p-10">
                 {/* Left Column - Info */}
-                <div className="md:pr-10 flex flex-col justify-center relative z-10 ">
+                <div className="md:pr-10 pb-4 flex flex-col justify-center relative z-10 ">
                   <div className="w-full">
                     <h3 className="text-3xl font-bold text-[#3F1200] mb-6 font-lato">
                       {study.title}

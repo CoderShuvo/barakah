@@ -173,9 +173,9 @@ export function BrandingProblem() {
           </motion.p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24 items-start">
           {/* Left Column - Problem List */}
-          <div className="space-y-12 sticky top-32">
+          <div className="space-y-8 lg:space-y-12 relative lg:sticky lg:top-32">
             {leftItems.map((item, index) => {
               const isActive = activeTab === item.title;
               return (
@@ -191,7 +191,7 @@ export function BrandingProblem() {
                   {isActive && (
                     <motion.div
                       layoutId="activeBar"
-                      className="absolute left-[-24px] top-2 bottom-2 w-1.5 bg-[#E76F3D] rounded-full"
+                      className="absolute left-[-16px] lg:left-[-24px] top-2 bottom-2 w-1 lg:w-1.5 bg-[#E76F3D] rounded-full"
                     />
                   )}
                   <div className="transition-transform duration-300 group-hover:translate-x-2">
@@ -284,7 +284,7 @@ export function BrandingProblem() {
                 </div>
 
                 {/* Column 2 */}
-                <div className="space-y-4 mt-8 lg:mt-12">
+                <div className="space-y-4 mt-4 md:mt-8 lg:mt-12">
                   {currentGrid[1] && (
                     <GridImage
                       item={currentGrid[1]}
