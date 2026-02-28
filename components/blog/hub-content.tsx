@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Download, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { NewsletterPopup } from "./newsletter-popup";
 
 /**
  * Sidebar: Author Bio Card
@@ -17,7 +18,7 @@ export function AuthorBio() {
       <div className="flex items-center gap-4">
         <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-[#E76F3D]/20">
           <Image
-            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200"
+            src="/assets/ziad.png"
             alt="Ziad Itani"
             fill
             className="object-cover"
@@ -31,11 +32,11 @@ export function AuthorBio() {
         </div>
       </div>
       <p className="text-[#5c4033] leading-relaxed text-sm lg:text-base">
-        Ziad Itani is the Co-Founder at Barakah Agency. A visionary in ethical
-        marketing, Ziad champions integrity-driven growth strategies and
-        innovative solutions. When he's not helping clients succeed, he enjoys
-        spending quality time with family and friends, exploring the great
-        outdoors, and delving into thought-provoking books.
+        Ziad Itani is the Founder, Head of Growth at Barakah Agency. A visionary
+        in ethical marketing, Ziad champions integrity-driven growth strategies
+        and innovative solutions. When he's not helping clients succeed, he
+        enjoys spending quality time with family and friends, exploring the
+        great outdoors, and delving into thought-provoking books.
       </p>
     </div>
   );
@@ -45,6 +46,8 @@ export function AuthorBio() {
  * Sidebar: Newsletter Card
  */
 export function NewsletterSidebarCard() {
+  const [isPopupOpen, setIsPopupOpen] = React.useState(false);
+
   return (
     <div className="bg-[#FFF5F2] border border-[#FFE2D9] rounded-[2rem] p-8 space-y-6 relative overflow-hidden group">
       <div className="relative z-10 space-y-4">
@@ -61,7 +64,28 @@ export function NewsletterSidebarCard() {
           Get the latest ethical marketing ideas, strategies, and best practices
           delivered to your inbox every other week.
         </p>
-        <Button className="w-full bg-[#E76F3D] hover:bg-[#D45E32] text-white rounded-full h-12 flex items-center justify-between px-6 group/btn shadow-lg shadow-[#E76F3D]/20">
+        <Button
+          onClick={() => setIsPopupOpen(true)}
+          className=" bg-[#E76F3D]
+    text-white
+    font-bold
+    text-base sm:text-lg
+    rounded-[56px]
+    w-full sm:w-auto
+    px-[16px] sm:px-[20px]
+    py-[6px]
+    h-[48px] sm:h-[52px]
+
+    inline-flex
+    items-center
+    justify-center
+    gap-[10px]
+
+    shadow-[inset_0_4px_4px_rgba(0,0,0,0.25)]
+
+    hover:bg-[#d46235]
+    transition-all"
+        >
           <span className="font-bold">Sign Up</span>
           <div className="bg-white rounded-full p-1 group-hover/btn:translate-x-1 transition-transform">
             <ArrowRight className="w-4 h-4 text-[#E76F3D]" />
@@ -70,6 +94,8 @@ export function NewsletterSidebarCard() {
       </div>
       {/* Soft Background decorative element */}
       <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-[#E76F3D]/5 rounded-full blur-2xl" />
+
+      <NewsletterPopup isOpen={isPopupOpen} onOpenChange={setIsPopupOpen} />
     </div>
   );
 }
@@ -79,15 +105,27 @@ export function NewsletterSidebarCard() {
  */
 export function TableOfContents() {
   const items = [
-    "What Is Ethical Marketing?",
-    "Understanding the Real Meaning of Ethical Marketing",
-    "What Are 4 Definitions of Ethical Marketing From Experts?",
-    "Eight Ethical Marketing Core Concepts",
-    "Five Common Misconceptions About Ethical Marketing",
-    "What Is B2B Ethical Marketing?",
-    "What Is B2C Ethical Marketing?",
-    "What Is The Best Definition of Ethical Marketing?",
-    "What Does Ethical Marketing Do?",
+    { title: "What Is Ethical Marketing?", id: "what-is-ethical-marketing" },
+    {
+      title: "Understanding the Real Meaning of Ethical Marketing",
+      id: "real-meaning",
+    },
+    {
+      title: "What Are 4 Definitions of Ethical Marketing From Experts?",
+      id: "expert-definitions",
+    },
+    { title: "Eight Ethical Marketing Core Concepts", id: "core-concepts" },
+    {
+      title: "Five Common Misconceptions About Ethical Marketing",
+      id: "misconceptions",
+    },
+    { title: "What Is B2B Ethical Marketing?", id: "b2b-marketing" },
+    { title: "What Is B2C Ethical Marketing?", id: "b2c-marketing" },
+    {
+      title: "What Is The Best Definition of Ethical Marketing?",
+      id: "best-definition",
+    },
+    { title: "What Does Ethical Marketing Do?", id: "what-it-does" },
   ];
 
   return (
@@ -97,13 +135,16 @@ export function TableOfContents() {
       </div>
       <ul className="space-y-4 pl-4">
         {items.map((item, i) => (
-          <li key={i} className="flex gap-4 group cursor-pointer">
+          <li key={i} className="flex gap-4 group">
             <span className="font-black text-[#E76F3D] min-w-[24px]">
               {i + 1}.
             </span>
-            <span className="font-bold text-[#3F1200] group-hover:text-[#E76F3D] transition-colors">
-              {item}
-            </span>
+            <Link
+              href={`#${item.id}`}
+              className="font-bold text-[#3F1200] group-hover:text-[#E76F3D] transition-colors cursor-pointer"
+            >
+              {item.title}
+            </Link>
           </li>
         ))}
       </ul>
@@ -163,15 +204,39 @@ export function StarterPackCTA() {
             latest in ethical marketing.
           </p>
         </div>
-        <Button
-          size="lg"
-          className="w-fit bg-[#E76F3D] hover:bg-[#D45E32] text-white rounded-full h-14 px-10 flex items-center gap-4 group/btn shadow-lg shadow-[#E76F3D]/20"
+        <Link
+          href="https://drive.google.com/uc?export=download&id=1SEpoEuPO3AkZvijK6zmQwlJ3Ty0xlEdS"
+          target="_blank"
+          rel="noopener noreferrer"
         >
-          <span className="text-lg font-bold">Download</span>
-          <div className="bg-white rounded-full p-2 group-hover/btn:scale-110 transition-transform">
-            <Download className="w-5 h-5 text-[#E76F3D]" />
-          </div>
-        </Button>
+          <Button
+            size="lg"
+            className="bg-[#E76F3D]
+    text-white
+    font-bold
+    text-base sm:text-lg
+    rounded-[56px]
+    w-full sm:w-auto
+    px-[16px] sm:px-[20px]
+    py-[6px]
+    h-[48px] sm:h-[52px]
+
+    inline-flex
+    items-center
+    justify-center
+    gap-[10px]
+
+    shadow-[inset_0_4px_4px_rgba(0,0,0,0.25)]
+
+    hover:bg-[#d46235]
+    transition-all"
+          >
+            <span className="text-lg font-bold">Download</span>
+            <div className="bg-white rounded-full p-2 group-hover/btn:scale-110 transition-transform">
+              <Download className="w-5 h-5 text-[#E76F3D]" />
+            </div>
+          </Button>
+        </Link>
       </div>
     </div>
   );
@@ -293,83 +358,13 @@ export function EthicalMarketingInfographic() {
   ];
 
   return (
-    <div className="bg-[#FF9F66] rounded-[3rem] p-8 md:p-12 flex flex-col items-center gap-12 relative overflow-hidden shadow-2xl">
-      {/* Header part */}
-      <div className="bg-[#E76F3D] rounded-full px-12 py-6 text-center text-white space-y-1 shadow-inner relative z-10 border-2 border-white/10">
-        <span className="text-4xl md:text-5xl font-black block tracking-tight">
-          Ethical Marketing
-        </span>
-        <div className="flex justify-center py-2">
-          <div className="w-1.5 h-6 bg-white/40 rounded-full" />
-        </div>
-        <span className="text-lg font-bold block max-w-xs mx-auto leading-tight">
-          Drives profitable customer action through ↓ ↓ ↓
-        </span>
-      </div>
-
-      {/* Grid part */}
-      <div className="flex flex-col lg:flex-row items-center gap-12 w-full max-w-5xl relative z-10">
-        <div className="grid grid-cols-2 gap-x-4 md:gap-x-6 gap-y-4 flex-1 w-full">
-          {steps.map((step, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.05 }}
-              className={cn(
-                "relative py-4 md:py-6 rounded-xl flex items-center justify-center text-white overflow-hidden group border-b-4 border-black/20 text-center px-4",
-                step.color,
-              )}
-            >
-              <div className="absolute top-0 right-0 w-8 h-full bg-white/5 -skew-x-12 translate-x-4" />
-              <span className="text-xs md:text-sm lg:text-base font-bold relative z-10">
-                {step.title}
-              </span>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Simplified Flow Labels for mobile, complex for desktop */}
-        <div className="flex flex-col gap-6 md:gap-8 min-w-[200px] text-[#3F1200] w-full lg:w-auto">
-          {[
-            { label: "Prompts", target: "Audience Retention" },
-            { label: "Generates", target: "Product Interest" },
-            { label: "Generates", target: "Product Demand" },
-            { label: "Influences", target: "Product Desire" },
-            { label: "Persuades", target: "Action" },
-          ].map((flow, i) => (
-            <div
-              key={i}
-              className="flex items-center justify-between lg:justify-start gap-3 text-sm md:text-base font-black"
-            >
-              <span className="opacity-60 uppercase text-[10px] tracking-widest">
-                {flow.label}
-              </span>
-              <ArrowRight className="w-4 h-4 text-white shrink-0" />
-              <span className="text-white whitespace-nowrap">
-                {flow.target}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Logo bottom right */}
-      <div className="absolute bottom-6 right-8 hidden md:flex items-center gap-2 text-white/80 font-serif text-lg">
-        <span>Barakah</span>
-        <div className="w-4 h-4 rounded-full border border-white flex items-center justify-center">
-          <div className="w-2 h-2 bg-white rounded-full" />
-        </div>
-        <span>Agency</span>
-      </div>
-
-      {/* Soft sparkle decorations like in Image 2 */}
-      <div className="absolute top-1/4 left-1/4 text-white/30 animate-pulse">
-        ✦
-      </div>
-      <div className="absolute bottom-1/4 right-1/3 text-white/30 animate-pulse">
-        ✦
-      </div>
+    <div className="w-full min-h-[400px] lg:min-h-[800px] relative">
+      <Image
+        src="/assets/ethical-marketing-1.png"
+        alt="Ethical Marketing Infographic"
+        fill
+        className="object-contain absolute"
+      />
     </div>
   );
 }
@@ -439,40 +434,13 @@ export function ConcentricInfographic() {
   ];
 
   return (
-    <div className="bg-[#FBD3C1] rounded-[3rem] p-8 md:p-16 flex flex-col items-center justify-center relative overflow-hidden shadow-2xl aspect-square md:aspect-auto md:min-h-[600px]">
-      <h2 className="absolute top-12 text-3xl md:text-5xl font-black text-[#3F1200] text-center px-4">
-        What Does Ethical Marketing Do?
-      </h2>
-
-      <div className="w-full max-w-xl flex flex-col items-center relative gap-4 mt-20">
-        {layers.map((layer, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ delay: i * 0.1 }}
-            className={cn(
-              "w-full rounded-[2.5rem] p-4 md:p-6 flex items-center justify-center text-center shadow-lg border-2 border-black/5",
-              layer.color,
-              layer.textColor || "text-white",
-            )}
-            style={{ width: `${100 - i * 10}%` }}
-          >
-            <span className="text-xs md:text-base font-black uppercase tracking-tight">
-              {layer.title}
-            </span>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Logo bottom center */}
-      <div className="absolute bottom-6 flex items-center gap-2 text-[#3F1200]/60 font-serif text-lg">
-        <span>Barakah</span>
-        <div className="w-4 h-4 rounded-full border border-current flex items-center justify-center">
-          <div className="w-2 h-2 bg-current rounded-full" />
-        </div>
-        <span>Agency</span>
-      </div>
+    <div className="w-full min-h-[400px] lg:min-h-[800px] relative">
+      <Image
+        src="/assets/ethical-marketing-2.png"
+        alt="Ethical Marketing Infographic"
+        fill
+        className="object-contain absolute"
+      />
     </div>
   );
 }

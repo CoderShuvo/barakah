@@ -1,20 +1,21 @@
-import type { Metadata } from "next"
-import { Suspense } from "react"
-import { PageHeader } from "@/components/global"
-import { Section } from "@/components/global"
-import { CaseStudyGrid } from "@/components/case-study/case-study-card"
-import { CustomPagination } from "@/components/custom-pagination"
-import { getCaseStudies } from "@/server/queries"
+import type { Metadata } from "next";
+import { Suspense } from "react";
+import { PageHeader } from "@/components/global";
+import { Section } from "@/components/global";
+import { CaseStudyGrid } from "@/components/case-study/case-study-card";
+import { CustomPagination } from "@/components/custom-pagination";
+import { getCaseStudies } from "@/server/queries";
 
 export const metadata: Metadata = {
   title: "Case Studies",
-  description: "See how we've helped purpose-driven brands achieve remarkable growth through ethical marketing strategies.",
-}
+  description:
+    "See how we've helped purpose-driven brands achieve remarkable growth through ethical marketing strategies.",
+};
 
 interface CaseStudiesPageProps {
   searchParams: Promise<{
-    page?: string
-  }>
+    page?: string;
+  }>;
 }
 
 async function CaseStudiesList({ page }: { page: number }) {
@@ -22,7 +23,7 @@ async function CaseStudiesList({ page }: { page: number }) {
     page,
     pageSize: 9,
     published: true,
-  })
+  });
 
   if (caseStudies.length === 0) {
     return (
@@ -31,7 +32,7 @@ async function CaseStudiesList({ page }: { page: number }) {
           No case studies found. Check back soon for new success stories!
         </p>
       </div>
-    )
+    );
   }
 
   return (
@@ -48,7 +49,7 @@ async function CaseStudiesList({ page }: { page: number }) {
         </div>
       )}
     </>
-  )
+  );
 }
 
 function CaseStudiesSkeleton() {
@@ -61,28 +62,28 @@ function CaseStudiesSkeleton() {
         />
       ))}
     </div>
-  )
+  );
 }
 
-import { CaseStudiesHero } from "@/components/case-study/case-studies-hero"
-import { ProofOfPerformanceSection } from "@/components/landing/proof-of-performance-section"
-import { CaseOutcomeExample } from "@/components/case-study/case-outcome-example"
-import { BrandsSection } from "@/components/landing/brands-section"
-import { FinalCTASection } from "@/components/landing/final-cta-section"
+import { CaseStudiesHero } from "@/components/case-study/case-studies-hero";
+import { ProofOfPerformanceSection } from "@/components/landing/proof-of-performance-section";
+import { CaseOutcomeExample } from "@/components/case-study/case-outcome-example";
+import { BrandsSection } from "@/components/landing/brands-section";
+import { FinalCTASection } from "@/components/landing/final-cta-section";
 
 export default async function CaseStudiesPage({
   searchParams,
 }: CaseStudiesPageProps) {
-  const params = await searchParams
-  const page = Number(params.page) || 1
+  const params = await searchParams;
+  const page = Number(params.page) || 1;
 
   return (
     <>
       <CaseStudiesHero />
       <ProofOfPerformanceSection />
-      <CaseOutcomeExample />
       <BrandsSection />
+      <CaseOutcomeExample />
       <FinalCTASection buttonLabel="Book a Free Consultation" />
     </>
-  )
+  );
 }

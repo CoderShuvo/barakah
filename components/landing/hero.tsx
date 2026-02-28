@@ -194,7 +194,7 @@ export function Hero() {
 
           <Image
             src="/assets/1.png"
-            alt="Work 1"
+            alt="Barakah Project 1"
             className={`absolute bottom-0 transition-all duration-700 ease-in-out
               ${
                 !isFanned
@@ -204,15 +204,17 @@ export function Hero() {
               w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[460px] 
               h-[150px] sm:h-[210px] md:h-[280px] lg:h-[320px] xl:h-[360px] 
               bg-transparent transform hover:-translate-y-2 sm:hover:-translate-y-4 origin-bottom-right`}
-            width={100}
-            height={100}
+            sizes="(max-width: 640px) 100px, (max-width: 768px) 140px, (max-width: 1024px) 280px, (max-width: 1280px) 360px, 460px"
+            priority
+            width={360}
+            height={270}
           />
 
           {/* Card 2 */}
 
           <Image
             src="/assets/2.png"
-            alt="Work 2"
+            alt="Barakah Project 2"
             className={`absolute transition-all duration-700 ease-in-out
               ${
                 !isFanned
@@ -222,8 +224,10 @@ export function Hero() {
               w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[450px] 
               h-[150px] sm:h-[210px] md:h-[280px] lg:h-[320px] xl:h-[360px] 
               bg-transparent transform hover:-translate-y-2 sm:hover:-translate-y-4 origin-bottom`}
-            width={100}
-            height={100}
+            width={360}
+            height={270}
+            sizes="(max-width: 640px) 100px, (max-width: 768px) 140px, (max-width: 1024px) 280px, (max-width: 1280px) 360px, 450px"
+            priority
           />
 
           {/* Card 3 (Center) - Clickable */}
@@ -240,10 +244,14 @@ export function Hero() {
               z-30 border-2 sm:border-4 border-white transform hover:-translate-y-2 sm:hover:-translate-y-4 hover:scale-105`}
           >
             <div className="w-full h-full bg-white overflow-hidden relative flex items-center justify-center p-1 sm:p-2">
-              <img
+              <Image
                 src="/assets/3.png"
-                alt="Work 3"
+                alt="Trust and Growth Work"
+                width={360}
+                height={270}
                 className="object-cover w-full h-full"
+                sizes="(max-width: 640px) 180px, (max-width: 768px) 220px, (max-width: 1024px) 280px, (max-width: 1280px) 340px, 400px"
+                priority
               />
             </div>
           </div>
@@ -252,7 +260,7 @@ export function Hero() {
 
           <Image
             src="/assets/4.png"
-            alt="Work 4"
+            alt="Barakah Project 4"
             className={`absolute transition-all duration-700 ease-in-out
               ${
                 !isFanned
@@ -262,15 +270,16 @@ export function Hero() {
               w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[460px] 
               h-[150px] sm:h-[210px] md:h-[280px] lg:h-[320px] xl:h-[360px] 
              transform hover:-translate-y-2 sm:hover:-translate-y-4 origin-bottom`}
-            width={100}
-            height={100}
+            width={360}
+            height={270}
+            sizes="(max-width: 640px) 100px, (max-width: 768px) 140px, (max-width: 1024px) 280px, (max-width: 1280px) 360px, 460px"
           />
 
           {/* Card 5 (Right-most) */}
 
           <Image
             src="/assets/5.png"
-            alt="Work 5"
+            alt="Barakah Project 5"
             className={`absolute transition-all duration-700 ease-in-out
               ${
                 !isFanned
@@ -280,8 +289,9 @@ export function Hero() {
               w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[460px] 
               h-[150px] sm:h-[210px] md:h-[280px] lg:h-[320px] xl:h-[360px] 
              transform hover:-translate-y-2 sm:hover:-translate-y-4 origin-bottom-left`}
-            width={100}
-            height={100}
+            width={360}
+            height={270}
+            sizes="(max-width: 640px) 100px, (max-width: 768px) 140px, (max-width: 1024px) 280px, (max-width: 1280px) 360px, 460px"
           />
         </div>
 

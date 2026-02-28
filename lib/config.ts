@@ -43,12 +43,12 @@ export const siteConfig = {
         { name: "Blog", href: "/blog", description: "Insights, strategies, and behind-the-scenes thinking to help you grow with purpose." },
         { 
           name: "Topical Libraries", 
-          href: "/ethical-marketing-hub", 
+          href: "/ethical-marketing", 
           description: "Curated collections on the most important themes shaping ethical growth today.",
           subItems: [
             { 
               name: "Ethical Marketing", 
-              href: "/ethical-marketing-hub", 
+              href: "/ethical-marketing", 
               description: "Deep dive into the principles and practices of ethical marketing." 
             }
           ]
@@ -92,7 +92,7 @@ export const siteConfig = {
       links: [
         { name: "Blog", href: "/blog" },
         { name: "Case Studies", href: "/case-studies" },
-        { name: "Ethical Marketing Hub", href: "/ethical-marketing-hub" },
+        { name: "Ethical Marketing Hub", href: "/ethical-marketing" },
         { name: "Zero Frame", href: "/zeroframe-data-suite" },
       ],
     },

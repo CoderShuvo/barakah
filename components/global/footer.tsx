@@ -100,7 +100,7 @@ export function Footer() {
               {[
                 { name: "Case Studies", href: "/case-studies" },
                 { name: "Blog", href: "/blog" },
-                { name: "Ethical Marketing", href: "/ethical-marketing-hub" },
+                { name: "Ethical Marketing", href: "/ethical-marketing" },
                 { name: "Contact", href: "/contact" },
               ].map((link) => (
                 <li key={link.name}>

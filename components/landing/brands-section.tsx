@@ -10,14 +10,14 @@ type Brand = {
 };
 
 const brands: Brand[] = [
-  { id: 1, name: "Brand 1", logo: "/assets/brands/1.png" },
+  { id: 1, name: "Barakah Partner Brand 1", logo: "/assets/brands/1.png" },
   { id: 2, name: "Manara West", logo: "/assets/brands/2.png" },
   { id: 3, name: "Fadwa Masala", logo: "/assets/brands/3.png" },
-  { id: 4, name: "Brand 4", logo: "/assets/brands/4.png" },
+  { id: 4, name: "Ethical Brand 4", logo: "/assets/brands/4.png" },
   { id: 5, name: "Long Beach", logo: "/assets/brands/5.png" },
   { id: 6, name: "Blended Orange", logo: "/assets/brands/6.png" },
   { id: 7, name: "Honey Mama", logo: "/assets/brands/7.png" },
-  { id: 8, name: "Brand 8", logo: "/assets/brands/8.png" },
+  { id: 8, name: "Partner Brand 8", logo: "/assets/brands/8.png" },
   { id: 9, name: "Doubletree Realty", logo: "/assets/brands/9.png" },
 ];
 

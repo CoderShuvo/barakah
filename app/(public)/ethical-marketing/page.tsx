@@ -16,6 +16,7 @@ import {
 } from "@/components/blog";
 import { Section } from "@/components/global";
 import { Button } from "@/components/ui/button";
+import { FinalCTASection } from "@/components/landing";
 
 export const metadata: Metadata = {
   title: "Ethical Marketing Hub",
@@ -70,7 +71,7 @@ export default function EthicalMarketingHubPage() {
             <StarterPackCTA />
 
             {/* Section: Understanding the Real Meaning */}
-            <div className="space-y-10">
+            <div className="space-y-10" id="real-meaning">
               <h2 className="text-4xl md:text-5xl font-black text-[#3F1200]">
                 Understanding The Real Meaning of Ethical Marketing
               </h2>
@@ -138,7 +139,7 @@ export default function EthicalMarketingHubPage() {
             </div>
 
             {/* Section 1: What is Ethical Marketing */}
-            <div className="space-y-10">
+            <div className="space-y-10" id="what-is-ethical-marketing">
               <h2 className="text-4xl md:text-5xl font-black text-[#3F1200]">
                 What Is Ethical Marketing?
               </h2>
@@ -315,7 +316,7 @@ export default function EthicalMarketingHubPage() {
             </ContentBox>
 
             {/* Definitions Section */}
-            <div className="space-y-12">
+            <div className="space-y-12" id="expert-definitions">
               <div className="space-y-6">
                 <h2 className="text-4xl md:text-5xl font-black text-[#3F1200]">
                   What Are 4 Definitions Of Ethical Marketing From Experts?
@@ -444,7 +445,7 @@ export default function EthicalMarketingHubPage() {
             </div>
 
             {/* Section: Core Concepts */}
-            <div className="space-y-12">
+            <div className="space-y-12" id="core-concepts">
               <h2 className="text-4xl md:text-5xl font-black text-[#3F1200]">
                 8 Ethical Marketing Core Concepts
               </h2>
@@ -506,7 +507,7 @@ export default function EthicalMarketingHubPage() {
             </div>
 
             {/* Section: Misconceptions */}
-            <div className="space-y-12">
+            <div className="space-y-12" id="misconceptions">
               <h2 className="text-4xl md:text-5xl font-black text-[#3F1200]">
                 5 Common Misconceptions About Ethical Marketing
               </h2>
@@ -549,7 +550,7 @@ export default function EthicalMarketingHubPage() {
             </div>
 
             {/* Section: B2B */}
-            <div className="space-y-12">
+            <div className="space-y-12" id="b2b-marketing">
               <EditorialBanner
                 title="Ethical B2B Marketing"
                 description="B2B, or business-to-business, is a type of marketing that focuses on promoting and selling products or services to other businesses and organizations. This approach prioritizes integrity, transparency, and mutual respect, ensuring that all marketing efforts align with ethical principles while building sustainable and trustworthy relationships."
@@ -636,7 +637,7 @@ export default function EthicalMarketingHubPage() {
             </div>
 
             {/* Section: B2C */}
-            <div className="space-y-12">
+            <div className="space-y-12" id="b2c-marketing">
               <EditorialBanner
                 title="What is B2C Ethical Marketing?"
                 description="B2C marketing, or business-to-consumer marketing, focuses on promoting products or services directly to the everyday consumer. This form of marketing aims to enhance the daily lives of individuals by offering solutions that meet their personal needs and desires."
@@ -717,7 +718,7 @@ export default function EthicalMarketingHubPage() {
             </div>
 
             {/* Final Section: What it does */}
-            <div className="space-y-12">
+            <div className="space-y-12" id="what-it-does">
               <ConcentricInfographic />
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
@@ -752,7 +753,10 @@ export default function EthicalMarketingHubPage() {
                 ))}
               </div>
 
-              <div className="prose prose-lg max-w-none text-[#5c4033] leading-relaxed font-medium">
+              <div
+                className="prose prose-lg max-w-none text-[#5c4033] leading-relaxed font-medium"
+                id="best-definition"
+              >
                 <p>
                   In summary, ethical marketing is a holistic approach that
                   drives profitable customer actions while adhering to
@@ -786,24 +790,7 @@ export default function EthicalMarketingHubPage() {
         <NewsletterSection />
       </div>
 
-      {/* CTA Section */}
-      <Section className="bg-[#3F1200] text-white">
-        <div className="max-w-4xl mx-auto text-center space-y-8">
-          <h2 className="text-4xl md:text-6xl font-black leading-tight">
-            Ready to Implement <br /> Ethical Growth?
-          </h2>
-          <p className="text-xl text-white/70 max-w-2xl mx-auto">
-            Join our community of purpose-driven brands and transform how you
-            connect with your audience.
-          </p>
-          <Button
-            size="lg"
-            className="bg-[#E76F3D] hover:bg-[#D45E32] text-white rounded-full h-16 px-12 text-xl font-bold shadow-2xl shadow-orange-500/20 active:scale-95 transition-all"
-          >
-            Book a Strategy Call
-          </Button>
-        </div>
-      </Section>
+      <FinalCTASection />
     </>
   );
 }

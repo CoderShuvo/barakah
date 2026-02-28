@@ -14,7 +14,7 @@ export function ServicesHero() {
       <div className="absolute inset-0 z-0 select-none">
         <Image
           src="/assets/hero-bg.png"
-          alt="Background"
+          alt="Barakah Agency Services Hero Background"
           fill
           className="object-fit object-top opacity-40 mix-blend-multiply"
           priority

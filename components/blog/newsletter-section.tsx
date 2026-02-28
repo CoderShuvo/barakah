@@ -52,7 +52,27 @@ export function NewsletterSection() {
                     className="h-12 px-6 border-black bg-white text-[#3F1200] placeholder:text-[#5c4033]/40 focus:ring-[#E76F3D]/20 focus:border-[#E76F3D] text-lg shadow-sm"
                   />
                 </div>
-                <Button className="h-14 px-8 rounded-full bg-[#E76F3D] hover:bg-[#D45E32] text-white font-bold text-lg flex items-center gap-3 transition-all hover:scale-105 active:scale-95 group shadow-lg shadow-[#E76F3D]/20">
+                <Button
+                  className="bg-[#E76F3D]
+    text-white
+    font-bold
+    text-base sm:text-lg
+    rounded-[56px]
+    w-full sm:w-auto
+    px-[16px] sm:px-[20px]
+    py-[6px]
+    h-[48px] sm:h-[52px]
+
+    inline-flex
+    items-center
+    justify-center
+    gap-[10px]
+
+    shadow-[inset_0_4px_4px_rgba(0,0,0,0.25)]
+
+    hover:bg-[#d46235]
+    transition-all"
+                >
                   Submit
                   <div className="bg-white rounded-full p-1 group-hover:translate-x-1 transition-transform">
                     <ArrowRight className="h-4 w-4 text-[#E76F3D]" />
@@ -82,8 +102,9 @@ export function NewsletterSection() {
                 >
                   <Image
                     src="/assets/Visual.png"
-                    alt="Envelope"
+                    alt="Newsletter Subscription Illustration - Envelope and Letter"
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 30vw"
                     className="object-fit mt-[100px]"
                   />
                 </motion.div>
