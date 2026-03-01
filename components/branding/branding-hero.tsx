@@ -178,7 +178,8 @@ export function BrandingHero() {
                      w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[460px] 
                      h-[150px] sm:h-[210px] md:h-[280px] lg:h-[320px] xl:h-[360px] 
                      bg-transparent transform hover:-translate-y-2 sm:hover:-translate-y-4 origin-bottom-right`}
-            fill
+            width={360}
+            height={270}
             sizes="(max-width: 640px) 100px, (max-width: 768px) 140px, (max-width: 1024px) 280px, (max-width: 1280px) 360px, 460px"
             priority
           />
@@ -197,7 +198,8 @@ export function BrandingHero() {
                      w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[450px] 
                      h-[150px] sm:h-[210px] md:h-[280px] lg:h-[320px] xl:h-[360px] 
                      bg-transparent transform hover:-translate-y-2 sm:hover:-translate-y-4 origin-bottom`}
-            fill
+            width={360}
+            height={270}
             sizes="(max-width: 640px) 100px, (max-width: 768px) 140px, (max-width: 1024px) 280px, (max-width: 1280px) 360px, 450px"
             priority
           />
@@ -219,7 +221,8 @@ export function BrandingHero() {
               <Image
                 src="/assets/3.png"
                 alt="Branding Work 3"
-                fill
+                width={360}
+                height={270}
                 className="object-cover w-full h-full"
                 sizes="(max-width: 640px) 180px, (max-width: 768px) 220px, (max-width: 1024px) 280px, (max-width: 1280px) 340px, 400px"
                 priority
@@ -241,7 +244,8 @@ export function BrandingHero() {
                      w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[460px] 
                      h-[150px] sm:h-[210px] md:h-[280px] lg:h-[320px] xl:h-[360px] 
                     transform hover:-translate-y-2 sm:hover:-translate-y-4 origin-bottom`}
-            fill
+            width={360}
+            height={270}
             sizes="(max-width: 640px) 100px, (max-width: 768px) 140px, (max-width: 1024px) 280px, (max-width: 1280px) 360px, 460px"
           />
 
@@ -259,7 +263,8 @@ export function BrandingHero() {
                      w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[460px] 
                      h-[150px] sm:h-[210px] md:h-[280px] lg:h-[320px] xl:h-[360px] 
                     transform hover:-translate-y-2 sm:hover:-translate-y-4 origin-bottom-left`}
-            fill
+            width={360}
+            height={270}
             sizes="(max-width: 640px) 100px, (max-width: 768px) 140px, (max-width: 1024px) 280px, (max-width: 1280px) 360px, 460px"
           />
         </div>

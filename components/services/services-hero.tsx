@@ -9,7 +9,7 @@ import React from "react";
 
 export function ServicesHero() {
   return (
-    <section className="relative container mx-auto min-h-[80vh] flex flex-col items-center justify-center overflow-hidden bg-[#FFFCF9] pt-28 pb-20">
+    <section className="relative container mx-auto min-h-[80vh] flex flex-col items-center justify-center overflow-hidden bg-[#FFFCF9] ">
       {/* Background Image */}
       <div className="absolute inset-0 z-0 select-none">
         <Image
