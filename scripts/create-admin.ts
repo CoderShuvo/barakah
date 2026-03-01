@@ -1,5 +1,5 @@
 async function createAdmin() {
-  const email = 'admin@barakah.agency'
+  const email = 'admin@barakahagency.com'
   const password = 'BarakahAdmin2026!'
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY

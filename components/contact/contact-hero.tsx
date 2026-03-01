@@ -6,8 +6,8 @@ import { motion } from "framer-motion";
 export function ContactHero() {
   return (
     <div className="pt-32 pb-12 lg:pt-40 lg:pb-16 bg-white">
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className="max-w-4xl">
+      <div className="max-w-7xl mx-auto px-4 lg:px-2">
+        <div className="w-full">
           <motion.span
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -27,7 +27,7 @@ export function ContactHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-base lg:text-lg text-gray-500 max-w-2xl leading-relaxed"
+            className="text-base lg:text-lg text-gray-500 max-w-3xl leading-relaxed"
           >
             Experience a personalized consultation. Get answers to your specific
             questions and learn how our ethical marketing services can transform

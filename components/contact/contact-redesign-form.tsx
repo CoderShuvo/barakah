@@ -121,10 +121,10 @@ export function ContactRedesignForm() {
               type="button"
               onClick={() => toggleService(service)}
               className={cn(
-                "px-6 py-3 rounded-full border-2 transition-all font-lato font-bold text-sm lg:text-base",
+                "px-6 py-6 rounded-full border-2 transition-all font-lato font-bold text-sm lg:text-[42px]",
                 selectedServices.includes(service)
                   ? "bg-[#3F1200] border-[#3F1200] text-white"
-                  : "border-gray-200 text-gray-700 hover:border-[#3F1200]",
+                  : "border-black text-gray-700 hover:border-black",
               )}
             >
               {service}
@@ -140,7 +140,7 @@ export function ContactRedesignForm() {
       </div>
 
       {/* Input Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10">
+      <div className="flex flex-col gap-x-8 gap-y-10">
         <div className="space-y-2 border-b-2 border-gray-100 focus-within:border-[#3F1200] transition-colors">
           <input
             {...register("name")}
@@ -199,10 +199,10 @@ export function ContactRedesignForm() {
               type="button"
               onClick={() => setSelectedBudget(budget)}
               className={cn(
-                "px-6 py-3 rounded-full border-2 transition-all font-lato font-bold text-sm lg:text-base",
+                "px-6 py-6 rounded-full border-2 transition-all font-lato font-bold text-sm lg:text-[42px]",
                 selectedBudget === budget
                   ? "bg-[#3F1200] border-[#3F1200] text-white"
-                  : "border-gray-200 text-gray-700 hover:border-[#3F1200]",
+                  : "border-black text-gray-700 hover:border-black",
               )}
             >
               {budget}
@@ -216,7 +216,25 @@ export function ContactRedesignForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="group flex items-center gap-4 px-10 py-5 bg-[#E76F3D] hover:bg-[#d46235] text-white rounded-full transition-all shadow-xl shadow-orange-500/20 active:scale-95 disabled:opacity-70"
+          className="bg-[#E76F3D]
+    text-white
+    font-bold
+    text-base sm:text-lg
+    rounded-[56px]
+    w-full sm:w-auto
+    px-[16px] sm:px-[20px]
+    py-[6px]
+    h-[48px] sm:h-[52px]
+
+    inline-flex
+    items-center
+    justify-center
+    gap-[10px]
+
+    shadow-[inset_0_4px_4px_rgba(0,0,0,0.25)]
+
+    hover:bg-[#d46235]
+    transition-all"
         >
           <span className="text-xl font-black">
             {isSubmitting ? "Sending Request..." : "Send Request"}

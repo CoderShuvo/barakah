@@ -3,7 +3,14 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  images: {},
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "z-p3-scontent.fdac3-2.fna.fbcdn.net",
+      },
+    ],
+  },
   experimental: {},
   webpack(config) {
     config.module.rules.push({
