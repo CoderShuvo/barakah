@@ -41,7 +41,7 @@ export function ImpactSlider() {
               key={idx}
               className="relative w-[320px] sm:w-[380px] md:w-[400px]
                          h-[240px] sm:h-[280px] md:h-[300px]
-                         rounded-xl overflow-hidden shadow-lg flex-shrink-0"
+                          overflow-hidden shadow-lg flex-shrink-0"
             >
               <Image
                 src={image.src}

@@ -97,7 +97,7 @@ export function ProofOfPerformanceSection() {
               onClick={() =>
                 setExpandedId(expandedId === study.id ? null : study.id)
               }
-              className="bg-white  overflow-hidden  hover:shadow-2xl transition-shadow duration-500 cursor-pointer border-b pb-4 border-black-100"
+              className="bg-white  overflow-hidden duration-500 cursor-pointer border-b pb-4 border-black-100"
             >
               <div className="grid grid-cols-1 lg:grid-cols-2 h-full min-h-[200px] p-6 md:p-10">
                 {/* Left Column - Info */}
@@ -163,7 +163,7 @@ export function ProofOfPerformanceSection() {
                           {study.tags.map((tag, idx) => (
                             <span
                               key={idx}
-                              className="px-3 py-1 bg-[#3F1200] rounded-full text-[10px] font-bold text-white font-lato uppercase tracking-tighter"
+                              className="p-4 bg-[#3F1200] rounded-full text-[20px] font-bold text-white font-lato uppercase tracking-tighter"
                             >
                               {tag}
                             </span>

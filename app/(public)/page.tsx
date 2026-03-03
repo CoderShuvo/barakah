@@ -51,12 +51,12 @@ export default function HomePage() {
       <BrandsSection />
       <VideoShowcaseSection />
 
-      <Suspense fallback={<CaseStudiesSkeleton />}>
+      {/* <Suspense fallback={<CaseStudiesSkeleton />}>
         <FeaturedCaseStudies />
       </Suspense>
       <Suspense fallback={<BlogsSkeleton />}>
         <FeaturedBlogs />
-      </Suspense>
+      </Suspense> */}
       {/* <CTASection /> */}
     </>
   );

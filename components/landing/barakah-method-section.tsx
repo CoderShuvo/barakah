@@ -77,7 +77,7 @@ export function BarakahMethodSection() {
           {/* Right Column - Rotating Tire Graphic */}
           <div className="hidden xl:flex items-center justify-center xl:justify-end">
             <div className="relative w-full max-w-md aspect-square ">
-              <div className="absolute   -right-12 h-[500px] z-10 w-[698px] bg-gradient-to-b from-white to-white/10"></div>
+              <div className="absolute   -right-18 h-[500px] z-10 w-[698px] bg-gradient-to-b from-white to-white/10"></div>
 
               {/* Rotating Tire SVG */}
               <svg
@@ -95,7 +95,7 @@ export function BarakahMethodSection() {
                 />
               </svg>
 
-              <div className="absolute bottom-0   -right-12 h-[500px] z-10 w-[698px] bg-gradient-to-t from-white to-white/0"></div>
+              <div className="absolute bottom-0   -right-18 h-[500px] z-10 w-[698px] bg-gradient-to-t from-white to-white/0"></div>
             </div>
           </div>
         </div>

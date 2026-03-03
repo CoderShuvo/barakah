@@ -169,7 +169,7 @@ export function TestimonialsSection() {
           {visibleTestimonials.map((testimonial, idx) => (
             <div
               key={`${testimonial.id}-${idx}`}
-              className="bg-white rounded-2xl p-8 min-h-[460px] shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col"
+              className="bg-white rounded-2xl p-8 min-h-[300px] shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col"
             >
               {/* Header with Company Name and Rating */}
               <div className="flex items-center justify-between mb-6">

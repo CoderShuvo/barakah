@@ -118,7 +118,7 @@ export function BrandsSection() {
             {allBrands.map((brand, index) => (
               <div
                 key={`${brand.id}-${index}`}
-                className="flex-shrink-0 grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110"
+                className="flex-shrink-0   transition-all duration-300 transform hover:scale-110"
               >
                 <div className="relative h-12 w-28 md:w-32 lg:w-40">
                   <Image

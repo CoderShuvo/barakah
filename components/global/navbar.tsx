@@ -4,6 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/lib/config";
 import { Button } from "@/components/ui/button";
@@ -49,6 +50,7 @@ export function Navbar() {
 
   // Track which mobile accordion is open
   const [openMobileSub, setOpenMobileSub] = React.useState<string | null>(null);
+  const [hoveredNested, setHoveredNested] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -73,7 +75,7 @@ export function Navbar() {
             className="flex items-center font-serif text-2xl lg:text-3xl font-bold text-[#E76F3D] tracking-tight shrink-0"
           >
             <Image
-              src="/logo.jpg"
+              src="/assets/logo.webp"
               alt="Logo"
               width={160}
               height={80}
@@ -163,7 +165,13 @@ export function Navbar() {
                                   return (
                                     <div
                                       key={sub.name}
-                                      className="relative group/nested"
+                                      className="relative"
+                                      onMouseEnter={() =>
+                                        setHoveredNested(sub.name)
+                                      }
+                                      onMouseLeave={() =>
+                                        setHoveredNested(null)
+                                      }
                                     >
                                       <div
                                         className={cn(
@@ -180,33 +188,61 @@ export function Navbar() {
                                         {linkContent}
                                       </div>
 
-                                      <div className="absolute top-0 right-full pr-2 opacity-0 invisible group-hover/nested:opacity-100 group-hover/nested:visible transition-all duration-200 z-50">
-                                        <div className="bg-[#FFF5F0] p-4 rounded-xl shadow-xl w-[300px] flex flex-col gap-2 border border-[#E76F3D]/10">
-                                          {sub.subItems.map((child: any) => {
-                                            const ChildIcon =
-                                              subMenuIcons[child.name] || Zap;
-                                            return (
-                                              <Link
-                                                key={child.name}
-                                                href={child.href}
-                                                className="group relative flex flex-col gap-2 p-4 rounded-xl transition-all border border-transparent hover:border-[#E76F3D]/20 bg-white hover:bg-[#E76F3D80] hover:text-white"
-                                              >
-                                                <div className="flex items-center gap-3">
-                                                  <div className="p-2 rounded-lg transition-colors bg-[#FBD3C1]/30 text-[#E76F3D] group-hover:bg-white/20 group-hover:text-white">
-                                                    <ChildIcon className="h-5 w-5" />
-                                                  </div>
-                                                  <h4 className="font-bold leading-none transition-colors text-[#3F1200] group-hover:text-white">
-                                                    {child.name}
-                                                  </h4>
-                                                </div>
-                                                <p className="text-sm line-clamp-2 leading-snug transition-colors text-[#5C4033] group-hover:text-white/90">
-                                                  {child.description}
-                                                </p>
-                                              </Link>
-                                            );
-                                          })}
-                                        </div>
-                                      </div>
+                                      <AnimatePresence>
+                                        {hoveredNested === sub.name && (
+                                          <motion.div
+                                            initial={{
+                                              opacity: 0,
+                                              x: -10,
+                                              scale: 0.95,
+                                            }}
+                                            animate={{
+                                              opacity: 1,
+                                              x: 0,
+                                              scale: 1,
+                                            }}
+                                            exit={{
+                                              opacity: 0,
+                                              x: -10,
+                                              scale: 0.95,
+                                            }}
+                                            transition={{
+                                              duration: 0.2,
+                                              ease: [0.23, 1, 0.32, 1],
+                                            }}
+                                            className="absolute top-0 left-full pl-2 z-50 pointer-events-auto"
+                                          >
+                                            <div className="bg-[#FFF5F0] p-4 rounded-xl shadow-2xl w-[300px] flex flex-col gap-2 border border-[#E76F3D]/10">
+                                              {sub.subItems.map(
+                                                (child: any) => {
+                                                  const ChildIcon =
+                                                    subMenuIcons[child.name] ||
+                                                    Zap;
+                                                  return (
+                                                    <Link
+                                                      key={child.name}
+                                                      href={child.href}
+                                                      className="group relative flex flex-col gap-2 p-4 rounded-xl transition-all border border-transparent hover:border-[#E76F3D]/20 bg-white hover:bg-[#E76F3D80] hover:text-white"
+                                                    >
+                                                      <div className="flex items-center gap-3">
+                                                        <div className="p-2 rounded-lg transition-colors bg-[#FBD3C1]/30 text-[#E76F3D] group-hover:bg-white/20 group-hover:text-white">
+                                                          <ChildIcon className="h-5 w-5" />
+                                                        </div>
+                                                        <h4 className="font-bold leading-none transition-colors text-[#3F1200] group-hover:text-white">
+                                                          {child.name}
+                                                        </h4>
+                                                      </div>
+                                                      <p className="text-sm line-clamp-2 leading-snug transition-colors text-[#5C4033] group-hover:text-white/90">
+                                                        {child.description}
+                                                      </p>
+                                                    </Link>
+                                                  );
+                                                },
+                                              )}
+                                            </div>
+                                          </motion.div>
+                                        )}
+                                      </AnimatePresence>
                                     </div>
                                   );
                                 }

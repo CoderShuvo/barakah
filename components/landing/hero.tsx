@@ -15,9 +15,6 @@ export function Hero() {
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    // If user has manually toggled, we respect that until they scroll back up significantly
-    // or just let scroll override it after a certain distance.
-    // For now, let's make scroll the primary driver.
     if (latest > 100) {
       if (!manualToggle) {
         setIsFanned(true);
@@ -202,12 +199,12 @@ export function Hero() {
                   : "left-[2%] sm:left-[1%] bottom-[10%] sm:bottom-[15%] md:bottom-[20%] -rotate-12 opacity-100 scale-100 z-10"
               }
               w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[460px] 
-              h-[150px] sm:h-[210px] md:h-[280px] lg:h-[320px] xl:h-[360px] 
+              h-[70px] sm:h-[70px] md:h-[200px] lg:h-[280px] xl:h-[300px] 
               bg-transparent transform hover:-translate-y-2 sm:hover:-translate-y-4 origin-bottom-right`}
             sizes="(max-width: 640px) 100px, (max-width: 768px) 140px, (max-width: 1024px) 280px, (max-width: 1280px) 360px, 460px"
             priority
             width={360}
-            height={270}
+            height={200}
           />
 
           {/* Card 2 */}
@@ -222,7 +219,7 @@ export function Hero() {
                   : "left-[12%] sm:left-[15%] bottom-0 -rotate-6 opacity-100 scale-100 z-20"
               }
               w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[450px] 
-              h-[150px] sm:h-[210px] md:h-[280px] lg:h-[320px] xl:h-[360px] 
+              h-[70px] sm:h-[70px] md:h-[200px] lg:h-[280px] xl:h-[300px] 
               bg-transparent transform hover:-translate-y-2 sm:hover:-translate-y-4 origin-bottom`}
             width={360}
             height={270}
@@ -268,7 +265,7 @@ export function Hero() {
                   : "bottom-0 right-[12%] sm:right-[15%] rotate-6 opacity-100 scale-100 z-20"
               }
               w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[460px] 
-              h-[150px] sm:h-[210px] md:h-[280px] lg:h-[320px] xl:h-[360px] 
+              h-[70px] sm:h-[70px] md:h-[200px] lg:h-[280px] xl:h-[300px] 
              transform hover:-translate-y-2 sm:hover:-translate-y-4 origin-bottom`}
             width={360}
             height={270}
@@ -287,7 +284,7 @@ export function Hero() {
                   : "bottom-[10%] sm:bottom-[15%] md:bottom-[20%] right-[2%] sm:right-[1%] rotate-12 opacity-100 scale-100 z-10"
               }
               w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[460px] 
-              h-[150px] sm:h-[210px] md:h-[280px] lg:h-[320px] xl:h-[360px] 
+              h-[70px] sm:h-[70px] md:h-[200px] lg:h-[280px] xl:h-[300px] 
              transform hover:-translate-y-2 sm:hover:-translate-y-4 origin-bottom-left`}
             width={360}
             height={270}

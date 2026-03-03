@@ -50,6 +50,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -66,7 +68,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <SmoothScrollProvider>{children}</SmoothScrollProvider>
         </ThemeProvider>
       </body>
     </html>

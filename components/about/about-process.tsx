@@ -338,8 +338,8 @@ export function AboutProcess() {
                       {/* Step Icon */}
                       <div className="flex flex-col md:flex-row items-center md:items-start gap-6 mb-2 text-center md:text-left">
                         <div className="flex-shrink-0">
-                          <div className="rounded-full h-20 w-20 md:h-[120px] md:w-[120px] bg-[#E76F3D]/30 flex items-center justify-center text-[#E76F3D]">
-                            <step.icon className="stroke-[1.5] text-black w-10 h-10 md:w-auto md:h-auto" />
+                          <div className="rounded-full p-6 md:h-[120px] md:w-[120px] bg-[#E76F3D]/30 flex items-center justify-center text-[#E76F3D]">
+                            <step.icon className="stroke-[1.5] text-black  md:w-auto md:h-auto" />
                           </div>
                         </div>
                         <div className="flex flex-col">

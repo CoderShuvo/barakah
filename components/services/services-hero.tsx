@@ -11,12 +11,12 @@ export function ServicesHero() {
   return (
     <section className="relative container mx-auto min-h-[80vh] flex flex-col items-center justify-center overflow-hidden bg-[#FFFCF9] ">
       {/* Background Image */}
-      <div className="absolute inset-0 z-0 select-none">
+      <div className="absolute inset-0 hidden md:block z-0 select-none">
         <Image
           src="/assets/hero-bg.png"
           alt="Barakah Agency Services Hero Background"
           fill
-          className="object-fit object-top opacity-40 mix-blend-multiply"
+          className="object-cover object-center opacity-40 mix-blend-multiply"
           priority
           quality={100}
         />

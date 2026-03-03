@@ -141,13 +141,14 @@ function ServiceCard({ service }: { service: Service }) {
     >
       <div className="container mx-auto px-4 md:px-8">
         <motion.div
+          layout
+          initial={false}
           animate={{
-            height: isHovered ? "auto" : "auto",
+            height: isHovered ? "auto" : "auto", // Keep height auto for layout animations
           }}
           className={`relative overflow-hidden group cursor-pointer rounded-[32px] transition-colors duration-400 ease-in-out ${
             isHovered ? "bg-[#E76F3D]" : "bg-transparent"
           }`}
-          initial={false}
         >
           {/* Subtle Background Icon (Mandala) */}
           {/* <div
@@ -161,7 +162,7 @@ function ServiceCard({ service }: { service: Service }) {
           <div className="relative z-10">
             <div className="flex flex-col lg:flex-row items-center justify-between gap-12 min-h-[450px]">
               {/* Content Column */}
-              <div className="w-full  lg:w-3/5 flex flex-col items-start text-left justify-center transition-all duration-500">
+              <div className="w-full lg:w-3/5 flex flex-col items-start text-left justify-center transition-all duration-500">
                 <AnimatePresence>
                   {isHovered && (
                     <motion.div
@@ -273,21 +274,23 @@ function ServiceCard({ service }: { service: Service }) {
               {/* Right Image Container */}
               <div className="w-full lg:w-2/5 flex justify-end relative h-[250px] lg:h-[350px]">
                 {isBranding ? (
-                  <ImagePile isHovered={isHovered} />
+                  <div className="scale-110 lg:scale-125 transition-transform duration-500 origin-right">
+                    <ImagePile isHovered={isHovered} />
+                  </div>
                 ) : (
                   <AnimatePresence>
                     {isHovered && (
                       <motion.div
-                        initial={{ opacity: 0, x: 200, rotate: 10 }}
-                        animate={{ opacity: 1, x: 0, rotate: 0 }}
-                        exit={{ opacity: 0, x: 200, rotate: 10 }}
+                        initial={{ opacity: 0, x: 100, rotate: 15, scale: 0.8 }}
+                        animate={{ opacity: 1, x: 0, rotate: -35, scale: 1.15 }}
+                        exit={{ opacity: 0, x: 100, rotate: 15, scale: 0.8 }}
                         transition={{
                           type: "spring",
-                          stiffness: 80,
-                          damping: 15,
-                          mass: 0.8,
+                          stiffness: 100,
+                          damping: 20,
+                          mass: 1,
                         }}
-                        className="absolute top-0 right-0 w-full h-full max-w-[500px] rounded-2xl overflow-hidden shadow-2xl border-2 border-white/20"
+                        className="absolute top-0 right-0 w-full h-full max-w-[550px] rounded-[32px] overflow-hidden shadow-2xl border-[4px] border-white z-20"
                       >
                         <Image
                           src={service.image}
