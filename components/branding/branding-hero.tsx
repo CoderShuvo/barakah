@@ -176,7 +176,7 @@ export function BrandingHero() {
                          : "left-[2%] sm:left-[1%] bottom-[10%] sm:bottom-[15%] md:bottom-[20%] -rotate-12 opacity-100 scale-100 z-10"
                      }
                      w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[460px] 
-                     h-[150px] sm:h-[210px] md:h-[280px] lg:h-[320px] xl:h-[360px] 
+                       h-[70px] sm:h-[70px] md:h-[200px] lg:h-[280px] xl:h-[300px] 
                      bg-transparent transform hover:-translate-y-2 sm:hover:-translate-y-4 origin-bottom-right`}
             width={360}
             height={270}
@@ -196,7 +196,7 @@ export function BrandingHero() {
                          : "left-[12%] sm:left-[15%] bottom-0 -rotate-6 opacity-100 scale-100 z-20"
                      }
                      w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[450px] 
-                     h-[150px] sm:h-[210px] md:h-[280px] lg:h-[320px] xl:h-[360px] 
+                       h-[70px] sm:h-[70px] md:h-[200px] lg:h-[280px] xl:h-[300px] 
                      bg-transparent transform hover:-translate-y-2 sm:hover:-translate-y-4 origin-bottom`}
             width={360}
             height={270}
@@ -242,7 +242,7 @@ export function BrandingHero() {
                          : "bottom-0 right-[12%] sm:right-[15%] rotate-6 opacity-100 scale-100 z-20"
                      }
                      w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[460px] 
-                     h-[150px] sm:h-[210px] md:h-[280px] lg:h-[320px] xl:h-[360px] 
+                       h-[70px] sm:h-[70px] md:h-[200px] lg:h-[280px] xl:h-[300px] 
                     transform hover:-translate-y-2 sm:hover:-translate-y-4 origin-bottom`}
             width={360}
             height={270}
@@ -261,7 +261,7 @@ export function BrandingHero() {
                          : "bottom-[10%] sm:bottom-[15%] md:bottom-[20%] right-[2%] sm:right-[1%] rotate-12 opacity-100 scale-100 z-10"
                      }
                      w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[460px] 
-                     h-[150px] sm:h-[210px] md:h-[280px] lg:h-[320px] xl:h-[360px] 
+                       h-[70px] sm:h-[70px] md:h-[200px] lg:h-[280px] xl:h-[300px] 
                     transform hover:-translate-y-2 sm:hover:-translate-y-4 origin-bottom-left`}
             width={360}
             height={270}
