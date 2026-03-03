@@ -8,7 +8,7 @@ import Image from "next/image";
 
 export function PerformanceHero() {
   return (
-    <section className="relative min-h-[90vh] lg:min-h-[100vh] flex flex-col items-center justify-center overflow-hidden bg-[#FFFCF9] pt-32 pb-40">
+    <section className="relative min-h-[90vh] lg:min-h-[100vh] flex flex-col items-center justify-center overflow-hidden bg-[#FFFCF9] pb-40">
       {/* Decorative Background Pattern (Mandala-like) */}
       <div className="absolute right-[-10%] top-2 -translate-y-1/2 w-[800px] h-[800px] opacity-[0.08] pointer-events-none">
         <svg

@@ -172,8 +172,8 @@ export function BrandingHero() {
             className={`absolute bottom-0 transition-all duration-700 ease-in-out
                      ${
                        !isFanned
-                         ? "left-1/2 -translate-x-1/2 rotate-0 opacity-100 scale-95 z-[25]"
-                         : "left-[2%] sm:left-[1%] bottom-[10%] sm:bottom-[15%] md:bottom-[20%] -rotate-12 opacity-100 scale-100 z-10"
+                         ? "left-1/2 -translate-x-1/2 rotate-0 opacity-0 scale-95 z-[25]"
+                         : "left-[-5%] sm:left-[-10%] bottom-0 -rotate-12 opacity-100 scale-100 z-10"
                      }
                      w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[460px] 
                        h-[70px] sm:h-[70px] md:h-[200px] lg:h-[280px] xl:h-[300px] 
@@ -192,8 +192,8 @@ export function BrandingHero() {
             className={`absolute transition-all duration-700 ease-in-out
                      ${
                        !isFanned
-                         ? "left-1/2 -translate-x-1/2 rotate-0 opacity-100 scale-95 z-[26]"
-                         : "left-[12%] sm:left-[15%] bottom-0 -rotate-6 opacity-100 scale-100 z-20"
+                         ? "left-1/2 -translate-x-1/2 rotate-0 opacity-0 scale-95 z-[26]"
+                         : "left-[22%] sm:left-[22%] bottom-[10%] sm:bottom-[15%] md:bottom-[20%] -rotate-6 opacity-100 scale-100 z-20"
                      }
                      w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[450px] 
                        h-[70px] sm:h-[70px] md:h-[200px] lg:h-[280px] xl:h-[300px] 
@@ -211,7 +211,7 @@ export function BrandingHero() {
                      ${
                        !isFanned
                          ? "scale-100 shadow-2xl"
-                         : "scale-110 shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
+                         : "scale-110 shadow-[0_20px_60px_rgba(0,0,0,0.4)] bottom-0"
                      }
                      w-[180px] sm:w-[220px] md:w-[280px] lg:w-[340px] xl:w-[400px]
                      aspect-video md:aspect-[4/3] 
@@ -238,8 +238,8 @@ export function BrandingHero() {
             className={`absolute transition-all duration-700 ease-in-out
                      ${
                        !isFanned
-                         ? "left-1/2 -translate-x-1/2 rotate-0 opacity-100 scale-95 z-[26]"
-                         : "bottom-0 right-[12%] sm:right-[15%] rotate-6 opacity-100 scale-100 z-20"
+                         ? "left-1/2 -translate-x-1/2 rotate-0 opacity-0 scale-95 z-[26]"
+                         : "bottom-[10%] sm:bottom-[15%] md:bottom-[20%] right-[22%] sm:right-[22%] rotate-6 opacity-100 scale-100 z-20"
                      }
                      w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[460px] 
                        h-[70px] sm:h-[70px] md:h-[200px] lg:h-[280px] xl:h-[300px] 
@@ -257,8 +257,8 @@ export function BrandingHero() {
             className={`absolute transition-all duration-700 ease-in-out
                      ${
                        !isFanned
-                         ? "left-1/2 -translate-x-1/2 rotate-0 opacity-100 scale-95 z-[25]"
-                         : "bottom-[10%] sm:bottom-[15%] md:bottom-[20%] right-[2%] sm:right-[1%] rotate-12 opacity-100 scale-100 z-10"
+                         ? "left-1/2 -translate-x-1/2 rotate-0 opacity-0 scale-95 z-[25]"
+                         : "bottom-0 right-[-5%] sm:right-[-10%] rotate-12 opacity-100 scale-100 z-10"
                      }
                      w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[460px] 
                        h-[70px] sm:h-[70px] md:h-[200px] lg:h-[280px] xl:h-[300px] 
