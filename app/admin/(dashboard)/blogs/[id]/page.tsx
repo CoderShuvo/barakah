@@ -86,7 +86,7 @@ export default function BlogEditorPage({
       .from("blogs")
       .select("*")
       .eq("id", id)
-      .single();
+      .maybeSingle();
 
     if (error) {
       console.error("Error fetching blog:", error);

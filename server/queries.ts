@@ -52,7 +52,7 @@ export async function getBlogBySlug(slug: string): Promise<Blog | null> {
     .select("*")
     .eq("slug", slug)
     .eq("published", true)
-    .single()
+    .maybeSingle()
 
   if (error) {
     console.error("Error fetching blog:", error)
@@ -134,7 +134,7 @@ export async function getCaseStudyBySlug(slug: string): Promise<CaseStudy | null
     .select("*")
     .eq("slug", slug)
     .eq("published", true)
-    .single()
+    .maybeSingle()
 
   if (error) {
     console.error("Error fetching case study:", error)

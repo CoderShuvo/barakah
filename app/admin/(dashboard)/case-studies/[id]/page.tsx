@@ -1,25 +1,27 @@
-"use client"
+"use client";
 
-import React from "react"
+import React from "react";
 
-import { useEffect, useState, use } from "react"
-import { useRouter } from "next/navigation"
-import { createClient } from "@/lib/supabase/client"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Switch } from "@/components/ui/switch"
+import { useEffect, useState, use } from "react";
+import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Switch } from "@/components/ui/switch";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { ArrowLeft, Save, Loader2 } from "lucide-react"
-import Link from "next/link"
+} from "@/components/ui/select";
+import { ArrowLeft, Save, Loader2 } from "lucide-react";
+import Link from "next/link";
+import { createCaseStudy, updateCaseStudy } from "@/server/actions";
+import { toast } from "sonner";
 
 const INDUSTRIES = [
   "Technology",
@@ -32,33 +34,37 @@ const INDUSTRIES = [
   "Fashion",
   "Non-profit",
   "Other",
-]
+];
 
 interface CaseStudyFormData {
-  title: string
-  slug: string
-  client: string
-  industry: string
-  challenge: string
-  solution: string
-  results: string
-  cover_image: string
-  gallery: string[]
-  metrics: Record<string, string>
-  testimonial: string
-  testimonial_author: string
-  published: boolean
-  featured: boolean
+  title: string;
+  slug: string;
+  client: string;
+  industry: string;
+  challenge: string;
+  solution: string;
+  results: string;
+  cover_image: string;
+  gallery: string[];
+  metrics: Record<string, string>;
+  testimonial: string;
+  testimonial_author: string;
+  published: boolean;
+  featured: boolean;
 }
 
-export default function CaseStudyEditorPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params)
-  const router = useRouter()
-  const supabase = createClient()
-  const isNew = id === "new"
-  
-  const [loading, setLoading] = useState(!isNew)
-  const [saving, setSaving] = useState(false)
+export default function CaseStudyEditorPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = use(params);
+  const router = useRouter();
+  const supabase = createClient();
+  const isNew = id === "new";
+
+  const [loading, setLoading] = useState(!isNew);
+  const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState<CaseStudyFormData>({
     title: "",
     slug: "",
@@ -74,26 +80,26 @@ export default function CaseStudyEditorPage({ params }: { params: Promise<{ id: 
     testimonial_author: "",
     published: false,
     featured: false,
-  })
-  const [metricsInput, setMetricsInput] = useState("")
-  const [galleryInput, setGalleryInput] = useState("")
+  });
+  const [metricsInput, setMetricsInput] = useState("");
+  const [galleryInput, setGalleryInput] = useState("");
 
   useEffect(() => {
     if (!isNew) {
-      fetchCaseStudy()
+      fetchCaseStudy();
     }
-  }, [id, isNew])
+  }, [id, isNew]);
 
   async function fetchCaseStudy() {
     const { data, error } = await supabase
       .from("case_studies")
       .select("*")
       .eq("id", id)
-      .single()
-    
+      .maybeSingle();
+
     if (error) {
-      console.error("Error fetching case study:", error)
-      router.push("/admin/case-studies")
+      console.error("Error fetching case study:", error);
+      router.push("/admin/case-studies");
     } else if (data) {
       setFormData({
         title: data.title || "",
@@ -110,22 +116,22 @@ export default function CaseStudyEditorPage({ params }: { params: Promise<{ id: 
         testimonial_author: data.testimonial_author || "",
         published: data.published || false,
         featured: data.featured || false,
-      })
-      setGalleryInput((data.gallery || []).join("\n"))
+      });
+      setGalleryInput((data.gallery || []).join("\n"));
       setMetricsInput(
         Object.entries(data.metrics || {})
           .map(([key, value]) => `${key}: ${value}`)
-          .join("\n")
-      )
+          .join("\n"),
+      );
     }
-    setLoading(false)
+    setLoading(false);
   }
 
   function generateSlug(title: string) {
     return title
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
-      .replace(/(^-|-$)/g, "")
+      .replace(/(^-|-$)/g, "");
   }
 
   function handleTitleChange(title: string) {
@@ -133,57 +139,70 @@ export default function CaseStudyEditorPage({ params }: { params: Promise<{ id: 
       ...prev,
       title,
       slug: prev.slug || generateSlug(title),
-    }))
+    }));
   }
 
   function handleMetricsChange(value: string) {
-    setMetricsInput(value)
-    const metrics: Record<string, string> = {}
+    setMetricsInput(value);
+    const metrics: Record<string, string> = {};
     value.split("\n").forEach((line) => {
-      const [key, ...valueParts] = line.split(":")
+      const [key, ...valueParts] = line.split(":");
       if (key && valueParts.length) {
-        metrics[key.trim()] = valueParts.join(":").trim()
+        metrics[key.trim()] = valueParts.join(":").trim();
       }
-    })
-    setFormData((prev) => ({ ...prev, metrics }))
+    });
+    setFormData((prev) => ({ ...prev, metrics }));
   }
 
   function handleGalleryChange(value: string) {
-    setGalleryInput(value)
-    const gallery = value.split("\n").map((url) => url.trim()).filter(Boolean)
-    setFormData((prev) => ({ ...prev, gallery }))
+    setGalleryInput(value);
+    const gallery = value
+      .split("\n")
+      .map((url) => url.trim())
+      .filter(Boolean);
+    setFormData((prev) => ({ ...prev, gallery }));
   }
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setSaving(true)
+    e.preventDefault();
+    setSaving(true);
 
     const caseStudyData = {
       ...formData,
       slug: formData.slug || generateSlug(formData.title),
-    }
+    };
 
-    if (isNew) {
-      const { error } = await supabase.from("case_studies").insert(caseStudyData)
-      if (error) {
-        console.error("Error creating case study:", error)
-        alert("Error creating case study")
+    try {
+      if (isNew) {
+        const result = await createCaseStudy(caseStudyData as any);
+        if (result.success) {
+          toast.success("Case study created successfully");
+          router.push("/admin/case-studies");
+        } else {
+          toast.error(
+            typeof result.error === "string"
+              ? result.error
+              : (result.error as any)?.message || "Failed to create case study",
+          );
+        }
       } else {
-        router.push("/admin/case-studies")
+        const result = await updateCaseStudy(id, caseStudyData as any);
+        if (result.success) {
+          toast.success("Case study updated successfully");
+          router.push("/admin/case-studies");
+        } else {
+          toast.error(
+            typeof result.error === "string"
+              ? result.error
+              : (result.error as any)?.message || "Failed to update case study",
+          );
+        }
       }
-    } else {
-      const { error } = await supabase
-        .from("case_studies")
-        .update(caseStudyData)
-        .eq("id", id)
-      if (error) {
-        console.error("Error updating case study:", error)
-        alert("Error updating case study")
-      } else {
-        router.push("/admin/case-studies")
-      }
+    } catch (err) {
+      console.error("Error saving case study:", err);
+      toast.error("An unexpected error occurred");
     }
-    setSaving(false)
+    setSaving(false);
   }
 
   if (loading) {
@@ -191,7 +210,7 @@ export default function CaseStudyEditorPage({ params }: { params: Promise<{ id: 
       <div className="flex items-center justify-center py-16">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
-    )
+    );
   }
 
   return (
@@ -237,7 +256,10 @@ export default function CaseStudyEditorPage({ params }: { params: Promise<{ id: 
                       id="slug"
                       value={formData.slug}
                       onChange={(e) =>
-                        setFormData((prev) => ({ ...prev, slug: e.target.value }))
+                        setFormData((prev) => ({
+                          ...prev,
+                          slug: e.target.value,
+                        }))
                       }
                       placeholder="case-study-slug"
                       required
@@ -252,7 +274,10 @@ export default function CaseStudyEditorPage({ params }: { params: Promise<{ id: 
                       id="client"
                       value={formData.client}
                       onChange={(e) =>
-                        setFormData((prev) => ({ ...prev, client: e.target.value }))
+                        setFormData((prev) => ({
+                          ...prev,
+                          client: e.target.value,
+                        }))
                       }
                       placeholder="Client company name"
                       required
@@ -293,7 +318,10 @@ export default function CaseStudyEditorPage({ params }: { params: Promise<{ id: 
                     id="challenge"
                     value={formData.challenge}
                     onChange={(e) =>
-                      setFormData((prev) => ({ ...prev, challenge: e.target.value }))
+                      setFormData((prev) => ({
+                        ...prev,
+                        challenge: e.target.value,
+                      }))
                     }
                     placeholder="Describe the client's challenge..."
                     rows={4}
@@ -306,7 +334,10 @@ export default function CaseStudyEditorPage({ params }: { params: Promise<{ id: 
                     id="solution"
                     value={formData.solution}
                     onChange={(e) =>
-                      setFormData((prev) => ({ ...prev, solution: e.target.value }))
+                      setFormData((prev) => ({
+                        ...prev,
+                        solution: e.target.value,
+                      }))
                     }
                     placeholder="Describe the solution implemented..."
                     rows={4}
@@ -319,7 +350,10 @@ export default function CaseStudyEditorPage({ params }: { params: Promise<{ id: 
                     id="results"
                     value={formData.results}
                     onChange={(e) =>
-                      setFormData((prev) => ({ ...prev, results: e.target.value }))
+                      setFormData((prev) => ({
+                        ...prev,
+                        results: e.target.value,
+                      }))
                     }
                     placeholder="Describe the results achieved..."
                     rows={4}
@@ -339,7 +373,10 @@ export default function CaseStudyEditorPage({ params }: { params: Promise<{ id: 
                     id="testimonial"
                     value={formData.testimonial}
                     onChange={(e) =>
-                      setFormData((prev) => ({ ...prev, testimonial: e.target.value }))
+                      setFormData((prev) => ({
+                        ...prev,
+                        testimonial: e.target.value,
+                      }))
                     }
                     placeholder="What did the client say about working with you?"
                     rows={3}
@@ -417,7 +454,10 @@ export default function CaseStudyEditorPage({ params }: { params: Promise<{ id: 
                     id="cover_image"
                     value={formData.cover_image}
                     onChange={(e) =>
-                      setFormData((prev) => ({ ...prev, cover_image: e.target.value }))
+                      setFormData((prev) => ({
+                        ...prev,
+                        cover_image: e.target.value,
+                      }))
                     }
                     placeholder="https://example.com/image.jpg"
                   />
@@ -460,5 +500,5 @@ export default function CaseStudyEditorPage({ params }: { params: Promise<{ id: 
         </div>
       </form>
     </div>
-  )
+  );
 }
