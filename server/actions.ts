@@ -14,31 +14,41 @@ import { cookies } from "next/headers"
 
 // Helper to check if the current user is an authorized admin
 async function isAdminAuthorized() {
-  const { createClient, createAdminClient } = await import("@/lib/supabase/server")
-  const supabase = await createClient()
-  
-  // 1. Check Supabase session
-  const { data: { user } } = await supabase.auth.getUser()
-  if (user?.user_metadata?.is_admin) {
-    return { authorized: true, user, client: await createAdminClient() }
-  }
-
-  // 2. Check hardcoded admin cookie
-  const cookieStore = await cookies()
-  const isAdminAuth = (await cookieStore).get("admin_auth")?.value === "true"
-  
-  if (isAdminAuth) {
-    return { 
-      authorized: true, 
-      user: { 
-        id: "hardcoded-admin", 
-        email: "admin@barakahagency.com" 
-      },
-      client: await createAdminClient()
+  try {
+    const { createClient, createAdminClient } = await import("@/lib/supabase/server")
+    const supabase = await createClient()
+    
+    // 1. Check Supabase session
+    const { data: { user }, error: userError } = await supabase.auth.getUser()
+    
+    if (userError) {
+      console.warn("Supabase auth check failed:", userError.message)
     }
-  }
 
-  return { authorized: false, user: null, client: null }
+    if (user?.user_metadata?.is_admin) {
+      return { authorized: true, user, client: await createAdminClient() }
+    }
+
+    // 2. Check hardcoded admin cookie
+    const cookieStore = await cookies()
+    const isAdminAuth = (await cookieStore).get("admin_auth")?.value === "true"
+    
+    if (isAdminAuth) {
+      return { 
+        authorized: true, 
+        user: { 
+          id: "hardcoded-admin", 
+          email: "admin@barakahagency.com" 
+        },
+        client: await createAdminClient()
+      }
+    }
+
+    return { authorized: false, user: null, client: null }
+  } catch (error) {
+    console.error("Critical error in isAdminAuthorized:", error)
+    return { authorized: false, user: null, client: null }
+  }
 }
 
 // Contact form submission

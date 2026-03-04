@@ -31,7 +31,7 @@ export async function getBlogs(options?: {
   const { data, error, count } = await query
 
   if (error) {
-    console.error("Error fetching blogs:", error)
+    console.error("Error fetching blogs (Public):", error.message, error.code)
     return { data: [], total: 0, page, pageSize, totalPages: 0 }
   }
 
