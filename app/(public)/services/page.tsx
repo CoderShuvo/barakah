@@ -162,7 +162,7 @@ function ServiceCard({ service }: { service: Service }) {
           <div className="relative z-10">
             <div className="flex flex-col lg:flex-row items-center justify-between gap-12 min-h-[450px]">
               {/* Content Column */}
-              <div className="w-full lg:w-3/5 flex flex-col items-start text-left justify-center transition-all duration-500">
+              <div className="w-full lg:w-3/5 flex flex-col items-start text-left justify-start transition-all duration-500">
                 <AnimatePresence>
                   {isHovered && (
                     <motion.div
@@ -272,7 +272,7 @@ function ServiceCard({ service }: { service: Service }) {
               </div>
 
               {/* Right Image Container */}
-              <div className="w-full lg:w-2/5 flex justify-end relative h-[250px] lg:h-[350px]">
+              <div className="w-full lg:w-2/5 flex justify-center relative h-[250px] lg:h-[350px]">
                 {isBranding ? (
                   <div className="scale-110 lg:scale-125 transition-transform duration-500 origin-right">
                     <ImagePile isHovered={isHovered} />

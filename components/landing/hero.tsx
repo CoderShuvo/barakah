@@ -186,7 +186,7 @@ export function Hero() {
         </div>
 
         {/* Fanned Images Layout */}
-        <div className="relative w-full max-w-8xl mx-auto h-[200px] sm:h-[280px] md:h-[350px] lg:h-[400px] flex justify-center items-end animate-fade-in-up opacity-0 [animation-fill-mode:forwards] [animation-delay:1000ms]">
+        <div className="relative w-full container  mx-auto h-[200px] sm:h-[280px] md:h-[350px] lg:h-[400px] flex justify-center items-end animate-fade-in-up opacity-0 [animation-fill-mode:forwards] [animation-delay:1000ms]">
           {/* Card 1 (Left-most) */}
 
           <Image
@@ -196,7 +196,7 @@ export function Hero() {
               ${
                 !isFanned
                   ? "left-1/2 -translate-x-1/2 rotate-0 opacity-0 scale-95 z-[25]"
-                  : "left-[0%] sm:left-[5%] bottom-0 -rotate-12 opacity-100 scale-100 z-10"
+                  : "left-[-10%] sm:left-[0%] bottom-0 -rotate-12 opacity-100 scale-100 z-10"
               }
               w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[460px] 
               h-[70px] sm:h-[70px] md:h-[200px] lg:h-[280px] xl:h-[300px] 
@@ -238,7 +238,7 @@ export function Hero() {
               }
               w-[180px] sm:w-[220px] md:w-[280px] lg:w-[340px] xl:w-[400px]
               aspect-video md:aspect-[4/3] 
-              z-30 border-2 sm:border-4 border-white transform hover:-translate-y-2 sm:hover:-translate-y-4 hover:scale-105`}
+              z-30  transform hover:-translate-y-2 sm:hover:-translate-y-4 hover:scale-105`}
           >
             <div className="w-full h-full bg-white overflow-hidden relative flex items-center justify-center p-1 sm:p-2">
               <Image
@@ -262,7 +262,7 @@ export function Hero() {
               ${
                 !isFanned
                   ? "left-1/2 -translate-x-1/2 rotate-0 opacity-0 scale-95 z-[26]"
-                  : "bottom-[10%] sm:bottom-[15%] md:bottom-[20%] right-[22%] sm:right-[22%] rotate-6 opacity-100 scale-100 z-20"
+                  : "bottom-[10%] sm:bottom-[15%] md:bottom-[20%] right-[18%] sm:right-[22%] rotate-6 opacity-100 scale-100 z-20"
               }
               w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[460px] 
               h-[70px] sm:h-[70px] md:h-[200px] lg:h-[280px] xl:h-[300px] 
@@ -281,7 +281,7 @@ export function Hero() {
               ${
                 !isFanned
                   ? "left-1/2 -translate-x-1/2 rotate-0 opacity-0 scale-95 z-[25]"
-                  : "bottom-0 right-[-5%] sm:right-[-10%] rotate-12 opacity-100 scale-100 z-10"
+                  : "bottom-0 right-[0%] sm:right-[0%] rotate-12 opacity-100 scale-100 z-10"
               }
               w-[100px] sm:w-[140px] md:w-[280px] lg:w-[360px] xl:w-[460px] 
               h-[70px] sm:h-[70px] md:h-[200px] lg:h-[280px] xl:h-[300px] 
