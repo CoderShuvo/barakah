@@ -24,8 +24,7 @@ const steps: StepData[] = [
     factTitle: "The Fact",
     factContent:
       "47% of businesses make strategic decisions based on flawed or 'dirty' data—we ensure your foundation is the source of truth.",
-    image:
-      "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1200&auto=format&fit=crop",
+    image: "/assets/GW1.png",
   },
   {
     id: "02",
@@ -36,8 +35,7 @@ const steps: StepData[] = [
     factTitle: "The Fact",
     factContent:
       "High-intent targeting typically yields a 3x higher conversion rate than traditional interest-based 'broad' targeting.",
-    image:
-      "https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=1200&auto=format&fit=crop",
+    image: "/assets/GW2.png",
   },
   {
     id: "03",
@@ -48,8 +46,7 @@ const steps: StepData[] = [
     factTitle: "The Fact",
     factContent:
       "Narrative-driven ads have been shown to increase brand recall by up to 22x compared to standard promotional formats.",
-    image:
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop",
+    image: "/assets/GW3.png",
   },
   {
     id: "04",
@@ -60,8 +57,7 @@ const steps: StepData[] = [
     factTitle: "The Fact",
     factContent:
       "A 1 second delay in page load time can result in a 7% reduction in conversions; we prioritize speed as a high-performance feature.",
-    image:
-      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=1200&auto=format&fit=crop",
+    image: "/assets/GW4.png",
   },
   {
     id: "05",
@@ -72,8 +68,7 @@ const steps: StepData[] = [
     factTitle: "The Fact",
     factContent:
       "Increasing customer retention by just 5% can increase company profits by 25% to 95%.",
-    image:
-      "https://images.unsplash.com/photo-1516339900600-af0b42816228?q=80&w=1200&auto=format&fit=crop",
+    image: "/assets/GW5.png",
   },
   {
     id: "06",
@@ -84,8 +79,7 @@ const steps: StepData[] = [
     factTitle: "The Fact",
     factContent:
       "Brands that prioritize ethical transparency grow at twice the rate of those that focus solely on transactional volume.",
-    image:
-      "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1200&auto=format&fit=crop",
+    image: "/assets/GW6.png",
   },
 ];
 
@@ -116,8 +110,8 @@ export function SustainableGrowthEngine() {
   const x = useTransform(scrollYProgress, [0, 1], [0, -scrollRange]);
 
   return (
-    <section ref={sectionRef} className="relative h-[500vh] bg-white">
-      <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center">
+    <section ref={sectionRef} className="relative min-h-[500vh] bg-white">
+      <div className="sticky top-0 h-screen overflow-hidden pb-4 flex flex-col justify-center">
         <div className="container mx-auto px-4 mb-12">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
@@ -172,7 +166,7 @@ export function SustainableGrowthEngine() {
               </div>
 
               {/* Step Image */}
-              <div className="relative aspect-[16/9] lg:aspect-[4/3] rounded-[2rem] overflow-hidden shadow-2xl group">
+              <div className="relative h-[400px] rounded-sm overflow-hidden group">
                 <Image
                   src={step.image}
                   alt={step.title}

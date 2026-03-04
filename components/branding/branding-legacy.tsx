@@ -169,7 +169,7 @@ export function BrandingLegacy() {
 
               {/* Right Column */}
               <div className="lg:col-span-3 order-3">
-                <p className="text-2xl lg:text-4xl font-serif italic text-[#3D1A10] leading-tight lg:-ml-12 relative z-10">
+                <p className="text-xl lg:text-4xl font-lato italic text-[#3D1A10] leading-tight lg:-ml-12 relative z-10">
                   {slides[currentSlide].rightQuote}
                 </p>
               </div>

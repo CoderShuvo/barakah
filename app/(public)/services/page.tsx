@@ -175,14 +175,14 @@ function ServiceCard({ service }: { service: Service }) {
                       animate={{
                         opacity: 1,
                         x: 0,
-                        height: "180px",
+                        height: "280px",
                         marginBottom: "16px",
                       }}
                       exit={{ opacity: 0, x: -50, height: 0, marginBottom: 0 }}
                       transition={{ duration: 0.5, ease: "easeOut" }}
                       className="w-full relative overflow-visible"
                     >
-                      <Icon className="relative -top-20 -left-20 h-full w-auto opacity-90" />
+                      <Icon className="relative -top-10 -left-2 h-full w-auto opacity-90" />
                     </motion.div>
                   )}
                 </AnimatePresence>

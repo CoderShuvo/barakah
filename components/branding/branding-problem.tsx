@@ -40,12 +40,12 @@ const tabContent = {
     },
     {
       type: "image",
-      src: "https://images.unsplash.com/photo-1542332213-9b5a5a3fad35?q=80&w=800&auto=format&fit=crop",
+      src: "/assets/assets-b.png",
       alt: "Red Tree",
     },
     {
       type: "image",
-      src: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop",
+      src: "/assets/assets-c.png",
       alt: "Woman with Flowers",
     },
     {
@@ -61,7 +61,7 @@ const tabContent = {
 
     {
       type: "image",
-      src: "https://images.unsplash.com/photo-1516233758813-a38d024919c5?q=80&w=800&auto=format&fit=crop",
+      src: "/assets/assets-d.png",
       alt: "Rice Terraces",
     },
   ],
@@ -78,12 +78,12 @@ const tabContent = {
     },
     {
       type: "image",
-      src: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop",
+      src: "/assets/assets-b.png",
       alt: "Inconsistency 3",
     },
     {
       type: "image",
-      src: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop",
+      src: "/assets/assets-c.png",
       alt: "Inconsistency 4",
     },
     {
@@ -98,7 +98,7 @@ const tabContent = {
     },
     {
       type: "image",
-      src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=800&auto=format&fit=crop",
+      src: "/assets/assets-d.png",
       alt: "Inconsistency 7",
     },
   ],
@@ -115,12 +115,12 @@ const tabContent = {
     },
     {
       type: "image",
-      src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800&auto=format&fit=crop",
+      src: "/assets/assets-b.png",
       alt: "Growth 3",
     },
     {
       type: "image",
-      src: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=800&auto=format&fit=crop",
+      src: "/assets/assets-c.png",
       alt: "Growth 4",
     },
     {
@@ -135,7 +135,7 @@ const tabContent = {
     },
     {
       type: "image",
-      src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=800&auto=format&fit=crop",
+      src: "/assets/assets-d.png",
       alt: "Growth 7",
     },
   ],
