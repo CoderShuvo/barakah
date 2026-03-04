@@ -21,12 +21,13 @@ async function isAdminAuthorized() {
     // 1. Check Supabase session
     const { data: { user }, error: userError } = await supabase.auth.getUser()
     
-    if (userError) {
-      console.warn("Supabase auth check failed:", userError.message)
+    if (user?.user_metadata?.is_admin) {
+      console.log("SUPABASE_DEBUG: Authorized via Supabase Auth")
+      return { authorized: true, user, client: await createAdminClient() }
     }
 
-    if (user?.user_metadata?.is_admin) {
-      return { authorized: true, user, client: await createAdminClient() }
+    if (userError && userError.message !== "Auth session missing!") {
+      console.warn("SUPABASE_DEBUG: Supabase auth check warning:", userError.message)
     }
 
     // 2. Check hardcoded admin cookie
@@ -34,6 +35,7 @@ async function isAdminAuthorized() {
     const isAdminAuth = (await cookieStore).get("admin_auth")?.value === "true"
     
     if (isAdminAuth) {
+      console.log("SUPABASE_DEBUG: Authorized via Mock Admin Cookie")
       return { 
         authorized: true, 
         user: { 

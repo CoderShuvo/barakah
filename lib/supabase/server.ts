@@ -1,4 +1,5 @@
 import { createServerClient } from '@supabase/ssr'
+import { createClient as createBaseClient } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
 
 /**
@@ -46,26 +47,26 @@ export async function createAdminClient() {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
   if (!url) {
+    console.error('SUPABASE_DEBUG: URL missing')
     throw new Error('NEXT_PUBLIC_SUPABASE_URL is missing')
   }
+
+  // Debug log (masked)
+  const isServiceRole = !!(process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SERVICE_ROLE_KEY)
+  console.log(`SUPABASE_DEBUG: Creating admin client. URL: ${url.substring(0, 15)}... Key Type: ${isServiceRole ? 'Service Role' : 'Anon Fallback'}`)
+
   if (!serviceRoleKey) {
-    throw new Error('Supabase API key is missing (both service role and anon)')
+    console.error('SUPABASE_DEBUG: All keys missing')
+    throw new Error('Supabase API key is missing')
   }
 
-  return createServerClient(
-    url,
-    serviceRoleKey,
-    {
-      cookies: {
-        getAll() {
-          return []
-        },
-        setAll() {
-          // Admin client doesn't need to manage cookies
-        },
-      },
-    },
-  )
+  // Use the base client for admin tasks as it's more direct for service role usage
+  return createBaseClient(url, serviceRoleKey, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false
+    }
+  })
 }
 
 /**
