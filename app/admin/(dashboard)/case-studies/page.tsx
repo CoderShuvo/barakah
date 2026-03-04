@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import Link from "next/link"
-import { createClient } from "@/lib/supabase/client"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { createClient } from "@/lib/supabase/client";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import {
   Table,
   TableBody,
@@ -13,7 +13,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -24,70 +24,80 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Plus, Pencil, Trash2, Eye, EyeOff, Star, StarOff } from "lucide-react"
-import type { CaseStudy } from "@/types"
+} from "@/components/ui/alert-dialog";
+import { Plus, Pencil, Trash2, Eye, EyeOff, Star, StarOff } from "lucide-react";
+import type { CaseStudy } from "@/types";
+import {
+  getCaseStudiesAdmin,
+  updateCaseStudy,
+  deleteCaseStudy,
+} from "@/server/actions";
+import { toast } from "sonner";
 
 export default function AdminCaseStudiesPage() {
-  const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([])
-  const [loading, setLoading] = useState(true)
-  const supabase = createClient()
+  const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchCaseStudies()
-  }, [])
+    fetchCaseStudies();
+  }, []);
 
   async function fetchCaseStudies() {
-    setLoading(true)
-    const { data, error } = await supabase
-      .from("case_studies")
-      .select("*")
-      .order("created_at", { ascending: false })
-    
-    if (error) {
-      console.error("Error fetching case studies:", error)
+    setLoading(true);
+    const result = await getCaseStudiesAdmin();
+
+    if (result.error) {
+      console.error("Error fetching case studies:", result.error);
+      toast.error("Failed to fetch case studies");
     } else {
-      setCaseStudies(data || [])
+      setCaseStudies(result.data as CaseStudy[]);
     }
-    setLoading(false)
+    setLoading(false);
   }
 
   async function togglePublish(caseStudy: CaseStudy) {
-    const { error } = await supabase
-      .from("case_studies")
-      .update({ published: !caseStudy.published })
-      .eq("id", caseStudy.id)
-    
-    if (error) {
-      console.error("Error updating case study:", error)
+    const result = await updateCaseStudy(caseStudy.id, {
+      ...caseStudy,
+      metrics: JSON.stringify(caseStudy.metrics || {}),
+      published: !caseStudy.published,
+    } as any);
+
+    if (!result.success) {
+      console.error("Error updating case study:", result.error);
+      toast.error("Failed to update status");
     } else {
-      fetchCaseStudies()
+      toast.success(caseStudy.published ? "Unpublished" : "Published");
+      fetchCaseStudies();
     }
   }
 
   async function toggleFeatured(caseStudy: CaseStudy) {
-    const { error } = await supabase
-      .from("case_studies")
-      .update({ featured: !caseStudy.featured })
-      .eq("id", caseStudy.id)
-    
-    if (error) {
-      console.error("Error updating case study:", error)
+    const result = await updateCaseStudy(caseStudy.id, {
+      ...caseStudy,
+      metrics: JSON.stringify(caseStudy.metrics || {}),
+      featured: !caseStudy.featured,
+    } as any);
+
+    if (!result.success) {
+      console.error("Error updating case study:", result.error);
+      toast.error("Failed to update featured status");
     } else {
-      fetchCaseStudies()
+      toast.success(
+        caseStudy.featured ? "Removed from featured" : "Added to featured",
+      );
+      fetchCaseStudies();
     }
   }
 
-  async function deleteCaseStudy(id: string) {
-    const { error } = await supabase
-      .from("case_studies")
-      .delete()
-      .eq("id", id)
-    
-    if (error) {
-      console.error("Error deleting case study:", error)
+  async function handleDelete(id: string) {
+    const result = await deleteCaseStudy(id);
+
+    if (!result.success) {
+      console.error("Error deleting case study:", result.error);
+      toast.error("Failed to delete case study");
     } else {
-      fetchCaseStudies()
+      toast.success("Case study deleted");
+      fetchCaseStudies();
     }
   }
 
@@ -96,7 +106,9 @@ export default function AdminCaseStudiesPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-foreground">Case Studies</h1>
-          <p className="text-muted-foreground">Showcase your client success stories</p>
+          <p className="text-muted-foreground">
+            Showcase your client success stories
+          </p>
         </div>
         <Button asChild>
           <Link href="/admin/case-studies/new">
@@ -164,7 +176,11 @@ export default function AdminCaseStudiesPage() {
                           variant="ghost"
                           size="icon"
                           onClick={() => toggleFeatured(cs)}
-                          title={cs.featured ? "Remove from featured" : "Add to featured"}
+                          title={
+                            cs.featured
+                              ? "Remove from featured"
+                              : "Add to featured"
+                          }
                         >
                           {cs.featured ? (
                             <StarOff className="h-4 w-4" />
@@ -197,15 +213,18 @@ export default function AdminCaseStudiesPage() {
                           </AlertDialogTrigger>
                           <AlertDialogContent>
                             <AlertDialogHeader>
-                              <AlertDialogTitle>Delete Case Study</AlertDialogTitle>
+                              <AlertDialogTitle>
+                                Delete Case Study
+                              </AlertDialogTitle>
                               <AlertDialogDescription>
-                                Are you sure you want to delete &quot;{cs.title}&quot;? This action cannot be undone.
+                                Are you sure you want to delete &quot;{cs.title}
+                                &quot;? This action cannot be undone.
                               </AlertDialogDescription>
                             </AlertDialogHeader>
                             <AlertDialogFooter>
                               <AlertDialogCancel>Cancel</AlertDialogCancel>
                               <AlertDialogAction
-                                onClick={() => deleteCaseStudy(cs.id)}
+                                onClick={() => handleDelete(cs.id)}
                                 className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                               >
                                 Delete
@@ -223,5 +242,5 @@ export default function AdminCaseStudiesPage() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

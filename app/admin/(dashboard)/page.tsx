@@ -1,39 +1,50 @@
-import Link from "next/link"
-import { FileText, FolderKanban, Users, TrendingUp, ArrowRight } from "lucide-react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { createClient } from "@/lib/supabase/server"
+import Link from "next/link";
+import {
+  FileText,
+  FolderKanban,
+  Users,
+  TrendingUp,
+  ArrowRight,
+} from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { createClient } from "@/lib/supabase/server";
 
 async function getStats() {
-  const supabase = await createClient()
+  const { getAdminSupabase } = await import("@/lib/supabase/server");
+  const supabase = (await getAdminSupabase()) || (await createClient());
 
   const [blogsResult, caseStudiesResult, leadsResult] = await Promise.all([
     supabase.from("blogs").select("id", { count: "exact", head: true }),
     supabase.from("case_studies").select("id", { count: "exact", head: true }),
-    supabase.from("contact_leads").select("id", { count: "exact", head: true }).eq("status", "new"),
-  ])
+    supabase
+      .from("contact_leads")
+      .select("id", { count: "exact", head: true })
+      .eq("status", "new"),
+  ]);
 
   return {
     blogs: blogsResult.count || 0,
     caseStudies: caseStudiesResult.count || 0,
     newLeads: leadsResult.count || 0,
-  }
+  };
 }
 
 async function getRecentLeads() {
-  const supabase = await createClient()
+  const { getAdminSupabase } = await import("@/lib/supabase/server");
+  const supabase = (await getAdminSupabase()) || (await createClient());
   const { data } = await supabase
     .from("contact_leads")
     .select("*")
     .order("created_at", { ascending: false })
-    .limit(5)
+    .limit(5);
 
-  return data || []
+  return data || [];
 }
 
 export default async function AdminDashboardPage() {
-  const stats = await getStats()
-  const recentLeads = await getRecentLeads()
+  const stats = await getStats();
+  const recentLeads = await getRecentLeads();
 
   const statCards = [
     {
@@ -54,12 +65,14 @@ export default async function AdminDashboardPage() {
       icon: Users,
       href: "/admin/leads",
     },
-  ]
+  ];
 
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="font-serif text-3xl font-bold text-foreground">Dashboard</h1>
+        <h1 className="font-serif text-3xl font-bold text-foreground">
+          Dashboard
+        </h1>
         <p className="text-muted-foreground mt-1">
           Welcome to the Barakah Agency admin dashboard.
         </p>
@@ -121,7 +134,9 @@ export default async function AdminDashboardPage() {
                   >
                     <div>
                       <p className="font-medium text-foreground">{lead.name}</p>
-                      <p className="text-muted-foreground text-xs">{lead.email}</p>
+                      <p className="text-muted-foreground text-xs">
+                        {lead.email}
+                      </p>
                     </div>
                     <span
                       className={`px-2 py-1 rounded-full text-xs font-medium ${
@@ -145,5 +160,5 @@ export default async function AdminDashboardPage() {
         </Card>
       </div>
     </div>
-  )
+  );
 }

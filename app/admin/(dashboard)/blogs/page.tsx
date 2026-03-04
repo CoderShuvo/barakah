@@ -28,6 +28,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Plus, Pencil, Trash2, Eye, EyeOff } from "lucide-react";
 import type { Blog } from "@/types";
+import { getBlogsAdmin, updateBlog, deleteBlog } from "@/server/actions";
+import { toast } from "sonner";
 
 export default function AdminBlogsPage() {
   const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -36,7 +38,6 @@ export default function AdminBlogsPage() {
   const [page, setPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
   const pageSize = 10;
-  const supabase = createClient();
 
   useEffect(() => {
     fetchBlogs();
@@ -44,48 +45,46 @@ export default function AdminBlogsPage() {
 
   async function fetchBlogs() {
     setLoading(true);
-    const from = (page - 1) * pageSize;
-    const to = from + pageSize - 1;
+    const result = await getBlogsAdmin({
+      page,
+      pageSize,
+      search,
+    });
 
-    let query = supabase
-      .from("blogs")
-      .select("*", { count: "exact" })
-      .order("created_at", { ascending: false });
-
-    if (search) {
-      query = query.ilike("title", `%${search}%`);
-    }
-
-    const { data, error, count } = await query.range(from, to);
-
-    if (error) {
-      console.error("Error fetching blogs:", error);
+    if (result.error) {
+      console.error("Error fetching blogs:", result.error);
+      toast.error("Failed to fetch blogs");
     } else {
-      setBlogs(data || []);
-      setTotalCount(count || 0);
+      setBlogs(result.data as Blog[]);
+      setTotalCount(result.count);
     }
     setLoading(false);
   }
 
   async function togglePublish(blog: Blog) {
-    const { error } = await supabase
-      .from("blogs")
-      .update({ published: !blog.published })
-      .eq("id", blog.id);
+    const result = await updateBlog(blog.id, {
+      ...blog,
+      tags: (blog.tags || []).join(", "),
+      published: !blog.published,
+    } as any);
 
-    if (error) {
-      console.error("Error updating blog:", error);
+    if (!result.success) {
+      console.error("Error updating blog:", result.error);
+      toast.error("Failed to update status");
     } else {
+      toast.success(blog.published ? "Unpublished" : "Published");
       fetchBlogs();
     }
   }
 
-  async function deleteBlog(id: string) {
-    const { error } = await supabase.from("blogs").delete().eq("id", id);
+  async function handleDelete(id: string) {
+    const result = await deleteBlog(id);
 
-    if (error) {
-      console.error("Error deleting blog:", error);
+    if (!result.success) {
+      console.error("Error deleting blog:", result.error);
+      toast.error("Failed to delete blog");
     } else {
+      toast.success("Blog deleted");
       fetchBlogs();
     }
   }
@@ -208,7 +207,7 @@ export default function AdminBlogsPage() {
                             <AlertDialogFooter>
                               <AlertDialogCancel>Cancel</AlertDialogCancel>
                               <AlertDialogAction
-                                onClick={() => deleteBlog(blog.id)}
+                                onClick={() => handleDelete(blog.id)}
                                 className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                               >
                                 Delete

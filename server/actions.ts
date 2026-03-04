@@ -14,12 +14,13 @@ import { cookies } from "next/headers"
 
 // Helper to check if the current user is an authorized admin
 async function isAdminAuthorized() {
+  const { createClient, createAdminClient } = await import("@/lib/supabase/server")
   const supabase = await createClient()
   
   // 1. Check Supabase session
   const { data: { user } } = await supabase.auth.getUser()
   if (user?.user_metadata?.is_admin) {
-    return { authorized: true, user }
+    return { authorized: true, user, client: await createAdminClient() }
   }
 
   // 2. Check hardcoded admin cookie
@@ -32,11 +33,12 @@ async function isAdminAuthorized() {
       user: { 
         id: "hardcoded-admin", 
         email: "admin@barakahagency.com" 
-      } 
+      },
+      client: await createAdminClient()
     }
   }
 
-  return { authorized: false, user: null }
+  return { authorized: false, user: null, client: null }
 }
 
 // Contact form submission
@@ -72,12 +74,10 @@ export async function createBlog(data: BlogFormData) {
     return { success: false, error: validated.error.flatten().fieldErrors }
   }
 
-  const { authorized, user } = await isAdminAuthorized()
-  if (!authorized || !user) {
+  const { authorized, user, client: supabase } = await isAdminAuthorized()
+  if (!authorized || !user || !supabase) {
     return { success: false, error: "Unauthorized" }
   }
-
-  const supabase = await createClient()
 
   const tags = validated.data.tags 
     ? validated.data.tags.split(",").map(t => t.trim()).filter(Boolean)
@@ -113,12 +113,10 @@ export async function updateBlog(id: string, data: BlogFormData) {
     return { success: false, error: validated.error.flatten().fieldErrors }
   }
 
-  const { authorized } = await isAdminAuthorized()
-  if (!authorized) {
+  const { authorized, client: supabase } = await isAdminAuthorized()
+  if (!authorized || !supabase) {
     return { success: false, error: "Unauthorized" }
   }
-
-  const supabase = await createClient()
 
   const tags = validated.data.tags 
     ? validated.data.tags.split(",").map(t => t.trim()).filter(Boolean)
@@ -154,12 +152,10 @@ export async function updateBlog(id: string, data: BlogFormData) {
 }
 
 export async function deleteBlog(id: string) {
-  const { authorized } = await isAdminAuthorized()
-  if (!authorized) {
+  const { authorized, client: supabase } = await isAdminAuthorized()
+  if (!authorized || !supabase) {
     return { success: false, error: "Unauthorized" }
   }
-
-  const supabase = await createClient()
   
   const { error } = await supabase.from("blogs").delete().eq("id", id)
 
@@ -180,12 +176,10 @@ export async function createCaseStudy(data: CaseStudyFormData) {
     return { success: false, error: validated.error.flatten().fieldErrors }
   }
 
-  const { authorized } = await isAdminAuthorized()
-  if (!authorized) {
+  const { authorized, client: supabase } = await isAdminAuthorized()
+  if (!authorized || !supabase) {
     return { success: false, error: "Unauthorized" }
   }
-
-  const supabase = await createClient()
   
   const metrics = validated.data.metrics 
     ? JSON.parse(validated.data.metrics)
@@ -224,12 +218,10 @@ export async function updateCaseStudy(id: string, data: CaseStudyFormData) {
     return { success: false, error: validated.error.flatten().fieldErrors }
   }
 
-  const { authorized } = await isAdminAuthorized()
-  if (!authorized) {
+  const { authorized, client: supabase } = await isAdminAuthorized()
+  if (!authorized || !supabase) {
     return { success: false, error: "Unauthorized" }
   }
-
-  const supabase = await createClient()
   
   const metrics = validated.data.metrics 
     ? JSON.parse(validated.data.metrics)
@@ -268,12 +260,10 @@ export async function updateCaseStudy(id: string, data: CaseStudyFormData) {
 }
 
 export async function deleteCaseStudy(id: string) {
-  const { authorized } = await isAdminAuthorized()
-  if (!authorized) {
+  const { authorized, client: supabase } = await isAdminAuthorized()
+  if (!authorized || !supabase) {
     return { success: false, error: "Unauthorized" }
   }
-
-  const supabase = await createClient()
   
   const { error } = await supabase.from("case_studies").delete().eq("id", id)
 
@@ -289,12 +279,10 @@ export async function deleteCaseStudy(id: string) {
 
 // Update lead status
 export async function updateLeadStatus(id: string, status: string) {
-  const { authorized } = await isAdminAuthorized()
-  if (!authorized) {
+  const { authorized, client: supabase } = await isAdminAuthorized()
+  if (!authorized || !supabase) {
     return { success: false, error: "Unauthorized" }
   }
-
-  const supabase = await createClient()
   
   const { error } = await supabase
     .from("contact_leads")
@@ -308,4 +296,53 @@ export async function updateLeadStatus(id: string, status: string) {
 
   revalidatePath("/admin/leads", "page")
   return { success: true }
+}
+
+export async function getBlogsAdmin(options: {
+  page: number;
+  pageSize: number;
+  search?: string;
+}) {
+  const { authorized, client: supabase } = await isAdminAuthorized()
+  if (!authorized || !supabase) {
+    return { data: [], count: 0, error: "Unauthorized" }
+  }
+
+  const from = (options.page - 1) * options.pageSize
+  const to = from + options.pageSize - 1
+
+  let query = supabase
+    .from("blogs")
+    .select("*", { count: "exact" })
+    .order("created_at", { ascending: false })
+
+  if (options.search) {
+    query = query.ilike("title", `%${options.search}%`)
+  }
+
+  const { data, error, count } = await query.range(from, to)
+
+  return {
+    data: data || [],
+    count: count || 0,
+    error: error ? error.message : null,
+  }
+}
+
+export async function getCaseStudiesAdmin() {
+  const { authorized, client: supabase } = await isAdminAuthorized()
+  if (!authorized || !supabase) {
+    return { data: [], count: 0, error: "Unauthorized" }
+  }
+
+  const { data, error, count } = await supabase
+    .from("case_studies")
+    .select("*", { count: "exact" })
+    .order("created_at", { ascending: false })
+
+  return {
+    data: data || [],
+    count: count || 0,
+    error: error ? error.message : null,
+  }
 }

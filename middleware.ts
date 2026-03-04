@@ -4,36 +4,19 @@ import { updateSession } from "@/lib/supabase/proxy"
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Update session for all requests
+  // Refresh session if expired - filling in common Supabase pattern
   const response = await updateSession(request)
 
-  // Check if this is an admin route
-  if (pathname.startsWith("/admin")) {
-    // Allow access to admin login page
-    if (pathname === "/admin/login") {
-      return response
-    }
-
-    // For other admin routes, we'll check auth in the layout
-    // The middleware just ensures the session is refreshed
-  }
-
-  // Add security headers
-  const headers = new Headers(response.headers)
-  headers.set("X-Frame-Options", "DENY")
-  headers.set("X-Content-Type-Options", "nosniff")
-  headers.set("Referrer-Policy", "strict-origin-when-cross-origin")
-  headers.set(
+  // Add security headers to the SAME response object returned by updateSession
+  response.headers.set("X-Frame-Options", "DENY")
+  response.headers.set("X-Content-Type-Options", "nosniff")
+  response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin")
+  response.headers.set(
     "Permissions-Policy",
     "camera=(), microphone=(), geolocation=()"
   )
 
-  return NextResponse.next({
-    request: {
-      headers: request.headers,
-    },
-    headers,
-  })
+  return response
 }
 
 export const config = {
