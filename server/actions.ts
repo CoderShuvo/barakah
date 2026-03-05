@@ -356,6 +356,7 @@ export async function loginAction(formData: FormData) {
     const role = IS_ADMIN_FALLBACK ? "admin" : "editor"
     const cookieStore = await cookies()
     ;(await cookieStore).set("admin_auth", "true", { path: "/", maxAge: 86400 })
+    ;(await cookieStore).set("admin_role", role, { path: "/", maxAge: 86400 })
     return { success: true, role }
   }
 
@@ -404,11 +405,12 @@ export async function loginAction(formData: FormData) {
     last_login_at: new Date().toISOString()
   }).eq("id", data.user.id)
 
+  const role = userProfile?.role || (data.user.email?.includes("admin") ? "admin" : "editor")
   const cookieStore = await cookies()
   ;(await cookieStore).set("admin_auth", "true", { path: "/", maxAge: 86400 })
+  ;(await cookieStore).set("admin_role", role, { path: "/", maxAge: 86400 })
 
   await touchSession()
-  const role = userProfile?.role || (data.user.email?.includes("admin") ? "admin" : "editor")
   return { success: true, role }
 }
 

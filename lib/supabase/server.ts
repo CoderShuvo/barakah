@@ -78,13 +78,14 @@ export async function getUserProfile() {
   
   const cookieStore = await cookies()
   const isAdminAuth = (await cookieStore).get("admin_auth")?.value === "true"
+  const adminRole = (await cookieStore).get("admin_role")?.value || "editor"
 
   if (!user) {
     if (isAdminAuth) {
       return {
         id: 'mock-admin',
-        email: 'admin@barakah.agency',
-        role: 'admin'
+        email: adminRole === 'admin' ? 'admin@barakah.agency' : 'editor@barakah.agency',
+        role: adminRole as 'admin' | 'editor'
       }
     }
     return null
@@ -106,10 +107,10 @@ export async function getAuthorizedSupabase(requiredRole: 'admin' | 'editor' = '
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   
-  // 1. Check for hardcoded admin cookie (backward compatibility if needed, but we'll phase this out)
+  // 1. Check for hardcoded admin cookie (fallback for dev)
   const cookieStore = await cookies()
   const isAdminAuth = (await cookieStore).get("admin_auth")?.value === "true"
-  if (isAdminAuth && requiredRole === 'admin') return await createAdminClient()
+  if (isAdminAuth) return await createAdminClient()
 
   if (!user) return null
 
