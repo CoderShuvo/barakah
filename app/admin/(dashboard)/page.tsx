@@ -11,8 +11,9 @@ import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 
 async function getStats() {
-  const { getAdminSupabase } = await import("@/lib/supabase/server");
-  const supabase = (await getAdminSupabase()) || (await createClient());
+  const { getAuthorizedSupabase } = await import("@/lib/supabase/server");
+  const supabase =
+    (await getAuthorizedSupabase("admin")) || (await createClient());
 
   const [blogsResult, caseStudiesResult, leadsResult] = await Promise.all([
     supabase.from("blogs").select("id", { count: "exact", head: true }),
@@ -31,8 +32,9 @@ async function getStats() {
 }
 
 async function getRecentLeads() {
-  const { getAdminSupabase } = await import("@/lib/supabase/server");
-  const supabase = (await getAdminSupabase()) || (await createClient());
+  const { getAuthorizedSupabase } = await import("@/lib/supabase/server");
+  const supabase =
+    (await getAuthorizedSupabase("admin")) || (await createClient());
   const { data } = await supabase
     .from("contact_leads")
     .select("*")
