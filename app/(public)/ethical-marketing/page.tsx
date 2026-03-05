@@ -19,9 +19,34 @@ import { Button } from "@/components/ui/button";
 import { FinalCTASection } from "@/components/landing";
 
 export const metadata: Metadata = {
-  title: "Ethical Marketing Hub",
+  metadataBase: new URL("https://barakahagency.com"),
+  title: "What Is Ethical Marketing? The Basics Every Marketer Needs To Know",
   description:
-    "Free resources, guides, and insights on ethical marketing practices for purpose-driven brands.",
+    "Explore the world of ethical marketing with our comprehensive guide. Learn the fundamentals and discover how to align your strategies with core values.",
+  openGraph: {
+    title: "What Is Ethical Marketing? The Basics Every Marketer Needs To Know",
+    description:
+      "Explore the world of ethical marketing with our comprehensive guide. Learn the fundamentals and discover how to align your strategies with core values.",
+    url: "https://barakahagency.com/ethical-marketing",
+    siteName: "Barakah Agency",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "/assets/fetured-barakah.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Ethical Marketing Guide",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "What Is Ethical Marketing? The Basics Every Marketer Needs To Know",
+    description:
+      "Explore the world of ethical marketing with our comprehensive guide. Learn the fundamentals and discover how to align your strategies with core values.",
+    images: ["/assets/fetured-barakah.jpg"],
+  },
 };
 
 export default function EthicalMarketingHubPage() {
