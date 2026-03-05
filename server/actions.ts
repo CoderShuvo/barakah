@@ -12,46 +12,29 @@ import {
 } from "@/lib/validations"
 import { cookies } from "next/headers"
 
-// Helper to check if the current user is an authorized admin
-async function isAdminAuthorized() {
+/**
+ * Authorizes a user based on their role for administrative tasks.
+ */
+async function isAuthorized(requiredRole: "admin" | "editor" = "editor") {
   try {
-    const { createClient, createAdminClient } = await import("@/lib/supabase/server")
-    const supabase = await createClient()
+    const { getAuthorizedSupabase, touchSession } = await import("@/lib/supabase/server")
+    const client = await getAuthorizedSupabase(requiredRole)
     
-    // 1. Check Supabase session
-    const { data: { user }, error: userError } = await supabase.auth.getUser()
-    
-    if (user?.user_metadata?.is_admin) {
-      console.log("SUPABASE_DEBUG: Authorized via Supabase Auth")
-      return { authorized: true, user, client: await createAdminClient() }
+    if (client) {
+      // Valid activity, update session timer
+      await touchSession()
+      return { authorized: true, client }
     }
 
-    if (userError && userError.message !== "Auth session missing!") {
-      console.warn("SUPABASE_DEBUG: Supabase auth check warning:", userError.message)
-    }
-
-    // 2. Check hardcoded admin cookie
-    const cookieStore = await cookies()
-    const isAdminAuth = (await cookieStore).get("admin_auth")?.value === "true"
-    
-    if (isAdminAuth) {
-      console.log("SUPABASE_DEBUG: Authorized via Mock Admin Cookie")
-      return { 
-        authorized: true, 
-        user: { 
-          id: "hardcoded-admin", 
-          email: "admin@barakahagency.com" 
-        },
-        client: await createAdminClient()
-      }
-    }
-
-    return { authorized: false, user: null, client: null }
+    return { authorized: false, client: null }
   } catch (error) {
-    console.error("Critical error in isAdminAuthorized:", error)
-    return { authorized: false, user: null, client: null }
+    console.error("Critical error in isAuthorized:", error)
+    return { authorized: false, client: null }
   }
 }
+
+// Backward compatibility: maintain old function name for unchanged code
+const isAdminAuthorized = () => isAuthorized("admin")
 
 // Contact form submission
 export async function submitContactForm(data: ContactFormData) {
@@ -86,8 +69,8 @@ export async function createBlog(data: BlogFormData) {
     return { success: false, error: validated.error.flatten().fieldErrors }
   }
 
-  const { authorized, user, client: supabase } = await isAdminAuthorized()
-  if (!authorized || !user || !supabase) {
+  const { authorized, client: supabase } = await isAuthorized("admin")
+  if (!authorized || !supabase) {
     return { success: false, error: "Unauthorized" }
   }
 
@@ -125,7 +108,7 @@ export async function updateBlog(id: string, data: BlogFormData) {
     return { success: false, error: validated.error.flatten().fieldErrors }
   }
 
-  const { authorized, client: supabase } = await isAdminAuthorized()
+  const { authorized, client: supabase } = await isAuthorized("admin")
   if (!authorized || !supabase) {
     return { success: false, error: "Unauthorized" }
   }
@@ -164,7 +147,7 @@ export async function updateBlog(id: string, data: BlogFormData) {
 }
 
 export async function deleteBlog(id: string) {
-  const { authorized, client: supabase } = await isAdminAuthorized()
+  const { authorized, client: supabase } = await isAuthorized("admin")
   if (!authorized || !supabase) {
     return { success: false, error: "Unauthorized" }
   }
@@ -188,7 +171,7 @@ export async function createCaseStudy(data: CaseStudyFormData) {
     return { success: false, error: validated.error.flatten().fieldErrors }
   }
 
-  const { authorized, client: supabase } = await isAdminAuthorized()
+  const { authorized, client: supabase } = await isAuthorized("admin")
   if (!authorized || !supabase) {
     return { success: false, error: "Unauthorized" }
   }
@@ -230,7 +213,7 @@ export async function updateCaseStudy(id: string, data: CaseStudyFormData) {
     return { success: false, error: validated.error.flatten().fieldErrors }
   }
 
-  const { authorized, client: supabase } = await isAdminAuthorized()
+  const { authorized, client: supabase } = await isAuthorized("admin")
   if (!authorized || !supabase) {
     return { success: false, error: "Unauthorized" }
   }
@@ -272,7 +255,7 @@ export async function updateCaseStudy(id: string, data: CaseStudyFormData) {
 }
 
 export async function deleteCaseStudy(id: string) {
-  const { authorized, client: supabase } = await isAdminAuthorized()
+  const { authorized, client: supabase } = await isAuthorized("admin")
   if (!authorized || !supabase) {
     return { success: false, error: "Unauthorized" }
   }
@@ -291,7 +274,7 @@ export async function deleteCaseStudy(id: string) {
 
 // Update lead status
 export async function updateLeadStatus(id: string, status: string) {
-  const { authorized, client: supabase } = await isAdminAuthorized()
+  const { authorized, client: supabase } = await isAuthorized("admin")
   if (!authorized || !supabase) {
     return { success: false, error: "Unauthorized" }
   }
@@ -315,7 +298,7 @@ export async function getBlogsAdmin(options: {
   pageSize: number;
   search?: string;
 }) {
-  const { authorized, client: supabase } = await isAdminAuthorized()
+  const { authorized, client: supabase } = await isAuthorized("admin")
   if (!authorized || !supabase) {
     return { data: [], count: 0, error: "Unauthorized" }
   }
@@ -340,9 +323,100 @@ export async function getBlogsAdmin(options: {
     error: error ? error.message : null,
   }
 }
+export async function loginAction(formData: FormData) {
+  const email = formData.get("email") as string
+  const password = formData.get("password") as string
+  const { createClient, createAdminClient, touchSession } = await import("@/lib/supabase/server")
+  const supabase = await createClient()
+  const adminClient = await createAdminClient()
+
+  // 1. Check lockout status first
+  const { data: profile } = await adminClient
+    .from("profiles")
+    .select("*")
+    .eq("email", email)
+    .single()
+
+  if (profile?.locked_until && new Date(profile.locked_until) > new Date()) {
+    const minutesLeft = Math.ceil((new Date(profile.locked_until).getTime() - Date.now()) / (1000 * 60))
+    return { error: `Account locked for ${minutesLeft} minutes due to multiple failed attempts.` }
+  }
+
+  // 2. Attempt login
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  })
+
+  if (error) {
+    // Increment failed attempts
+    const newAttempts = (profile?.failed_login_attempts || 0) + 1
+    const shouldLock = newAttempts >= 5
+    const lockUntil = shouldLock ? new Date(Date.now() + 15 * 60 * 1000) : null // 15 min lock
+
+    if (email) {
+      await adminClient.from("profiles").upsert({
+        email,
+        failed_login_attempts: newAttempts,
+        locked_until: lockUntil,
+      }, { onConflict: "email" })
+    }
+
+    return { error: error.message }
+  }
+
+  // 3. Verify user has a profile and role
+  const { data: userProfile, error: profileError } = await adminClient
+    .from("profiles")
+    .select("role")
+    .eq("id", data.user.id)
+    .single()
+
+  if (!userProfile) {
+    await supabase.auth.signOut()
+    return { error: "Login failed; no valid profile found." }
+  }
+
+  // 4. Success - reset security counters and touch session
+  await adminClient.from("profiles").update({
+    failed_login_attempts: 0,
+    locked_until: null,
+    last_login_at: new Date().toISOString()
+  }).eq("id", data.user.id)
+
+  await touchSession()
+  return { success: true, role: userProfile.role }
+}
+
+export async function logoutAction() {
+  const { createClient } = await import("@/lib/supabase/server")
+  const supabase = await createClient()
+  const cookieStore = await cookies()
+  
+  await supabase.auth.signOut()
+  
+  // Clear activity cookies
+  ;(await cookieStore).delete("last_activity")
+  ;(await cookieStore).delete("admin_auth")
+  
+  return { success: true }
+}
+
+export async function requestPasswordReset(email: string) {
+  const { createClient } = await import("@/lib/supabase/server")
+  const origin = (await cookies()).get("x-origin")?.value || "https://barakahagency.com"
+  const supabase = await createClient()
+
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${origin}/barakah-login/reset-password`,
+  })
+
+  if (error) return { error: error.message }
+  return { success: true }
+}
 
 export async function getCaseStudiesAdmin() {
-  const { authorized, client: supabase } = await isAdminAuthorized()
+  const { authorized, client: supabase } = await isAuthorized("admin")
   if (!authorized || !supabase) {
     return { data: [], count: 0, error: "Unauthorized" }
   }
@@ -357,4 +431,16 @@ export async function getCaseStudiesAdmin() {
     count: count || 0,
     error: error ? error.message : null,
   }
+}
+
+export async function resetPasswordAction(password: string) {
+  const { createClient } = await import("@/lib/supabase/server")
+  const supabase = await createClient()
+
+  const { error } = await supabase.auth.updateUser({
+    password: password,
+  })
+
+  if (error) return { error: error.message }
+  return { success: true }
 }

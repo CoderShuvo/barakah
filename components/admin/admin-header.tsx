@@ -12,23 +12,21 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import type { User } from "@supabase/supabase-js";
+import { logoutAction } from "@/server/actions";
 
 interface AdminHeaderProps {
-  user: User;
+  user: {
+    email: string;
+    role: "admin" | "editor";
+  };
 }
 
 export function AdminHeader({ user }: AdminHeaderProps) {
   const router = useRouter();
 
   const handleSignOut = async () => {
-    // Clear hardcoded admin cookie
-    document.cookie =
-      "admin_auth=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-
-    const supabase = createClient();
-    await supabase.auth.signOut();
-    router.push("/admin/login");
+    await logoutAction();
+    router.push("/barakah-login");
     router.refresh();
   };
 
@@ -56,11 +54,12 @@ export function AdminHeader({ user }: AdminHeaderProps) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-56">
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem className="text-muted-foreground">
-            {user.email}
-          </DropdownMenuItem>
+          <DropdownMenuLabel className="flex flex-col gap-1">
+            <span className="text-sm font-bold truncate">{user.email}</span>
+            <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary/10 text-primary w-fit">
+              {user.role}
+            </span>
+          </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={handleSignOut}

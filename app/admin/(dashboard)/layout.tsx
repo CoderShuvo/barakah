@@ -6,39 +6,29 @@ import { AdminHeader } from "@/components/admin/admin-header";
 import Link from "next/link";
 import { cookies } from "next/headers";
 
+import { getUserProfile, getAuthorizedSupabase } from "@/lib/supabase/server";
+
 export default async function AdminDashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const cookieStore = await cookies();
-  const isAdminAuth = cookieStore.get("admin_auth")?.value === "true";
+  const profile = await getUserProfile();
+  const authorized = await getAuthorizedSupabase("editor"); // Basic access for dashboard
 
-  const supabase = await createClient();
-  const {
-    data: { user: supabaseUser },
-  } = await supabase.auth.getUser();
+  if (!profile || !authorized) {
+    redirect("/barakah-login");
+  }
 
-  // Mock user for hardcoded admin
-  const mockUser = {
-    email: "admin@barakahagency.com",
-    user_metadata: { is_admin: true },
+  // Role check for specific sections could happen in sub-layouts or page components
+  const user = {
+    email: profile.email,
+    role: profile.role,
   } as any;
-
-  const user = isAdminAuth ? mockUser : supabaseUser;
-
-  if (!user) {
-    redirect("/admin/login");
-  }
-
-  // Check admin role
-  if (!user.user_metadata?.is_admin) {
-    redirect("/admin/login");
-  }
 
   return (
     <div className="min-h-screen bg-background">
-      <AdminSidebar />
+      <AdminSidebar role={user.role} />
       <div className="lg:pl-64">
         <AdminHeader user={user} />
         <main className="p-6 lg:p-8 min-h-[calc(100vh-120px)]">{children}</main>

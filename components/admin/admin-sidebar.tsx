@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   FileText,
@@ -9,18 +9,30 @@ import {
   Users,
   Settings,
   ExternalLink,
-} from "lucide-react"
-import { cn } from "@/lib/utils"
+} from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const navigation = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { name: "Blogs", href: "/admin/blogs", icon: FileText },
   { name: "Case Studies", href: "/admin/case-studies", icon: FolderKanban },
   { name: "Leads", href: "/admin/leads", icon: Users },
-]
+];
 
-export function AdminSidebar() {
-  const pathname = usePathname()
+interface AdminSidebarProps {
+  role: "admin" | "editor";
+}
+
+export function AdminSidebar({ role }: AdminSidebarProps) {
+  const pathname = usePathname();
+
+  const filteredNavigation = navigation.filter((item) => {
+    if (role === "editor") {
+      // Editor cannot see Leads (and other restricted modules)
+      return item.name !== "Leads";
+    }
+    return true;
+  });
 
   return (
     <aside className="fixed inset-y-0 left-0 z-50 hidden lg:flex lg:w-64 lg:flex-col">
@@ -38,10 +50,10 @@ export function AdminSidebar() {
         {/* Navigation */}
         <nav className="flex flex-1 flex-col">
           <ul className="flex flex-1 flex-col gap-y-1">
-            {navigation.map((item) => {
+            {filteredNavigation.map((item) => {
               const isActive =
                 pathname === item.href ||
-                (item.href !== "/admin" && pathname.startsWith(item.href))
+                (item.href !== "/admin" && pathname.startsWith(item.href));
 
               return (
                 <li key={item.name}>
@@ -51,14 +63,14 @@ export function AdminSidebar() {
                       "flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                       isActive
                         ? "bg-primary text-primary-foreground"
-                        : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                        : "text-muted-foreground hover:bg-muted hover:text-foreground",
                     )}
                   >
                     <item.icon className="h-5 w-5" />
                     {item.name}
                   </Link>
                 </li>
-              )
+              );
             })}
           </ul>
 
@@ -76,5 +88,5 @@ export function AdminSidebar() {
         </nav>
       </div>
     </aside>
-  )
+  );
 }

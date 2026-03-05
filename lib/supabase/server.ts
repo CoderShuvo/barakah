@@ -70,20 +70,83 @@ export async function createAdminClient() {
 }
 
 /**
- * Gets an authorized Supabase client for administrative tasks.
- * It checks for both a valid Supabase session with is_admin metadata
- * and the hardcoded admin_auth cookie.
+ * Gets the current user's profile from the public.profiles table.
  */
-export async function getAdminSupabase() {
+export async function getUserProfile() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   
+  if (!user) return null
+
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('id', user.id)
+    .single()
+
+  return profile
+}
+
+/**
+ * Gets an authorized Supabase client based on the required role.
+ */
+export async function getAuthorizedSupabase(requiredRole: 'admin' | 'editor' = 'editor') {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  
+  // 1. Check for hardcoded admin cookie (backward compatibility if needed, but we'll phase this out)
   const cookieStore = await cookies()
   const isAdminAuth = (await cookieStore).get("admin_auth")?.value === "true"
-  
-  if (user?.user_metadata?.is_admin || isAdminAuth) {
+  if (isAdminAuth && requiredRole === 'admin') return await createAdminClient()
+
+  if (!user) return null
+
+  // 2. Lookup role from profile
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('role, locked_until')
+    .eq('id', user.id)
+    .single()
+
+  if (!profile) return null
+
+  // Check lockout
+  if (profile.locked_until && new Date(profile.locked_until) > new Date()) return null
+
+  // Role hierarchy: admin can do everything editor can
+  const roles = { admin: 2, editor: 1 }
+  if (roles[profile.role as 'admin' | 'editor'] >= roles[requiredRole]) {
     return await createAdminClient()
   }
   
   return null
+}
+
+/**
+ * Updates the last activity timestamp in the user's cookies.
+ */
+export async function touchSession() {
+  const cookieStore = await cookies()
+  cookieStore.set('last_activity', new Date().toISOString(), {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    path: '/'
+  })
+}
+
+/**
+ * Checks if the session has timed out (default 30 minutes).
+ */
+export async function checkSessionTimeout(timeoutMinutes: number = 30) {
+  const cookieStore = await cookies()
+  const lastActivity = cookieStore.get('last_activity')?.value
+  
+  if (!lastActivity) return false
+
+  const lastActivityDate = new Date(lastActivity)
+  const now = new Date()
+  const diffInMinutes = (now.getTime() - lastActivityDate.getTime()) / (1000 * 60)
+
+  return diffInMinutes > timeoutMinutes
 }
