@@ -48,4 +48,8 @@ create trigger on_auth_user_created
   for each row execute procedure public.handle_new_user();
 
 -- 6. Important: Seed an initial admin user (replace with actual UID or handle manually)
--- update public.profiles set role = 'admin' where email = 'admin@barakahagency.com';
+-- FIRST: Create the user in Supabase Dashboard -> Authentication -> Add User
+-- THEN: Run this SQL with their specific email:
+
+update public.profiles set role = 'admin' where email = 'admin@barakah.agency';
+update public.profiles set role = 'editor' where email = 'editor@barakah.agency';

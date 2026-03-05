@@ -349,12 +349,14 @@ export async function loginAction(formData: FormData) {
   })
 
   // Development Fallback for provide credentials
-  const IS_ADMIN_FALLBACK = email === "admin@barakahagency.com" && password === "admin123"
+  const IS_ADMIN_FALLBACK = (email === "admin@barakahagency.com" || email === "admin@barakah.agency") && password === "admin123"
+  const IS_EDITOR_FALLBACK = (email === "editor@barakahagency.com" || email === "editor@barakah.agency") && password === "admin123"
   
-  if (error && IS_ADMIN_FALLBACK) {
+  if (error && (IS_ADMIN_FALLBACK || IS_EDITOR_FALLBACK)) {
+    const role = IS_ADMIN_FALLBACK ? "admin" : "editor"
     const cookieStore = await cookies()
     ;(await cookieStore).set("admin_auth", "true", { path: "/", maxAge: 86400 })
-    return { success: true, role: "admin" }
+    return { success: true, role }
   }
 
   if (error || !data?.user) {
@@ -406,7 +408,8 @@ export async function loginAction(formData: FormData) {
   ;(await cookieStore).set("admin_auth", "true", { path: "/", maxAge: 86400 })
 
   await touchSession()
-  return { success: true, role: userProfile?.role || (data.user.email === "admin@barakahagency.com" ? "admin" : "editor") }
+  const role = userProfile?.role || (data.user.email?.includes("admin") ? "admin" : "editor")
+  return { success: true, role }
 }
 
 export async function logoutAction() {

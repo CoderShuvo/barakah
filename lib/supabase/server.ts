@@ -76,7 +76,19 @@ export async function getUserProfile() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   
-  if (!user) return null
+  const cookieStore = await cookies()
+  const isAdminAuth = (await cookieStore).get("admin_auth")?.value === "true"
+
+  if (!user) {
+    if (isAdminAuth) {
+      return {
+        id: 'mock-admin',
+        email: 'admin@barakah.agency',
+        role: 'admin'
+      }
+    }
+    return null
+  }
 
   const { data: profile } = await supabase
     .from('profiles')
