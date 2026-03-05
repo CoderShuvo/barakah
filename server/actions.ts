@@ -326,11 +326,12 @@ export async function getBlogsAdmin(options: {
 export async function loginAction(formData: FormData) {
   const email = formData.get("email") as string
   const password = formData.get("password") as string
+  
   const { createClient, createAdminClient, touchSession } = await import("@/lib/supabase/server")
   const supabase = await createClient()
   const adminClient = await createAdminClient()
 
-  // 1. Check lockout status first
+  // 1. Check lockout status first (from our custom profiles table)
   const { data: profile } = await adminClient
     .from("profiles")
     .select("*")
@@ -339,79 +340,58 @@ export async function loginAction(formData: FormData) {
 
   if (profile?.locked_until && new Date(profile.locked_until) > new Date()) {
     const minutesLeft = Math.ceil((new Date(profile.locked_until).getTime() - Date.now()) / (1000 * 60))
-    return { error: `Account locked for ${minutesLeft} minutes due to multiple failed attempts.` }
+    return { error: `Account locked. Please try again in ${minutesLeft} minutes.` }
   }
 
-  // 2. Attempt login
-  let { data, error } = await supabase.auth.signInWithPassword({
+  // 2. Attempt login through Supabase Auth
+  const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
   })
 
-  // Development Fallback for provide credentials
-  const IS_ADMIN_FALLBACK = (email === "admin@barakahagency.com" || email === "admin@barakah.agency") && password === "admin123"
-  const IS_EDITOR_FALLBACK = (email === "editor@barakahagency.com" || email === "editor@barakah.agency") && password === "admin123"
-  
-  if (error && (IS_ADMIN_FALLBACK || IS_EDITOR_FALLBACK)) {
-    const role = IS_ADMIN_FALLBACK ? "admin" : "editor"
-    const cookieStore = await cookies()
-    ;(await cookieStore).set("admin_auth", "true", { path: "/", maxAge: 86400 })
-    ;(await cookieStore).set("admin_role", role, { path: "/", maxAge: 86400 })
-    return { success: true, role }
-  }
-
+  // Handle failure
   if (error || !data?.user) {
-    // Increment failed attempts
     const newAttempts = (profile?.failed_login_attempts || 0) + 1
     const shouldLock = newAttempts >= 5
-    const lockUntil = shouldLock ? new Date(Date.now() + 15 * 60 * 1000) : null // 15 min lock
+    const lockUntil = shouldLock ? new Date(Date.now() + 15 * 60 * 1000) : null // 15 min lockout
 
-    if (email) {
-      await adminClient.from("profiles").upsert({
-        email,
+    if (profile) {
+      await adminClient.from("profiles").update({
         failed_login_attempts: newAttempts,
         locked_until: lockUntil,
-      }, { onConflict: "email" })
+      }).eq("email", email)
     }
 
-    return { error: error?.message || "Login failed; user session not created." }
+    return { error: error?.message || "Invalid credentials. Please try again." }
   }
 
-  // 3. Verify user has a profile and role
-  const { data: userProfile, error: profileError } = await adminClient
-    .from("profiles")
-    .select("role")
-    .eq("id", data.user.id)
-    .single()
-
+  // 3. Get or Create Profile & Ensure Metadata matches DB Role
+  let userProfile = profile
   if (!userProfile) {
-    // Auto-create profile if missing for authorized user
-    const { data: newProfile } = await adminClient.from("profiles").insert({
+    // Basic auto-creation for first-time admins if they exist in Auth but not DB
+    const { data: newProfile } = await adminClient.from("profiles").upsert({
       id: data.user.id,
       email: data.user.email!,
-      role: data.user.email === "admin@barakahagency.com" ? "admin" : "editor"
+      role: data.user.email === "admin@barakah.agency" ? "admin" : "editor"
     }).select().single()
-
-    if (!newProfile) {
-      await supabase.auth.signOut()
-      return { error: "Login failed; profile could not be created." }
-    }
+    userProfile = newProfile
   }
 
-  // 4. Success - reset security counters and touch session
+  // Force update user metadata with the role from the DB
+  // This allows the middleware to read the role without a database hit on every request
+  await supabase.auth.updateUser({
+    data: { role: userProfile?.role || "editor" }
+  })
+
+  // 4. Success - Reset security counters
   await adminClient.from("profiles").update({
     failed_login_attempts: 0,
     locked_until: null,
     last_login_at: new Date().toISOString()
   }).eq("id", data.user.id)
 
-  const role = userProfile?.role || (data.user.email?.includes("admin") ? "admin" : "editor")
-  const cookieStore = await cookies()
-  ;(await cookieStore).set("admin_auth", "true", { path: "/", maxAge: 86400 })
-  ;(await cookieStore).set("admin_role", role, { path: "/", maxAge: 86400 })
-
   await touchSession()
-  return { success: true, role }
+  return { success: true, role: userProfile?.role || "editor" }
 }
 
 export async function logoutAction() {
@@ -421,17 +401,18 @@ export async function logoutAction() {
   
   await supabase.auth.signOut()
   
-  // Clear activity cookies
+  // Clear activity and session cookies
   ;(await cookieStore).delete("last_activity")
-  ;(await cookieStore).delete("admin_auth")
   
   return { success: true }
 }
 
 export async function requestPasswordReset(email: string) {
   const { createClient } = await import("@/lib/supabase/server")
-  const origin = (await cookies()).get("x-origin")?.value || "https://barakahagency.com"
   const supabase = await createClient()
+  
+  // Get origin safely for the redirect link
+  const origin = process.env.NEXT_PUBLIC_SITE_URL || "https://barakahagency.com"
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: `${origin}/barakah-login/reset-password`,
@@ -439,24 +420,6 @@ export async function requestPasswordReset(email: string) {
 
   if (error) return { error: error.message }
   return { success: true }
-}
-
-export async function getCaseStudiesAdmin() {
-  const { authorized, client: supabase } = await isAuthorized("admin")
-  if (!authorized || !supabase) {
-    return { data: [], count: 0, error: "Unauthorized" }
-  }
-
-  const { data, error, count } = await supabase
-    .from("case_studies")
-    .select("*", { count: "exact" })
-    .order("created_at", { ascending: false })
-
-  return {
-    data: data || [],
-    count: count || 0,
-    error: error ? error.message : null,
-  }
 }
 
 export async function resetPasswordAction(password: string) {
@@ -470,3 +433,21 @@ export async function resetPasswordAction(password: string) {
   if (error) return { error: error.message }
   return { success: true }
 }
+
+export async function getCaseStudiesAdmin() {
+  const { createClient } = await import("@/lib/supabase/server")
+  const supabase = await createClient()
+
+  const { data, error, count } = await supabase
+    .from("case_studies")
+    .select("*", { count: "exact" })
+    .order("created_at", { ascending: false })
+
+  return {
+    data: data || [],
+    count: count || 0,
+    error: error ? error.message : null,
+  }
+}
+
+

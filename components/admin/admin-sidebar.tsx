@@ -8,6 +8,7 @@ import {
   FolderKanban,
   Users,
   Settings,
+  BarChart3,
   ExternalLink,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -17,6 +18,8 @@ const navigation = [
   { name: "Blogs", href: "/admin/blogs", icon: FileText },
   { name: "Case Studies", href: "/admin/case-studies", icon: FolderKanban },
   { name: "Leads", href: "/admin/leads", icon: Users },
+  { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
+  { name: "Settings", href: "/admin/settings", icon: Settings },
 ];
 
 interface AdminSidebarProps {
@@ -28,8 +31,9 @@ export function AdminSidebar({ role }: AdminSidebarProps) {
 
   const filteredNavigation = navigation.filter((item) => {
     if (role === "editor") {
-      // Editor cannot see Leads (and other restricted modules)
-      return item.name !== "Leads";
+      // Editor cannot see Leads, Analytics, or Settings
+      const restricted = ["Leads", "Analytics", "Settings"];
+      return !restricted.includes(item.name);
     }
     return true;
   });
