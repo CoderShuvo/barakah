@@ -4,6 +4,44 @@ import { updateSession } from "@/lib/supabase/middleware"
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
+  // 0. Dynamic DB Redirects
+  if (
+    !pathname.includes('.') &&
+    !pathname.startsWith('/_next') &&
+    !pathname.startsWith('/admin') &&
+    !pathname.startsWith('/api') &&
+    !pathname.startsWith('/assets') &&
+    pathname !== '/favicon.ico'
+  ) {
+    try {
+      const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+      const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+      if (url && key) {
+        const dbRes = await fetch(`${url}/rest/v1/redirects?select=source,destination,permanent`, {
+          headers: {
+            apikey: key,
+            Authorization: `Bearer ${key}`
+          },
+          next: { revalidate: 60 } 
+        })
+        
+        if (dbRes.ok) {
+          const redirects = await dbRes.json()
+          const match = redirects.find((r: any) => r.source === pathname)
+          
+          if (match) {
+            const isExternal = match.destination.startsWith('http')
+            const targetUrl = isExternal ? match.destination : new URL(match.destination, request.url)
+            return NextResponse.redirect(targetUrl, match.permanent ? 308 : 307)
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Edge redirect check failed", error)
+    }
+  }
+
   // 1. Refresh session and handle basic auth redirects
   const response = await updateSession(request)
 
@@ -55,4 +93,3 @@ export const config = {
     "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 }
-
