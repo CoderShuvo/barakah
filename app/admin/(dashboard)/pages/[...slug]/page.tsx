@@ -25,9 +25,10 @@ const AVAILABLE_SECTIONS = [
 export default function PageEditorPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string[] }>;
 }) {
-  const { slug } = use(params);
+  const resolvedParams = use(params);
+  const slug = resolvedParams.slug.join("/");
   const router = useRouter();
 
   const [loading, setLoading] = useState(true);
