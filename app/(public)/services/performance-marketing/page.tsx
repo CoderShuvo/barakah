@@ -13,11 +13,18 @@ import {
 import { BrandsSection } from "@/components/landing/brands-section";
 import { ToolsSection } from "@/components/landing/tools-section";
 
-export const metadata: Metadata = {
-  title: "Performance Marketing & Paid Media",
-  description:
-    "Our performance marketing focuses on intentional growth, not short-term spikes. We design paid media and search strategies that prioritize relevance, efficiency, and measurable impact.",
-};
+import { constructMetadata } from "@/lib/seo";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return constructMetadata({
+    type: "pages",
+    slug: "performance-marketing",
+    fallbackTitle: "Ethical Paid Media & Performance Marketing | Barakah",
+    fallbackDescription:
+      "Performance marketing and paid media focused on customer lifetime value and brand equity — not just clicks. Built to compound.",
+    fallbackImage: "https://barakahagency.com/barakah-featured-image.png",
+  });
+}
 
 export default function PerformanceMarketingPage() {
   return (

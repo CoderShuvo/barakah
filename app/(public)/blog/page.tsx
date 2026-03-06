@@ -17,6 +17,10 @@ export async function generateMetadata(): Promise<Metadata> {
   return constructMetadata({
     type: "pages",
     slug: "blog",
+    fallbackTitle: "Marketing Insights & Growth Strategy | Barakah Agency",
+    fallbackDescription:
+      "Actionable insights on ethical marketing, paid media, brand strategy, and growth systems — for founders who want to grow with purpose.",
+    fallbackImage: "https://barakahagency.com/barakah-featured-image.png",
   });
 }
 

@@ -5,11 +5,18 @@ import { PageHeader } from "@/components/global";
 import { Section, SectionHeader } from "@/components/global";
 import { Button } from "@/components/ui/button";
 
-export const metadata: Metadata = {
-  title: "Zero Frame",
-  description:
-    "Our unique approach to brand perception - seeing your brand through the eyes of your audience.",
-};
+import { constructMetadata } from "@/lib/seo";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return constructMetadata({
+    type: "pages",
+    slug: "zeroframe-data-suite",
+    fallbackTitle: "ZeroFrame™ | Sales & Marketing Automation | Barakah",
+    fallbackDescription:
+      "All-in-one CRM and automation platform. Streamline lead capture, email marketing, and workflows with clarity, compliance, and intent.",
+    fallbackImage: "https://barakahagency.com/barakah-featured-image.png",
+  });
+}
 
 const principles = [
   {

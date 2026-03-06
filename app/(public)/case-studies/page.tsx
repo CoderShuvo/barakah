@@ -12,6 +12,11 @@ export async function generateMetadata(): Promise<Metadata> {
   return constructMetadata({
     type: "pages",
     slug: "case-studies",
+    fallbackTitle:
+      "Case Studies | Real Results Using Ethical Strategy by Barakah Agency",
+    fallbackDescription:
+      "Days of Eid: +75% YoY revenue. Halal Expo: 300% more leads. Fadwa Masala: 6–10x ROAS. See how ethical strategy drives measurable growth.",
+    fallbackImage: "https://barakahagency.com/barakah-featured-image.png",
   });
 }
 

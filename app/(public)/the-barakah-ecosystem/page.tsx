@@ -17,11 +17,18 @@ import { FinalCTASection } from "@/components/landing/final-cta-section";
 import { Section, SectionHeader } from "@/components/global";
 import { Button } from "@/components/ui/button";
 
-export const metadata: Metadata = {
-  title: "The Barakah Experience",
-  description:
-    "What it's like to work with Barakah Agency - our process, values, and commitment to your success.",
-};
+import { constructMetadata } from "@/lib/seo";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return constructMetadata({
+    type: "pages",
+    slug: "the-barakah-ecosystem",
+    fallbackTitle: "The Barakah Ecosystem | Specialized Brands, One Standard",
+    fallbackDescription:
+      "Industry-focused brands serving eCommerce, healthcare, B2B, and SaaS — all operating under one ethical standard and the ROI² framework.",
+    fallbackImage: "https://barakahagency.com/barakah-featured-image.png",
+  });
+}
 
 const journey = [
   {

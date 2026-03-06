@@ -7,11 +7,18 @@ import { FinalCTASection } from "@/components/landing/final-cta-section";
 import { Section } from "@/components/global";
 import { getFormSettings } from "@/server/settings-actions";
 
-export const metadata: Metadata = {
-  title: "Contact Us",
-  description:
-    "Get in touch with Barakah Agency. Discover the difference of a personalized, ethical marketing consultation.",
-};
+import { constructMetadata } from "@/lib/seo";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return constructMetadata({
+    type: "pages",
+    slug: "contact",
+    fallbackTitle: "Grow with Barakah — Book Your Free Strategy Consultation",
+    fallbackDescription:
+      "Book a no-pressure strategy call with Barakah Agency. We align on your goals and values before recommending a single tactic.",
+    fallbackImage: "https://barakahagency.com/barakah-featured-image.png",
+  });
+}
 
 export default async function ContactPage() {
   const { data: formSettings } = await getFormSettings();

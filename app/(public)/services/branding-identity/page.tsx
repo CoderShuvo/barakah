@@ -11,11 +11,18 @@ import {
   FinalCTASection,
 } from "@/components/landing";
 
-export const metadata: Metadata = {
-  title: "Branding & Identity",
-  description:
-    "We create brand identities that are clear, cohesive, and enduring. From logos and visual systems to brand guidelines, we help define how your brand looks, feels, and shows up across every touchpoint.",
-};
+import { constructMetadata } from "@/lib/seo";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return constructMetadata({
+    type: "pages",
+    slug: "branding-identity",
+    fallbackTitle: "Brand Identity Design That Builds Trust | Barakah Agency",
+    fallbackDescription:
+      "Cohesive, culturally aware brand identities built to last. Logos, visual systems, and guidelines that define how your brand shows up.",
+    fallbackImage: "https://barakahagency.com/barakah-featured-image.png",
+  });
+}
 
 export default function BrandingPage() {
   return (
