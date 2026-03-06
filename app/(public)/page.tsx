@@ -67,11 +67,11 @@ export default function HomePage() {
       <VideoShowcaseSection />
 
       {/* <Suspense fallback={<CaseStudiesSkeleton />}>
-        <FeaturedCaseStudies />
-      </Suspense>
-      <Suspense fallback={<BlogsSkeleton />}>
-        <FeaturedBlogs />
-      </Suspense> */}
+            <FeaturedCaseStudies />
+          </Suspense>
+          <Suspense fallback={<BlogsSkeleton />}>
+            <FeaturedBlogs />
+          </Suspense> */}
       {/* <CTASection /> */}
     </>
   );

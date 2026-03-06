@@ -35,8 +35,23 @@ export async function constructMetadata({
         title: fallbackTitle,
         description: fallbackDescription,
         siteName,
-        images: fallbackImage ? [{ url: fallbackImage }] : undefined,
-      }
+        images: fallbackImage
+          ? [
+              {
+                url: fallbackImage,
+                width: 1200,
+                height: 630,
+                alt: fallbackTitle || siteName,
+              },
+            ]
+          : undefined,
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: fallbackTitle,
+        description: fallbackDescription,
+        images: fallbackImage ? [fallbackImage] : undefined,
+      },
     }
   }
 
@@ -69,7 +84,16 @@ export async function constructMetadata({
       title: ogTitle,
       description: ogDescription,
       siteName,
-      images: ogImage ? [{ url: ogImage }] : undefined,
+      images: ogImage
+        ? [
+            {
+              url: ogImage,
+              width: 1200,
+              height: 630,
+              alt: ogTitle,
+            },
+          ]
+        : undefined,
     },
     twitter: {
       card: "summary_large_image",
