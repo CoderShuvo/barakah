@@ -1,39 +1,14 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://barakahagency.com"),
-  title:
-    "Barakah Agency: Full-Service Ethical Marketing Agency for the Modern World",
-  description:
-    "Empower change with Barakah Agency: The world’s first ethical marketing agency that amplifies your impact to shape a brighter future.",
-  openGraph: {
-    title:
-      "Barakah Agency: Full-Service Ethical Marketing Agency for the Modern World",
-    description:
-      "Empower change with Barakah Agency: The world’s first ethical marketing agency that amplifies your impact to shape a brighter future.",
-    url: "https://barakahagency.com",
-    siteName: "Barakah Agency",
-    locale: "en_US",
-    type: "website",
-    images: [
-      {
-        url: "/assets/fetured-barakah.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Barakah Agency",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title:
-      "Barakah Agency: Full-Service Ethical Marketing Agency for the Modern World",
-    description:
-      "Empower change with Barakah Agency: The world’s first ethical marketing agency that amplifies your impact to shape a brighter future.",
-    images: ["/assets/fetured-barakah.jpg"],
-  },
-};
+import { constructMetadata } from "@/lib/seo";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return constructMetadata({
+    type: "pages",
+    slug: "home",
+  });
+}
 
 import {
   Hero,

@@ -12,14 +12,16 @@ export async function getBlogs(options?: {
   const pageSize = options?.pageSize || 10
   const from = (page - 1) * pageSize
   const to = from + pageSize - 1
+  const now = new Date().toISOString()
 
   let query = supabase
     .from("blogs")
     .select("*", { count: "exact" })
     .order("created_at", { ascending: false })
 
+  // Show: explicitly published, OR scheduled posts whose time has come
   if (options?.published !== undefined) {
-    query = query.eq("published", options.published)
+    query = query.or(`published.eq.true,and(published.eq.false,scheduled_publish_at.lte.${now})`)
   }
 
   if (options?.category) {
@@ -47,11 +49,13 @@ export async function getBlogs(options?: {
 
 export async function getBlogBySlug(slug: string): Promise<Blog | null> {
   const supabase = await createClient()
+  const now = new Date().toISOString()
+
   const { data, error } = await supabase
     .from("blogs")
     .select("*")
     .eq("slug", slug)
-    .eq("published", true)
+    .or(`published.eq.true,and(published.eq.false,scheduled_publish_at.lte.${now})`)
     .maybeSingle()
 
   if (error) {
@@ -64,10 +68,12 @@ export async function getBlogBySlug(slug: string): Promise<Blog | null> {
 
 export async function getBlogCategories(): Promise<string[]> {
   const supabase = await createClient()
+  const now = new Date().toISOString()
+
   const { data, error } = await supabase
     .from("blogs")
     .select("category")
-    .eq("published", true)
+    .or(`published.eq.true,and(published.eq.false,scheduled_publish_at.lte.${now})`)
 
   if (error) {
     console.error("Error fetching categories:", error)
@@ -77,6 +83,7 @@ export async function getBlogCategories(): Promise<string[]> {
   const categories = [...new Set(data.map((b) => b.category))]
   return categories.filter(Boolean)
 }
+
 
 export async function getCaseStudies(options?: {
   page?: number

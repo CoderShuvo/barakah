@@ -8,6 +8,7 @@ import { ArrowRight, Loader2, CheckCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { contactFormSchema, type ContactFormData } from "@/lib/validations";
 import { submitContactForm } from "@/server/actions";
+import type { FormSettings } from "@/types";
 
 const services = [
   "Brand Design",
@@ -21,7 +22,11 @@ const services = [
 
 const budgets = ["10 - 20k", "20 - 30k", "30 - 40k", "50 - 100k", ">100k"];
 
-export function ContactRedesignForm() {
+interface ContactRedesignFormProps {
+  settings?: FormSettings;
+}
+
+export function ContactRedesignForm({ settings }: ContactRedesignFormProps) {
   const [selectedServices, setSelectedServices] = React.useState<string[]>([]);
   const [selectedBudget, setSelectedBudget] = React.useState<string>("");
   const [isSubmitting, setIsSubmitting] = React.useState(false);
@@ -50,13 +55,17 @@ export function ContactRedesignForm() {
     setIsSubmitting(true);
     setError(null);
 
-    // Combine selected services into the message or a hidden field if schema allows
-    const visualData = {
+    const formPayload = {
       ...data,
-      message: `[Services: ${selectedServices.join(", ")}] [Budget: ${selectedBudget}] \n\n ${data.message}`,
+      service: selectedServices.join(", ") || data.service || undefined,
+      budget: selectedBudget || undefined,
+      source:
+        typeof window !== "undefined"
+          ? document.referrer || "direct"
+          : "direct",
     };
 
-    const result = await submitContactForm(visualData);
+    const result = await submitContactForm(formPayload);
 
     if (result.success) {
       setIsSuccess(true);
@@ -85,11 +94,11 @@ export function ContactRedesignForm() {
           <CheckCircle className="h-10 w-10 text-green-600" />
         </motion.div>
         <h2 className="text-3xl font-black text-[#3F1200] mb-4">
-          Request Sent Successfully!
+          {settings?.success_headline || "Request Sent Successfully!"}
         </h2>
         <p className="text-gray-500 mb-8 max-w-md mx-auto">
-          Thank you for reaching out. A Barakah strategist will review your
-          goals and get back to you within 24 hours.
+          {settings?.success_message ||
+            "Thank you for reaching out. A Barakah strategist will review your goals and get back to you within 24 hours."}
         </p>
         <button
           onClick={() => setIsSuccess(false)}
@@ -110,34 +119,36 @@ export function ContactRedesignForm() {
       )}
 
       {/* Services Section */}
-      <div className="space-y-6">
-        <h3 className="text-2xl font-black text-[#3F1200] font-lato">
-          i'm interested in..
-        </h3>
-        <div className="flex flex-wrap gap-3">
-          {services.map((service) => (
+      {settings?.show_service !== false && (
+        <div className="space-y-6">
+          <h3 className="text-2xl font-black text-[#3F1200] font-lato">
+            i'm interested in..
+          </h3>
+          <div className="flex flex-wrap gap-3">
+            {services.map((service) => (
+              <button
+                key={service}
+                type="button"
+                onClick={() => toggleService(service)}
+                className={cn(
+                  "px-6 py-6 rounded-full border-2 transition-all font-lato font-bold text-sm lg:text-[42px]",
+                  selectedServices.includes(service)
+                    ? "bg-[#3F1200] border-[#3F1200] text-white"
+                    : "border-black text-gray-700 hover:border-black",
+                )}
+              >
+                {service}
+              </button>
+            ))}
             <button
-              key={service}
               type="button"
-              onClick={() => toggleService(service)}
-              className={cn(
-                "px-6 py-6 rounded-full border-2 transition-all font-lato font-bold text-sm lg:text-[42px]",
-                selectedServices.includes(service)
-                  ? "bg-[#3F1200] border-[#3F1200] text-white"
-                  : "border-black text-gray-700 hover:border-black",
-              )}
+              className="px-6 py-3 rounded-full border-2 border-gray-200 text-gray-700 font-lato font-bold text-sm lg:text-base hover:border-[#3F1200]"
             >
-              {service}
+              Other
             </button>
-          ))}
-          <button
-            type="button"
-            className="px-6 py-3 rounded-full border-2 border-gray-200 text-gray-700 font-lato font-bold text-sm lg:text-base hover:border-[#3F1200]"
-          >
-            Other
-          </button>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Input Grid */}
       <div className="flex flex-col gap-x-8 gap-y-10">
@@ -170,13 +181,15 @@ export function ContactRedesignForm() {
             className="w-full py-4 bg-transparent outline-none text-xl font-medium placeholder:text-gray-300"
           />
         </div>
-        <div className="border-b-2 border-gray-100 focus-within:border-[#3F1200] transition-colors md:col-span-2">
-          <input
-            {...register("company")}
-            placeholder="Company Name"
-            className="w-full py-4 bg-transparent outline-none text-xl font-medium placeholder:text-gray-300"
-          />
-        </div>
+        {settings?.show_company !== false && (
+          <div className="border-b-2 border-gray-100 focus-within:border-[#3F1200] transition-colors md:col-span-2">
+            <input
+              {...register("company")}
+              placeholder="Company Name"
+              className="w-full py-4 bg-transparent outline-none text-xl font-medium placeholder:text-gray-300"
+            />
+          </div>
+        )}
         <div className="border-b-2 border-gray-100 focus-within:border-[#3F1200] transition-colors md:col-span-2">
           <textarea
             {...register("message")}
@@ -188,28 +201,30 @@ export function ContactRedesignForm() {
       </div>
 
       {/* Budget Section */}
-      <div className="space-y-6">
-        <h3 className="text-2xl font-black text-[#3F1200] font-lato">
-          Monthly Budget
-        </h3>
-        <div className="flex flex-wrap gap-3">
-          {budgets.map((budget) => (
-            <button
-              key={budget}
-              type="button"
-              onClick={() => setSelectedBudget(budget)}
-              className={cn(
-                "px-6 py-6 rounded-full border-2 transition-all font-lato font-bold text-sm lg:text-[42px]",
-                selectedBudget === budget
-                  ? "bg-[#3F1200] border-[#3F1200] text-white"
-                  : "border-black text-gray-700 hover:border-black",
-              )}
-            >
-              {budget}
-            </button>
-          ))}
+      {settings?.show_budget !== false && (
+        <div className="space-y-6">
+          <h3 className="text-2xl font-black text-[#3F1200] font-lato">
+            Monthly Budget
+          </h3>
+          <div className="flex flex-wrap gap-3">
+            {budgets.map((budget) => (
+              <button
+                key={budget}
+                type="button"
+                onClick={() => setSelectedBudget(budget)}
+                className={cn(
+                  "px-6 py-6 rounded-full border-2 transition-all font-lato font-bold text-sm lg:text-[42px]",
+                  selectedBudget === budget
+                    ? "bg-[#3F1200] border-[#3F1200] text-white"
+                    : "border-black text-gray-700 hover:border-black",
+                )}
+              >
+                {budget}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Submit Button */}
       <div className="pt-4">
@@ -237,7 +252,9 @@ export function ContactRedesignForm() {
     transition-all"
         >
           <span className="text-xl font-black">
-            {isSubmitting ? "Sending Request..." : "Send Request"}
+            {isSubmitting
+              ? "Sending..."
+              : settings?.submit_button_text || "Send Request"}
           </span>
           <div className="h-10 w-10 flex items-center justify-center bg-white rounded-full group-hover:translate-x-1 transition-transform">
             {isSubmitting ? (

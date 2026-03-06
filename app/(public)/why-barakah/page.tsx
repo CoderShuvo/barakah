@@ -6,38 +6,14 @@ import { PageHeader } from "@/components/global";
 import { Section, SectionHeader } from "@/components/global";
 import { Button } from "@/components/ui/button";
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://barakahagency.com"),
-  title: "Team Up With an Innovative Ethical Marketing Agency | Barakah Agency",
-  description:
-    "A reliable ethical marketing agency should put you first. Learn how our ethos and innovative marketing tools fuel your performance.",
-  openGraph: {
-    title:
-      "Team Up With an Innovative Ethical Marketing Agency | Barakah Agency",
-    description:
-      "A reliable ethical marketing agency should put you first. Learn how our ethos and innovative marketing tools fuel your performance.",
-    url: "https://barakahagency.com/why-barakah",
-    siteName: "Barakah Agency",
-    locale: "en_US",
-    type: "website",
-    images: [
-      {
-        url: "/assets/fetured-barakah.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Barakah Agency",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title:
-      "Team Up With an Innovative Ethical Marketing Agency | Barakah Agency",
-    description:
-      "A reliable ethical marketing agency should put you first. Learn how our ethos and innovative marketing tools fuel your performance.",
-    images: ["/assets/fetured-barakah.jpg"],
-  },
-};
+import { constructMetadata } from "@/lib/seo";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return constructMetadata({
+    type: "pages",
+    slug: "why-barakah",
+  });
+}
 
 const values = [
   {

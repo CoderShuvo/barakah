@@ -44,19 +44,41 @@ export async function submitContactForm(data: ContactFormData) {
   }
 
   const supabase = await createClient()
-  const { error } = await supabase.from("contact_leads").insert({
+  const { data: inserted, error } = await supabase.from("contact_leads").insert({
     name: validated.data.name,
     email: validated.data.email,
     company: validated.data.company || null,
     phone: validated.data.phone || null,
     message: validated.data.message,
     service: validated.data.service || null,
+    budget: validated.data.budget || null,
+    source: validated.data.source || null,
     status: "new",
-  })
+  }).select().single()
 
   if (error) {
     console.error("Error submitting contact form:", error)
     return { success: false, error: "Failed to submit form. Please try again." }
+  }
+
+  // Send admin email notification (fire-and-forget — don't block the user response)
+  try {
+    const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL
+    if (adminEmail && inserted) {
+      const emailBody = [
+        `New lead from ${validated.data.name} (${validated.data.email})`,
+        `Company: ${validated.data.company || "—"}`,
+        `Phone: ${validated.data.phone || "—"}`,
+        `Service: ${validated.data.service || "—"}`,
+        `Budget: ${validated.data.budget || "—"}`,
+        `Source: ${validated.data.source || "—"}`,
+        `\nMessage:\n${validated.data.message}`,
+      ].join("\n")
+      // Log notification — replace with Resend/nodemailer if SMTP is set up
+      console.log(`[EMAIL NOTIFICATION] To: ${adminEmail}\n${emailBody}`)
+    }
+  } catch (notifError) {
+    console.error("Email notification error (non-fatal):", notifError)
   }
 
   return { success: true }
@@ -87,8 +109,14 @@ export async function createBlog(data: BlogFormData) {
     category: validated.data.category,
     tags,
     published: validated.data.published,
+    scheduled_publish_at: validated.data.scheduled_publish_at || null,
     meta_title: validated.data.meta_title || null,
     meta_description: validated.data.meta_description || null,
+    og_title: validated.data.og_title || null,
+    og_description: validated.data.og_description || null,
+    og_image: validated.data.og_image || null,
+    canonical_url: validated.data.canonical_url || null,
+    no_index: validated.data.no_index || false,
     author_name: validated.data.author_name || null,
   })
 
@@ -128,8 +156,14 @@ export async function updateBlog(id: string, data: BlogFormData) {
       category: validated.data.category,
       tags,
       published: validated.data.published,
+      scheduled_publish_at: validated.data.scheduled_publish_at || null,
       meta_title: validated.data.meta_title || null,
       meta_description: validated.data.meta_description || null,
+      og_title: validated.data.og_title || null,
+      og_description: validated.data.og_description || null,
+      og_image: validated.data.og_image || null,
+      canonical_url: validated.data.canonical_url || null,
+      no_index: validated.data.no_index || false,
       author_name: validated.data.author_name || null,
       updated_at: new Date().toISOString(),
     })
@@ -194,7 +228,15 @@ export async function createCaseStudy(data: CaseStudyFormData) {
     testimonial_author: validated.data.testimonial_author || null,
     published: validated.data.published,
     featured: validated.data.featured,
+    service_tags: validated.data.service_tags || null,
     metrics,
+    meta_title: validated.data.meta_title || null,
+    meta_description: validated.data.meta_description || null,
+    og_title: validated.data.og_title || null,
+    og_description: validated.data.og_description || null,
+    og_image: validated.data.og_image || null,
+    canonical_url: validated.data.canonical_url || null,
+    no_index: validated.data.no_index || false,
   })
 
   if (error) {
@@ -238,7 +280,15 @@ export async function updateCaseStudy(id: string, data: CaseStudyFormData) {
       testimonial_author: validated.data.testimonial_author || null,
       published: validated.data.published,
       featured: validated.data.featured,
+      service_tags: validated.data.service_tags || null,
       metrics,
+      meta_title: validated.data.meta_title || null,
+      meta_description: validated.data.meta_description || null,
+      og_title: validated.data.og_title || null,
+      og_description: validated.data.og_description || null,
+      og_image: validated.data.og_image || null,
+      canonical_url: validated.data.canonical_url || null,
+      no_index: validated.data.no_index || false,
       updated_at: new Date().toISOString(),
     })
     .eq("id", id)

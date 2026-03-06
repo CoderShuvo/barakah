@@ -50,9 +50,10 @@ export async function updateSession(request: NextRequest) {
     // Let's rely on the layout for deep role checks and metadata for quick ones.
     const role = user.user_metadata?.role || "editor"
 
-    // Example: Editor cannot access Settings or Analytics
+    // Example: Editor cannot access Settings, Analytics, SEO, or Leads
     if (role === "editor") {
-      if (pathname.startsWith("/admin/settings") || pathname.startsWith("/admin/analytics")) {
+      const restrictedPaths = ["/admin/settings", "/admin/analytics", "/admin/seo", "/admin/leads"];
+      if (restrictedPaths.some(p => pathname.startsWith(p))) {
         const url = request.nextUrl.clone()
         url.pathname = "/admin" // Redirect back to general dashboard
         return NextResponse.redirect(url)

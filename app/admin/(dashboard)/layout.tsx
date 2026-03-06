@@ -35,7 +35,7 @@ export default async function AdminDashboardLayout({
         <footer className="border-t py-6 px-8 text-center text-sm text-muted-foreground bg-white">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 max-w-7xl mx-auto">
             <p>
-              &copy; {new Date().getFullYear()} Barakah Agency Admin. All rights
+              &copy; {new Date().getFullYear()} Barakah Agency. All rights
               reserved.
             </p>
             <div className="flex items-center gap-6">

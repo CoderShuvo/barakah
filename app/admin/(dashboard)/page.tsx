@@ -76,7 +76,7 @@ export default async function AdminDashboardPage() {
           Dashboard
         </h1>
         <p className="text-muted-foreground mt-1">
-          Welcome to the Barakah Agency admin dashboard.
+          Welcome to the Barakah Agency dashboard.
         </p>
       </div>
 

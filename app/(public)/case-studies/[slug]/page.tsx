@@ -1,60 +1,52 @@
-import type { Metadata } from "next"
-import Image from "next/image"
-import Link from "next/link"
-import { notFound } from "next/navigation"
-import { ArrowLeft, ArrowRight, Quote, CheckCircle } from "lucide-react"
-import { Breadcrumbs } from "@/components/global"
-import { Section } from "@/components/global"
-import { Button } from "@/components/ui/button"
-import { getCaseStudyBySlug, getCaseStudies } from "@/server/queries"
-import { CaseStudyCard } from "@/components/case-study/case-study-card"
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { ArrowLeft, ArrowRight, Quote, CheckCircle } from "lucide-react";
+import { Breadcrumbs } from "@/components/global";
+import { Section } from "@/components/global";
+import { Button } from "@/components/ui/button";
+import { getCaseStudyBySlug, getCaseStudies } from "@/server/queries";
+import { CaseStudyCard } from "@/components/case-study/case-study-card";
 
 interface CaseStudyDetailPageProps {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string }>;
 }
+
+import { constructMetadata } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
 }: CaseStudyDetailPageProps): Promise<Metadata> {
-  const { slug } = await params
-  const caseStudy = await getCaseStudyBySlug(slug)
+  const { slug } = await params;
 
-  if (!caseStudy) {
-    return { title: "Case Study Not Found" }
-  }
-
-  return {
-    title: `${caseStudy.title} | Case Study`,
-    description: caseStudy.challenge.slice(0, 155),
-    openGraph: {
-      title: caseStudy.title,
-      description: caseStudy.challenge.slice(0, 155),
-      images: caseStudy.cover_image ? [caseStudy.cover_image] : undefined,
-    },
-  }
+  return constructMetadata({
+    type: "case_studies",
+    slug,
+  });
 }
 
 export default async function CaseStudyDetailPage({
   params,
 }: CaseStudyDetailPageProps) {
-  const { slug } = await params
-  const caseStudy = await getCaseStudyBySlug(slug)
+  const { slug } = await params;
+  const caseStudy = await getCaseStudyBySlug(slug);
 
   if (!caseStudy) {
-    notFound()
+    notFound();
   }
 
   const { data: relatedCaseStudies } = await getCaseStudies({
     published: true,
     industry: caseStudy.industry,
     pageSize: 3,
-  })
+  });
 
   const filteredRelated = relatedCaseStudies
     .filter((cs) => cs.id !== caseStudy.id)
-    .slice(0, 2)
+    .slice(0, 2);
 
-  const metrics = caseStudy.metrics as Record<string, string> | null
+  const metrics = caseStudy.metrics as Record<string, string> | null;
 
   return (
     <>
@@ -229,5 +221,5 @@ export default async function CaseStudyDetailPage({
         </Section>
       )}
     </>
-  )
+  );
 }

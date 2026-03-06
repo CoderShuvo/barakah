@@ -6,11 +6,14 @@ import { CaseStudyGrid } from "@/components/case-study/case-study-card";
 import { CustomPagination } from "@/components/custom-pagination";
 import { getCaseStudies } from "@/server/queries";
 
-export const metadata: Metadata = {
-  title: "Case Studies",
-  description:
-    "See how we've helped purpose-driven brands achieve remarkable growth through ethical marketing strategies.",
-};
+import { constructMetadata } from "@/lib/seo";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return constructMetadata({
+    type: "pages",
+    slug: "case-studies",
+  });
+}
 
 interface CaseStudiesPageProps {
   searchParams: Promise<{

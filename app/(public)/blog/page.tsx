@@ -7,15 +7,18 @@ import {
   TrendingTopics,
   BlogListItem,
   BlogPagination,
-  NewsletterSection
+  NewsletterSection,
 } from "@/components/blog";
 import { getBlogs, getBlogCategories } from "@/server/queries";
 
-export const metadata: Metadata = {
-  title: "Ethical Marketing Blog",
-  description:
-    "Insights, strategies, and resources on ethical marketing, branding, and business growth.",
-};
+import { constructMetadata } from "@/lib/seo";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return constructMetadata({
+    type: "pages",
+    slug: "blog",
+  });
+}
 
 interface BlogPageProps {
   searchParams: Promise<{
@@ -42,39 +45,55 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
       {
         id: "1",
         title: "Growth Beyond Metrics",
-        description: "Barakah Agency was founded on the belief that growth is not neutral, and that every decision an organization makes sends a signal about what it values, how it treats people, and what kind of future it is working toward.",
+        description:
+          "Barakah Agency was founded on the belief that growth is not neutral, and that every decision an organization makes sends a signal about what it values, how it treats people, and what kind of future it is working toward.",
         category: "Ethical Growth",
         slug: "growth-beyond-metrics-1",
         created_at: new Date().toISOString(),
         published: true,
-        image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800",
+        image:
+          "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800",
       },
       {
         id: "2",
         title: "Practical Strategy for the Long Term",
-        description: "Moving beyond surface-level metrics to build foundations that last. Discover why ethical strategy is the most sustainable path to meaningful impact.",
+        description:
+          "Moving beyond surface-level metrics to build foundations that last. Discover why ethical strategy is the most sustainable path to meaningful impact.",
         category: "Strategy",
         slug: "practical-strategy",
         created_at: new Date().toISOString(),
         published: true,
-        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+        image:
+          "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
       },
       {
         id: "3",
         title: "Frameworks for Ethical Scaling",
-        description: "How to maintain your principles while growing your reach. A deep dive into systems that balance performance and responsibility.",
+        description:
+          "How to maintain your principles while growing your reach. A deep dive into systems that balance performance and responsibility.",
         category: "Frameworks",
         slug: "ethical-scaling",
         created_at: new Date().toISOString(),
         published: true,
-        image: "https://images.unsplash.com/photo-1454165833767-bb2d6f44888e?auto=format&fit=crop&q=80&w=800",
-      }
+        image:
+          "https://images.unsplash.com/photo-1454165833767-bb2d6f44888e?auto=format&fit=crop&q=80&w=800",
+      },
     ] as any;
     totalPages = 5; // Force pagination to show for demo/mockup purposes
   }
 
   const categories = await getBlogCategories();
-  const displayCategories = categories.length > 0 ? categories : ["Ethical Growth", "Strategy", "Frameworks", "Systems", "Brand", "Performance"];
+  const displayCategories =
+    categories.length > 0
+      ? categories
+      : [
+          "Ethical Growth",
+          "Strategy",
+          "Frameworks",
+          "Systems",
+          "Brand",
+          "Performance",
+        ];
 
   return (
     <>
@@ -91,12 +110,18 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 lg:gap-16">
             {/* Sidebar */}
             <div className="lg:col-span-1">
-              <BlogTopicsSidebar categories={displayCategories} currentCategory={category} />
+              <BlogTopicsSidebar
+                categories={displayCategories}
+                currentCategory={category}
+              />
             </div>
 
             {/* Main Content */}
             <div className="lg:col-span-3">
-              <TrendingTopics categories={displayCategories} currentCategory={category} />
+              <TrendingTopics
+                categories={displayCategories}
+                currentCategory={category}
+              />
 
               <div className="space-y-4">
                 {blogs.map((blog) => (
@@ -121,5 +146,5 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
       <NewsletterSection />
     </>
-  )
+  );
 }

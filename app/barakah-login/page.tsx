@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Loader2,
   ShieldCheck,
@@ -176,15 +177,19 @@ export default function BarakahLoginPage() {
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#00B4D8]/10 rounded-full blur-3xl -ml-48 -mb-48" />
 
       <div className="w-full max-w-md z-10">
-        <div className="text-center mb-10">
+        <div className="text-center mb-10 flex justify-center">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 font-black text-3xl text-[#3F1200] tracking-tight group"
+            className="inline-flex items-center transition-transform hover:scale-105"
           >
-            <ShieldCheck className="w-8 h-8 text-[#E76F3D] group-hover:rotate-12 transition-transform" />
-            <span>
-              BARAKAH <span className="text-[#E76F3D]">ADMIN</span>
-            </span>
+            <Image
+              src="/assets/logo.webp"
+              alt="Barakah"
+              width={180}
+              height={60}
+              className="object-contain"
+              priority
+            />
           </Link>
         </div>
 
@@ -199,8 +204,7 @@ export default function BarakahLoginPage() {
         </Suspense>
 
         <p className="mt-8 text-center text-xs text-[#5c4033]/40 font-medium">
-          &copy; {new Date().getFullYear()} Barakah Agency. Secure Access System
-          v2.0
+          &copy; {new Date().getFullYear()} Barakah Agency.
         </p>
       </div>
     </div>

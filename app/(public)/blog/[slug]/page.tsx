@@ -11,25 +11,17 @@ interface BlogDetailPageProps {
   params: Promise<{ slug: string }>;
 }
 
+import { constructMetadata } from "@/lib/seo";
+
 export async function generateMetadata({
   params,
 }: BlogDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const blog = await getBlogBySlug(slug);
 
-  if (!blog) {
-    return { title: "Blog Not Found" };
-  }
-
-  return {
-    title: blog.meta_title || blog.title,
-    description: blog.meta_description || blog.excerpt,
-    openGraph: {
-      title: blog.title,
-      description: blog.excerpt,
-      images: blog.cover_image ? [{ url: blog.cover_image }] : undefined,
-    },
-  };
+  return constructMetadata({
+    type: "blogs",
+    slug,
+  });
 }
 
 export default async function BlogDetailPage({ params }: BlogDetailPageProps) {

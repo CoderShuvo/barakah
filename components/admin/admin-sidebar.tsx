@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
@@ -10,14 +11,19 @@ import {
   Settings,
   BarChart3,
   ExternalLink,
+  Files,
+  Search,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navigation = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
+  { name: "Pages", href: "/admin/pages", icon: Files },
   { name: "Blogs", href: "/admin/blogs", icon: FileText },
   { name: "Case Studies", href: "/admin/case-studies", icon: FolderKanban },
   { name: "Leads", href: "/admin/leads", icon: Users },
+  { name: "SEO", href: "/admin/seo", icon: Search },
+  { name: "Redirects", href: "/admin/redirects", icon: ExternalLink },
   { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
   { name: "Settings", href: "/admin/settings", icon: Settings },
 ];
@@ -31,8 +37,8 @@ export function AdminSidebar({ role }: AdminSidebarProps) {
 
   const filteredNavigation = navigation.filter((item) => {
     if (role === "editor") {
-      // Editor cannot see Leads, Analytics, or Settings
-      const restricted = ["Leads", "Analytics", "Settings"];
+      // Editor cannot see Leads, SEO, Redirects, Analytics, or Settings
+      const restricted = ["Leads", "SEO", "Redirects", "Analytics", "Settings"];
       return !restricted.includes(item.name);
     }
     return true;
@@ -42,12 +48,16 @@ export function AdminSidebar({ role }: AdminSidebarProps) {
     <aside className="fixed inset-y-0 left-0 z-50 hidden lg:flex lg:w-64 lg:flex-col">
       <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-border bg-card px-6 pb-4">
         {/* Logo */}
-        <div className="flex h-16 shrink-0 items-center">
-          <Link
-            href="/admin"
-            className="font-serif text-xl font-bold text-foreground"
-          >
-            <span className="text-primary">Barakah</span> Admin
+        <div className="flex h-20 shrink-0 items-center pt-4">
+          <Link href="/admin" className="flex items-center">
+            <Image
+              src="/assets/logo.webp"
+              alt="Barakah"
+              width={140}
+              height={45}
+              className="object-contain"
+              priority
+            />
           </Link>
         </div>
 
