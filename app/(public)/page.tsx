@@ -10,7 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
     fallbackTitle: "Your Ethical Marketing Agency for Impact That Lasts",
     fallbackDescription:
       "Ethical marketing agency delivering ROI²: return on investment and return on impact. Rooted in trust. Designed for growth.",
-    fallbackImage: "https://barakahagency.com/barakah-featured-image.png",
+    fallbackImage: "/assets/featured-barakah.jpg",
   });
 }
 

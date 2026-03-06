@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
     fallbackTitle: "The Barakah Ecosystem | Specialized Brands, One Standard",
     fallbackDescription:
       "Industry-focused brands serving eCommerce, healthcare, B2B, and SaaS — all operating under one ethical standard and the ROI² framework.",
-    fallbackImage: "https://barakahagency.com/barakah-featured-image.png",
+    fallbackImage: "/assets/featured-barakah.jpg",
   });
 }
 

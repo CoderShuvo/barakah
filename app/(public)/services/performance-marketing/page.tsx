@@ -22,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
     fallbackTitle: "Ethical Paid Media & Performance Marketing | Barakah",
     fallbackDescription:
       "Performance marketing and paid media focused on customer lifetime value and brand equity — not just clicks. Built to compound.",
-    fallbackImage: "https://barakahagency.com/barakah-featured-image.png",
+    fallbackImage: "/assets/featured-barakah.jpg",
   });
 }
 

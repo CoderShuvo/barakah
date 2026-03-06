@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
     fallbackTitle: "Grow with Barakah — Book Your Free Strategy Consultation",
     fallbackDescription:
       "Book a no-pressure strategy call with Barakah Agency. We align on your goals and values before recommending a single tactic.",
-    fallbackImage: "https://barakahagency.com/barakah-featured-image.png",
+    fallbackImage: "/assets/featured-barakah.jpg",
   });
 }
 

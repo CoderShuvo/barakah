@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
     fallbackTitle: "What Is Ethical Marketing? | Barakah Agency",
     fallbackDescription:
       "Ethical marketing puts people before tactics. Explore how  a responsible approach drives stronger results and deeper loyalty.",
-    fallbackImage: "https://barakahagency.com/barakah-featured-image.png",
+    fallbackImage: "/assets/featured-barakah.jpg",
   });
 }
 

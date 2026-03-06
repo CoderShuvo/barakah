@@ -14,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
     fallbackTitle: "ZeroFrame™ | Sales & Marketing Automation | Barakah",
     fallbackDescription:
       "All-in-one CRM and automation platform. Streamline lead capture, email marketing, and workflows with clarity, compliance, and intent.",
-    fallbackImage: "https://barakahagency.com/barakah-featured-image.png",
+    fallbackImage: "/assets/featured-barakah.jpg",
   });
 }
 

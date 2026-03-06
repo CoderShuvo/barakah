@@ -9,7 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
     fallbackTitle: "Ethical Marketing Services: Branding, Paid Media & SEO",
     fallbackDescription:
       "Branding, paid media, web design, CRO, SEO and more — built for purpose-driven brands that want long-term equity and measurable ROI.",
-    fallbackImage: "https://barakahagency.com/barakah-featured-image.png",
+    fallbackImage: "/assets/featured-barakah.jpg",
   });
 }
 

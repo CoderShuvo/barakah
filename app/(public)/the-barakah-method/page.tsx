@@ -8,7 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
     fallbackTitle: "The Barakah Method | Values-Led Growth Framework",
     fallbackDescription:
       "An 8-stage framework blending ethical strategy, cultural insight, and data-led marketing to build brands that grow with purpose and endure.",
-    fallbackImage: "https://barakahagency.com/barakah-featured-image.png",
+    fallbackImage: "/assets/featured-barakah.jpg",
   });
 }
 

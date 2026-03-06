@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
     fallbackTitle: "Why Barakah? Ethical Growth Agency | Barakah Agency",
     fallbackDescription:
       "Meet the team behind Barakah Agency. Guided by five core principles, we build values-aligned strategies that earn trust and drive lasting growth.",
-    fallbackImage: "https://barakahagency.com/barakah-featured-image.png",
+    fallbackImage: "/assets/featured-barakah.jpg",
   });
 }
 

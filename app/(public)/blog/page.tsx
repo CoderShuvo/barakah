@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
     fallbackTitle: "Marketing Insights & Growth Strategy | Barakah Agency",
     fallbackDescription:
       "Actionable insights on ethical marketing, paid media, brand strategy, and growth systems — for founders who want to grow with purpose.",
-    fallbackImage: "https://barakahagency.com/barakah-featured-image.png",
+    fallbackImage: "/assets/featured-barakah.jpg",
   });
 }
 
@@ -55,7 +55,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         slug: "growth-beyond-metrics-1",
         created_at: new Date().toISOString(),
         published: true,
-        image:
+        cover_image:
           "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800",
       },
       {
@@ -67,7 +67,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         slug: "practical-strategy",
         created_at: new Date().toISOString(),
         published: true,
-        image:
+        cover_image:
           "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
       },
       {
@@ -79,7 +79,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         slug: "ethical-scaling",
         created_at: new Date().toISOString(),
         published: true,
-        image:
+        cover_image:
           "https://images.unsplash.com/photo-1454165833767-bb2d6f44888e?auto=format&fit=crop&q=80&w=800",
       },
     ] as any;
