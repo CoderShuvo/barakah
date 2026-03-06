@@ -3,7 +3,7 @@ export const siteConfig = {
   tagline: "Ethical Marketing Excellence",
   description:
     "Barakah Agency specializes in ethical, halal marketing strategies that drive growth with integrity.",
-  url: "https://barakahagency.com",
+  url: "https://  ",
   ogImage: "/og-image.jpg",
   links: {
     twitter: "https://twitter.com/barakahagency",

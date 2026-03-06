@@ -43,7 +43,8 @@ export async function submitContactForm(data: ContactFormData) {
     return { success: false, error: validated.error.flatten().fieldErrors }
   }
 
-  const supabase = await createClient()
+  const { createAdminClient } = await import("@/lib/supabase/server")
+  const supabase = await createAdminClient()
   const { data: inserted, error } = await supabase.from("contact_leads").insert({
     name: validated.data.name,
     email: validated.data.email,
