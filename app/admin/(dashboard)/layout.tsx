@@ -17,7 +17,7 @@ export default async function AdminDashboardLayout({
   const authorized = await getAuthorizedSupabase("editor"); // Basic access for dashboard
 
   if (!profile || !authorized) {
-    redirect("/barakah-login");
+    redirect("/barakah-login?error=unauthorized");
   }
 
   // Role check for specific sections could happen in sub-layouts or page components

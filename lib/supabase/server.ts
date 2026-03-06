@@ -56,11 +56,13 @@ export async function getUserProfile() {
 
   if (!user) return null
 
-  const { data: profile } = await supabase
+  const { data: profile, error } = await supabase
     .from("profiles")
     .select("*")
     .eq("id", user.id)
     .single()
+
+  console.log("DEBUG PROFILE FETCH:", { user_id: user.id, profile, error })
 
   return profile
 }
@@ -77,11 +79,13 @@ export async function getAuthorizedSupabase(requiredRole: "admin" | "editor" = "
   if (!user) return null
 
   // Check role from profile
-  const { data: profile } = await supabase
+  const { data: profile, error } = await supabase
     .from("profiles")
     .select("role, locked_until")
     .eq("id", user.id)
     .single()
+
+  console.log("DEBUG AUTH FETCH:", { profile, error })
 
   if (!profile) return null
 

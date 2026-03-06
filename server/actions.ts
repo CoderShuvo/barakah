@@ -372,7 +372,7 @@ export async function loginAction(formData: FormData) {
     const { data: newProfile } = await adminClient.from("profiles").upsert({
       id: data.user.id,
       email: data.user.email!,
-      role: data.user.email === "admin@barakah.agency" ? "admin" : "editor"
+      role: data.user.email === "ziad@barakah.agency" ? "admin" : "editor"
     }).select().single()
     userProfile = newProfile
   }

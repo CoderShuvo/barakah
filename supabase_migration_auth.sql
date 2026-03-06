@@ -20,15 +20,12 @@ create policy "Users can view own profile"
   for select 
   using (auth.uid() = id);
 
--- Admins can view and manage all profiles
+-- Admins can manage all profiles (using JWT metadata to avoid infinite recursion)
 create policy "Admins can manage all profiles" 
   on public.profiles
   for all 
   using (
-    exists (
-      select 1 from public.profiles
-      where id = auth.uid() and role = 'admin'
-    )
+    (auth.jwt() -> 'user_metadata' ->> 'role') = 'admin'
   );
 
 -- 4. Create a function to handle profile creation on signup

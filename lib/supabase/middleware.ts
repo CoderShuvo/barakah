@@ -62,9 +62,12 @@ export async function updateSession(request: NextRequest) {
 
   // 2. Redirect logged-in users away from login page
   if (pathname === "/barakah-login" && user) {
-    const url = request.nextUrl.clone()
-    url.pathname = "/admin"
-    return NextResponse.redirect(url)
+    // Only redirect to admin if there's no error or reason specified in the query
+    if (!request.nextUrl.searchParams.has("error") && !request.nextUrl.searchParams.has("reason")) {
+      const url = request.nextUrl.clone()
+      url.pathname = "/admin"
+      return NextResponse.redirect(url)
+    }
   }
 
   return supabaseResponse

@@ -62,6 +62,16 @@ function LoginForm() {
         </div>
       )}
 
+      {searchParams.get("error") === "unauthorized" && (
+        <div className="mb-6 p-4 rounded-2xl bg-destructive/10 border border-destructive/20 text-destructive text-sm flex gap-3 animate-in fade-in slide-in-from-top-4 duration-500">
+          <AlertCircle className="w-5 h-5 shrink-0" />
+          <p>
+            Oops! Your profile is unauthorized to view the dashboard. Please
+            contact the administrator.
+          </p>
+        </div>
+      )}
+
       <Card className="border-none shadow-[0_32px_64px_-12px_rgba(63,18,0,0.08)] rounded-[2rem] overflow-hidden">
         <CardHeader className="text-center pt-10 pb-6">
           <CardTitle className="text-2xl font-black text-[#3F1200]">
@@ -86,7 +96,7 @@ function LoginForm() {
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="admin@barakahagency.com"
+                  placeholder="ziad@barakah.agency"
                   className="h-12 pl-11 rounded-2xl border-[#F0EBE8] bg-[#FDFCFB] focus-visible:ring-[#E76F3D] focus-visible:border-[#E76F3D] transition-all"
                   required
                   disabled={isLoading}
